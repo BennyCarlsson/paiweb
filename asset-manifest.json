@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/paiweb/static/css/main.0f258fc9.chunk.css",
+    "main.js": "/paiweb/static/js/main.8e5faf49.chunk.js",
+    "main.js.map": "/paiweb/static/js/main.8e5faf49.chunk.js.map",
+    "runtime~main.js": "/paiweb/static/js/runtime~main.f48f10f2.js",
+    "runtime~main.js.map": "/paiweb/static/js/runtime~main.f48f10f2.js.map",
+    "static/js/2.2c07e042.chunk.js": "/paiweb/static/js/2.2c07e042.chunk.js",
+    "static/js/2.2c07e042.chunk.js.map": "/paiweb/static/js/2.2c07e042.chunk.js.map",
+    "index.html": "/paiweb/index.html",
+    "precache-manifest.3f6f1abb20fa972a9d3d17f4f2e11e6a.js": "/paiweb/precache-manifest.3f6f1abb20fa972a9d3d17f4f2e11e6a.js",
+    "service-worker.js": "/paiweb/service-worker.js",
+    "static/css/main.0f258fc9.chunk.css.map": "/paiweb/static/css/main.0f258fc9.chunk.css.map"
+  }
+}
