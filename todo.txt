@@ -1,3 +1,2 @@
-break out drawer
-use bottomappbar menu button
-refactor classes to hooks
+Implement camera
+Save and get from firebase
