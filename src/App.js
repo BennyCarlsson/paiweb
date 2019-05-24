@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 import CustomAppBar from "./components/CustomAppBar"
-import CustomBottomNavigation from "./components/CustomBottomNavigation"
+import CustomBottomAppBar from "./components/CustomBottomAppBar"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 
 const theme = createMuiTheme({
@@ -17,7 +17,7 @@ function App(props) {
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <CustomAppBar />
-        <CustomBottomNavigation />
+        <CustomBottomAppBar />
       </MuiThemeProvider>
     </div>
   )
