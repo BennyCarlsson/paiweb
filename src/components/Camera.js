@@ -3,21 +3,10 @@ import ExifOrientationImg from "react-exif-orientation-img"
 
 const Camera = props => {
   const inputRef = createRef()
-  const [state, setState] = useState({ file: {}, imagePreviewUrl: "" })
+  const [imagePreviewUrl, setimagePreviewUrl] = useState("")
 
   const handleFile = event => {
-    // let reader = new FileReader()
-    // let file = event.target.files[0]
-
-    // reader.onloadend = () => {
-    //   setState({
-    //     file: file,
-    //     imagePreviewUrl: reader.result
-    //   })
-    // }
-
-    // reader.readAsDataURL(file)
-    setState({ imagePreviewUrl: URL.createObjectURL(event.target.files[0]) })
+    setimagePreviewUrl(URL.createObjectURL(event.target.files[0]))
   }
 
   return (
@@ -33,10 +22,9 @@ const Camera = props => {
         styles={"image-orientation: from-image"}
         width="250px"
         height="250px"
-        src={state.imagePreviewUrl}
+        src={imagePreviewUrl}
         alt="preview"
       />
-      <p>asd</p>
     </div>
   )
 }
