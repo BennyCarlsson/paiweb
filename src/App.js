@@ -3,6 +3,7 @@ import "./App.css"
 import CustomAppBar from "./components/CustomAppBar"
 import CustomBottomAppBar from "./components/CustomBottomAppBar"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
+import Camera from "./components/Camera"
 
 const theme = createMuiTheme({
   palette: {
@@ -17,6 +18,7 @@ function App(props) {
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <CustomAppBar />
+        <Camera />
         <CustomBottomAppBar />
       </MuiThemeProvider>
     </div>

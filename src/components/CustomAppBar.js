@@ -26,9 +26,7 @@ function CustomAppBar(props) {
 }
 
 const styles = {
-  root: {
-    flexGrow: 1
-  },
+  root: {},
   grow: {
     flexGrow: 1
   },
