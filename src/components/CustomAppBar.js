@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
 import Icon from "@material-ui/core/Icon"
 
-function CustomAppBar(props) {
+const CustomAppBar = props => {
   const { classes } = props
 
   return (

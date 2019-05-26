@@ -1,9 +1,7 @@
 import React from "react"
 import "./App.css"
-import CustomAppBar from "./components/CustomAppBar"
-import CustomBottomAppBar from "./components/CustomBottomAppBar"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import Camera from "./components/Camera"
+import PageLayout from "./components/PageLayout"
 
 const theme = createMuiTheme({
   palette: {
@@ -15,13 +13,9 @@ const theme = createMuiTheme({
 
 function App(props) {
   return (
-    <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <CustomAppBar />
-        <Camera />
-        <CustomBottomAppBar />
-      </MuiThemeProvider>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <PageLayout />
+    </MuiThemeProvider>
   )
 }
 

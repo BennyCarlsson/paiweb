@@ -1,5 +1,3 @@
-Image button
-better preview
 Save images to firebase
 List Images from firebase
 Authentication
