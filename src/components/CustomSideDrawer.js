@@ -1,8 +1,10 @@
 import React from "react"
+import { makeStyles } from "@material-ui/styles"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
 
 const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
+  const classes = useStyles()
   return (
     <SwipeableDrawer
       open={open}
@@ -15,10 +17,16 @@ const CustomSideDrawer = props => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
-        <div className="drawerList">SideDrawer</div>
+        <div className={classes.drawerList}>SideDrawer</div>
       </div>
     </SwipeableDrawer>
   )
 }
+
+const useStyles = makeStyles({
+  drawerList: {
+    width: "250px"
+  }
+})
 
 export default CustomSideDrawer

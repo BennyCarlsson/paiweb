@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
 import Feed from "./Feed"
@@ -8,6 +9,7 @@ import Camera from "./Camera"
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
+  const classes = useStyles()
 
   const toggleDrawer = openSideDrawer => () => {
     setOpenSideDrawer(openSideDrawer)
@@ -19,7 +21,7 @@ const PageLayout = props => {
   }
 
   return (
-    <div className="App">
+    <div className={classes.App}>
       <CustomAppBar />
       <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
       <Feed imagePreviewUrl={imagePreviewUrl} />
@@ -30,5 +32,13 @@ const PageLayout = props => {
     </div>
   )
 }
+
+const useStyles = makeStyles({
+  App: {
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column"
+  }
+})
 
 export default PageLayout

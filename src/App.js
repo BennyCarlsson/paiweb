@@ -1,6 +1,6 @@
 import React from "react"
-import "./App.css"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
+import CssBaseline from "@material-ui/core/CssBaseline"
 import PageLayout from "./components/PageLayout"
 
 const theme = createMuiTheme({
@@ -14,6 +14,7 @@ const theme = createMuiTheme({
 function App(props) {
   return (
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <PageLayout />
     </MuiThemeProvider>
   )
