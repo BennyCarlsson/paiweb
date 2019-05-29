@@ -5,6 +5,7 @@ import CustomBottomAppBar from "./CustomBottomAppBar"
 import Feed from "./Feed"
 import CustomSideDrawer from "./CustomSideDrawer"
 import Camera from "./Camera"
+import { uploadImage } from "../firebase/dbFunctions"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -16,8 +17,11 @@ const PageLayout = props => {
   }
 
   const handleFile = event => {
-    if (!event.target.files[0]) return
-    setimagePreviewUrl(URL.createObjectURL(event.target.files[0]))
+    var file = event.target.files[0]
+
+    if (!file) return
+    setimagePreviewUrl(URL.createObjectURL(file))
+    uploadImage(file)
   }
 
   return (
@@ -33,12 +37,12 @@ const PageLayout = props => {
   )
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   App: {
     height: "100vh",
     display: "flex",
     flexDirection: "column"
   }
-})
+}))
 
 export default PageLayout
