@@ -1,13 +1,9 @@
-Save images to firebase
-Save image path in db
-List Images from firebase
-
 Authentication
 Connect user with image
-Establish a sizing system and colors
-save image under userId
-Feed: make list, scroll, style
 Cleanup firebase rules
-move config values from firebase.js
-lazyLoadingImages
 Only get x images
+save image under userId
+
+Establish a sizing system and colors
+Feed: make list, scroll, style
+lazyLoadingImages

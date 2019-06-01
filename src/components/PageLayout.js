@@ -6,6 +6,7 @@ import Feed from "./Feed"
 import CustomSideDrawer from "./CustomSideDrawer"
 import Camera from "./Camera"
 import { uploadImage } from "../firebase/dbFunctions"
+import LoginPage from "./LoginPage"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -28,6 +29,7 @@ const PageLayout = props => {
     <div className={classes.App}>
       <CustomAppBar />
       <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
+      <LoginPage />
       <Feed imagePreviewUrl={imagePreviewUrl} />
       <CustomBottomAppBar
         toggleDrawer={toggleDrawer}
