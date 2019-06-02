@@ -1,8 +1,8 @@
-Authentication
 Connect user with image
 Cleanup firebase rules
 Only get x images
 save image under userId
+camera button when signed out
 
 Establish a sizing system and colors
 Feed: make list, scroll, style

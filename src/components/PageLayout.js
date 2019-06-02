@@ -7,12 +7,18 @@ import CustomSideDrawer from "./CustomSideDrawer"
 import Camera from "./Camera"
 import { uploadImage } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
+import { AuthContext } from "../AuthContext"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
+  const [authContext, setAuthContext] = useState({})
+
   const classes = useStyles()
 
+  const setterAuthContext = authContext => {
+    setAuthContext(authContext)
+  }
   const toggleDrawer = openSideDrawer => () => {
     setOpenSideDrawer(openSideDrawer)
   }
@@ -27,14 +33,19 @@ const PageLayout = props => {
 
   return (
     <div className={classes.App}>
-      <CustomAppBar />
-      <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
-      <LoginPage />
-      <Feed imagePreviewUrl={imagePreviewUrl} />
-      <CustomBottomAppBar
-        toggleDrawer={toggleDrawer}
-        camera={<Camera handleFile={handleFile} />}
-      />
+      <AuthContext.Provider value={authContext}>
+        <CustomAppBar />
+        <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
+        {authContext.authenticated ? (
+          <Feed imagePreviewUrl={imagePreviewUrl} />
+        ) : (
+          <LoginPage setAuthContext={setterAuthContext} />
+        )}
+        <CustomBottomAppBar
+          toggleDrawer={toggleDrawer}
+          camera={<Camera handleFile={handleFile} />}
+        />
+      </AuthContext.Provider>
     </div>
   )
 }
