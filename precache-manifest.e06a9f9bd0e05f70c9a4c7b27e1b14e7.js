@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ac3a48add96a5092d8d0d2e6658538a0",
+    "revision": "29df217753809260f261b6278f30151d",
     "url": "/paiweb/index.html"
   },
   {
