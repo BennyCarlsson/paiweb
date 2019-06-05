@@ -26,15 +26,15 @@ const PageLayout = props => {
   const handleFile = event => {
     var file = event.target.files[0]
 
-    if (!file) return
+    if (!file && authContext.authenticated) return
     setimagePreviewUrl(URL.createObjectURL(file))
-    uploadImage(file)
+    uploadImage(file, authContext.user.uid)
   }
 
   return (
     <div className={classes.App}>
       <AuthContext.Provider value={authContext}>
-        <CustomAppBar />
+        <CustomAppBar setAuthContext={setterAuthContext} />
         <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
         {authContext.authenticated ? (
           <Feed imagePreviewUrl={imagePreviewUrl} />

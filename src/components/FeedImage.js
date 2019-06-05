@@ -7,7 +7,7 @@ const FeedImage = props => {
   useEffect(() => getImageUrl(props.imageRef), [props.imageRef])
 
   const getImageUrl = imageRef => {
-    getImageUrlOnRef(imageRef.path).then(url => setImageUrl(url))
+    getImageUrlOnRef(imageRef).then(url => setImageUrl(url))
   }
 
   return (

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react"
 import ExifOrientationImg from "react-exif-orientation-img"
-import { getImagesRef, getImageUrlOnRef } from "../firebase/dbFunctions"
+import { getAllPosts } from "../firebase/dbFunctions"
 import FeedImage from "./FeedImage"
 
 const Feed = props => {
-  const [imagesRefs, setImagesRefs] = useState([])
+  const [allPosts, setAllPosts] = useState([])
 
-  const getFeedImages = () => {
-    getImagesRef().then(imagesRefs =>
-      getImageUrlOnRef(setImagesRefs(imagesRefs))
-    )
+  const getAllFeedImages = () => {
+    getAllPosts().then(posts => setAllPosts(posts))
   }
 
-  useEffect(() => getFeedImages(), [])
+  useEffect(() => getAllFeedImages(), [])
 
   const renderImages = () => {
-    return imagesRefs.map((imageRef, i) => (
-      <FeedImage key={"FeedImage" + i} imageRef={imageRef} />
+    return allPosts.map((post, i) => (
+      <FeedImage key={"FeedImage" + i} imageRef={post.imgRef} />
     ))
   }
   return (

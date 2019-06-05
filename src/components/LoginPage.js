@@ -18,7 +18,6 @@ const LoginPage = props => {
   useEffect(() => {
     let unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       props.setAuthContext({ authenticated: !!user, user: user })
-      console.log(user)
     })
     return () => {
       unregisterAuthObserver()

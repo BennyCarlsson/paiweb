@@ -1,8 +1,8 @@
 import firebase, { db } from "./firebase.js"
 import { changeImageName } from "../utils"
 
-export const uploadImage = file => {
-  const imagePath = "images/" + changeImageName(file)
+export const uploadImage = (file, uid) => {
+  const imagePath = "images/" + uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
   var task = storageRef.put(file)
   task.on(
@@ -16,34 +16,37 @@ export const uploadImage = file => {
     },
     function complete() {
       console.log("DONE!")
-      saveImageRef(imagePath)
+      saveImageRef(imagePath, uid)
     }
   )
 }
 
-const saveImageRef = path => {
-  db.collection("images")
+const saveImageRef = (ref, uid) => {
+  db.collection("posts")
     .add({
-      path: path
+      uid: uid,
+      imgRef: ref,
+      text: "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id)
+      console.log("Document written with docRef: ", docRef)
     })
     .catch(function(error) {
       console.error("Error adding document: ", error)
     })
 }
 
-export const getImagesRef = () => {
+export const getAllPosts = () => {
   return db
-    .collection("images")
+    .collection("posts")
     .get()
     .then(querySnapshot => {
-      let images = []
+      let posts = []
       querySnapshot.forEach(doc => {
-        images.push(doc.data())
+        posts.push(doc.data())
       })
-      return images
+      return posts
     })
 }
 

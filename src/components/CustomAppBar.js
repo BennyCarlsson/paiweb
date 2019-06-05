@@ -23,7 +23,11 @@ const CustomAppBar = props => {
 
   function handleClose() {
     setAnchorEl(null)
+  }
+  function handleSignOut() {
+    setAnchorEl(null)
     firebase.auth().signOut()
+    props.setAuthContext({})
   }
 
   return (
@@ -58,7 +62,7 @@ const CustomAppBar = props => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Log out</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

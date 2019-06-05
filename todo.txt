@@ -1,9 +1,7 @@
-Connect user with image
-Cleanup firebase rules
 Only get x images
-save image under userId
 camera button when signed out
-
-Establish a sizing system and colors
 Feed: make list, scroll, style
+PWA: icon
+Establish a sizing system and colors
 lazyLoadingImages
+Cleanup firebase rules and db structure
