@@ -1,3 +1,7 @@
+delete images
+text with images
+comments
+resize images before upload
 Only get x images
 camera button when signed out
 Feed: make list, scroll, style

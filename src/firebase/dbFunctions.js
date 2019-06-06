@@ -40,6 +40,8 @@ const saveImageRef = (ref, uid) => {
 export const getAllPosts = () => {
   return db
     .collection("posts")
+    .orderBy("timestamp", "desc")
+    .limit(3)
     .get()
     .then(querySnapshot => {
       let posts = []

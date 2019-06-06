@@ -25,7 +25,6 @@ const PageLayout = props => {
 
   const handleFile = event => {
     var file = event.target.files[0]
-
     if (!file && authContext.authenticated) return
     setimagePreviewUrl(URL.createObjectURL(file))
     uploadImage(file, authContext.user.uid)
