@@ -8,6 +8,7 @@ import Camera from "./Camera"
 import { uploadImage } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { AuthContext } from "../AuthContext"
+import { compressImage } from "../utils"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -26,8 +27,10 @@ const PageLayout = props => {
   const handleFile = event => {
     var file = event.target.files[0]
     if (!file && authContext.authenticated) return
-    setimagePreviewUrl(URL.createObjectURL(file))
-    uploadImage(file, authContext.user.uid)
+    compressImage(file, file => {
+      setimagePreviewUrl(URL.createObjectURL(file))
+      uploadImage(file, authContext.user.uid)
+    })
   }
 
   return (
