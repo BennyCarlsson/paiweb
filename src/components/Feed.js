@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react"
 import ExifOrientationImg from "react-exif-orientation-img"
 import { getAllPosts } from "../firebase/dbFunctions"
-import FeedImage from "./FeedImage"
+import Post from "./Post"
+import { makeStyles } from "@material-ui/styles"
 
 const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
-
+  const classes = useStyles()
   const getAllFeedImages = () => {
     getAllPosts().then(posts => setAllPosts(posts))
   }
 
   useEffect(() => getAllFeedImages(), [])
 
-  const renderImages = () => {
-    return allPosts.map((post, i) => (
-      <FeedImage key={"FeedImage" + i} imageRef={post.imgRef} />
-    ))
+  const renderPost = () => {
+    return allPosts.map((post, i) => <Post key={"post" + i} post={post} />)
   }
   return (
-    <div>
+    <div className={classes.feedWrapper}>
       <ExifOrientationImg
         styles={"image-orientation: from-image"}
         width="100%"
@@ -26,9 +25,13 @@ const Feed = props => {
         src={props.imagePreviewUrl}
         alt="preview"
       />
-      {renderImages()}
+      {renderPost()}
     </div>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  feedWrapper: { marginBottom: "250px" }
+}))
 
 export default Feed

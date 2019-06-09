@@ -1,7 +1,8 @@
-resize images before upload
-delete images
-text with images
 comments
+Preview image / make into a post
+only get images 48hours
+can't see images unles posted 48hours
+delete images
 camera button when signed out
 Feed: make list, scroll, style
 PWA: icon
