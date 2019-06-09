@@ -29,7 +29,7 @@ const PageLayout = props => {
     if (!file && authContext.authenticated) return
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, authContext.user.uid)
+      uploadImage(file, authContext.user)
     })
   }
 

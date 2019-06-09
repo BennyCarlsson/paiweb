@@ -1,8 +1,8 @@
 import firebase, { db } from "./firebase.js"
 import { changeImageName } from "../utils"
 
-export const uploadImage = (file, uid) => {
-  const imagePath = "images/" + uid + "/" + changeImageName(file)
+export const uploadImage = (file, user) => {
+  const imagePath = "images/" + user.uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
   var task = storageRef.put(file)
   task.on(
@@ -16,15 +16,16 @@ export const uploadImage = (file, uid) => {
     },
     function complete() {
       console.log("DONE!")
-      saveImageRef(imagePath, uid)
+      saveImageRef(imagePath, user)
     }
   )
 }
 
-const saveImageRef = (ref, uid) => {
+const saveImageRef = (ref, user) => {
   db.collection("posts")
     .add({
-      uid: uid,
+      uid: user.uid,
+      userPhotoURL: user.photoURL,
       imgRef: ref,
       text: "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
