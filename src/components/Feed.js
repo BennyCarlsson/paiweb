@@ -18,20 +18,22 @@ const Feed = props => {
   }
   return (
     <div className={classes.feedWrapper}>
-      <ExifOrientationImg
-        styles={"image-orientation: from-image"}
-        width="100%"
-        height="auto"
-        src={props.imagePreviewUrl}
-        alt="preview"
-      />
+      {props.imagePreviewUrl && (
+        <ExifOrientationImg
+          styles={"image-orientation: from-image"}
+          width="100%"
+          height="auto"
+          src={props.imagePreviewUrl}
+          alt="preview"
+        />
+      )}
       {renderPost()}
     </div>
   )
 }
 
 const useStyles = makeStyles(theme => ({
-  feedWrapper: { marginBottom: "250px" }
+  feedWrapper: { marginBottom: "250px", marginTop: "10px" }
 }))
 
 export default Feed

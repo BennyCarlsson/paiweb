@@ -29,7 +29,8 @@ const FeedImage = props => {
 const useStyles = makeStyles(theme => ({
   imgDiv: {
     borderRadius: "4px",
-    minHeight: "250px"
+    minHeight: "250px",
+    maxHeight: "800px"
   },
   img: {
     borderRadius: "4px",

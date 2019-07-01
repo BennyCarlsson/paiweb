@@ -1,10 +1,10 @@
-comments
-Preview image / make into a post
 only get images 48hours
 can't see images unles posted 48hours
+hide preview text
+
 delete images
 camera button when signed out
-Feed: make list, scroll, style
+prompt on update
 PWA: icon
 Establish a sizing system and colors
 lazyLoadingImages
