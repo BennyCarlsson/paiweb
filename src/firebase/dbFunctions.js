@@ -1,4 +1,5 @@
-import firebase, { db } from "./firebase.js"
+import firebase, { db } from "./firebase"
+import { postValidTime } from "../settingsConfig"
 import { changeImageName } from "../utils"
 
 export const uploadImage = (file, user) => {
@@ -41,8 +42,9 @@ const saveImageRef = (ref, user) => {
 export const getAllPosts = () => {
   return db
     .collection("posts")
+    .where("timestamp", ">", new Date(postValidTime))
     .orderBy("timestamp", "desc")
-    .limit(3)
+    .limit(15)
     .get()
     .then(querySnapshot => {
       let posts = []

@@ -1,6 +1,6 @@
 import React from "react"
 import FeedImage from "./FeedImage"
-import Paper from "@material-ui/core/Paper"
+import PostTimer from "./PostTimer"
 import { makeStyles } from "@material-ui/styles"
 import Avatar from "@material-ui/core/Avatar"
 
@@ -9,15 +9,19 @@ const Post = props => {
 
   return (
     <div className={classes.root}>
-      <Avatar
-        className={classes.avatar}
-        alt="Post Avatar"
-        src={props.post.userPhotoURL}
-      />
+      <div className={classes.avatarTimeDiv}>
+        <Avatar
+          className={classes.avatar}
+          alt="Post Avatar"
+          src={props.post.userPhotoURL}
+        />
+        <PostTimer timestamp={props.post.timestamp} />
+      </div>
       <FeedImage imageRef={props.post.imgRef} />
     </div>
   )
 }
+
 const useStyles = makeStyles(theme => ({
   root: {
     padding: "0px",
@@ -25,8 +29,11 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     border: "2px solid #fafafa",
-    marginBottom: "-21px",
     marginLeft: "6px"
+  },
+  avatarTimeDiv: {
+    display: "flex",
+    marginBottom: "-21px"
   }
 }))
 

@@ -1,11 +1,14 @@
-only get images 48hours
-can't see images unles posted 48hours
-hide preview text
 
-delete images
+snap to image
+
+only get images 48hours (rules)
+delete images after 48 hours
 camera button when signed out
 prompt on update
+
 PWA: icon
 Establish a sizing system and colors
 lazyLoadingImages
 Cleanup firebase rules and db structure
+firebase get users
+log in with facebook
