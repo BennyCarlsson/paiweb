@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
   imgDiv: {
     borderRadius: "4px",
     minHeight: "250px",
-    maxHeight: "800px"
+    maxHeight: "75vh",
+    overflow: "hidden"
   },
   img: {
     borderRadius: "4px",
