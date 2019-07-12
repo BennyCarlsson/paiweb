@@ -24,8 +24,12 @@ const Post = props => {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    scrollSnapAlign: "start",
     padding: "0px",
-    marginBottom: "8px"
+    height: "82vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   avatar: {
     border: "2px solid #fafafa",
