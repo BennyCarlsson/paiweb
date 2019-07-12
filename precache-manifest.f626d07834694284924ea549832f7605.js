@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7f692869fc4a3c25869d9e568090a84d",
+    "revision": "2fa672674d10db13f8395d8577878c15",
     "url": "/paiweb/index.html"
   },
   {
-    "revision": "eeb4f2c1377402bbe88e",
+    "revision": "92072c6593fc40a08bbe",
     "url": "/paiweb/static/css/main.34de6062.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/paiweb/static/js/2.e5b2f41a.chunk.js"
   },
   {
-    "revision": "eeb4f2c1377402bbe88e",
-    "url": "/paiweb/static/js/main.6ba6fca7.chunk.js"
+    "revision": "92072c6593fc40a08bbe",
+    "url": "/paiweb/static/js/main.cf1fed64.chunk.js"
   },
   {
     "revision": "e9d81b096f34e7b99288",
