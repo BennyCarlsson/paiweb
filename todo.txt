@@ -1,12 +1,11 @@
-
-snap to image
-delete images after 48 hours
+update every 24hours
 camera button when signed out
 prompt on update
 firebase get users
 log in with facebook
 PWA: icon
 
+delete images after 48 hours
 Establish a sizing system and colors
 lazyLoadingImages
 Cleanup firebase rules and db structure

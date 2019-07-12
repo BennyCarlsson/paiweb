@@ -19,6 +19,7 @@ const Feed = props => {
   }
   return (
     <div className={classes.feedWrapper}>
+      <div className={classes.feedTopDiv} />
       {props.imagePreviewUrl && (
         <ExifOrientationImg
           styles={"image-orientation: from-image"}
@@ -37,14 +38,15 @@ const Feed = props => {
 }
 
 const useStyles = makeStyles(theme => ({
-  feedWrapper: {
-    scrollSnapType: "y mandatory",
-    overflowY: "scroll"
+  feedWrapper: {},
+  feedTopDiv: {
+    scrollSnapAlign: "end"
   },
   feedEndDiv: {
     display: "flex",
     justifyContent: "center",
-    height: "20vh",
+    alignItems: "center",
+    height: "15vh",
     color: "gray"
   }
 }))
