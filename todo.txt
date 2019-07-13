@@ -1,11 +1,11 @@
-show feed access timer
+cache images!
 fix preview
 change ... to info button
 camera button when signed out
-prompt on update
 firebase get users sideDrawer
 log in with facebook
 PWA: icon
+prompt on update
 
 
 delete images after 24 hours

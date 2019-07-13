@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     scrollSnapAlign: "start",
     padding: "0px",
     height: "82vh",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"

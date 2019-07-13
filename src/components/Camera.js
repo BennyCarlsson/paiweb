@@ -33,6 +33,7 @@ const Camera = props => {
         color="secondary"
         aria-label="Add"
         className={classes.fabButton}
+        size="large"
         onClick={() => inputRef.current.click()}
       >
         <Icon>photo_camera</Icon>
@@ -53,7 +54,7 @@ const styles = theme => ({
   fabButton: {
     position: "absolute",
     zIndex: 2,
-    top: -30,
+    top: "-29px",
     left: 0,
     right: 0,
     margin: "0 auto"
