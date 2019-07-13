@@ -1,21 +1,20 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
 import Feed from "./Feed"
 import CustomSideDrawer from "./CustomSideDrawer"
 import Camera from "./Camera"
-import { uploadImage } from "../firebase/dbFunctions"
+import { uploadImage, latestTimeValidPost } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { AuthContext } from "../AuthContext"
 import { compressImage } from "../utils"
-import { width } from "window-size"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
   const [authContext, setAuthContext] = useState({})
-
+  const [latestValidPost, setLatestValidPost] = useState()
   const classes = useStyles()
 
   const setterAuthContext = authContext => {
@@ -24,6 +23,15 @@ const PageLayout = props => {
   const toggleDrawer = openSideDrawer => () => {
     setOpenSideDrawer(openSideDrawer)
   }
+
+  const getLatestValidPost = () => {
+    if (!authContext.authenticated) return
+    latestTimeValidPost(authContext.user.uid).then(post => {
+      setLatestValidPost(post)
+    })
+  }
+
+  useEffect(() => getLatestValidPost(), [authContext.authenticated])
 
   const handleFile = event => {
     var file = event.target.files[0]
@@ -40,13 +48,18 @@ const PageLayout = props => {
         <CustomAppBar setAuthContext={setterAuthContext} />
         <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
         {authContext.authenticated ? (
-          <Feed imagePreviewUrl={imagePreviewUrl} />
+          <Feed
+            imagePreviewUrl={imagePreviewUrl}
+            latestValidPost={latestValidPost}
+          />
         ) : (
           <LoginPage setAuthContext={setterAuthContext} />
         )}
         <CustomBottomAppBar
           toggleDrawer={toggleDrawer}
-          camera={<Camera handleFile={handleFile} />}
+          camera={
+            <Camera handleFile={handleFile} latestValidPost={latestValidPost} />
+          }
         />
       </AuthContext.Provider>
     </div>

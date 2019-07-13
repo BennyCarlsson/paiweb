@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
 import ExifOrientationImg from "react-exif-orientation-img"
-import { getAllPosts, havePosted } from "../firebase/dbFunctions"
+import { getAllPosts } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
@@ -10,21 +10,22 @@ import NoAccessToFeed from "./NoAccessToFeed"
 const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
   const [showFeed, setShowFeed] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const classes = useStyles()
-  const context = useContext(AuthContext)
 
   const getAllFeedImages = () => {
-    havePosted(context.user.uid).then(posted => {
-      if (posted) {
-        setShowFeed(true)
-        getAllPosts().then(posts => setAllPosts(posts))
-      } else {
-        setShowFeed(false)
-      }
-    })
+    if (props.latestValidPost) {
+      setShowFeed(true)
+      getAllPosts().then(posts => setAllPosts(posts))
+    } else {
+      setShowFeed(false)
+    }
+    setIsLoading(false)
   }
 
-  useEffect(() => getAllFeedImages(), [])
+  useEffect(() => {
+    getAllFeedImages()
+  }, [props.latestValidPost])
 
   const renderPost = () => {
     return allPosts.map((post, i) => <Post key={"post" + i} post={post} />)
@@ -41,7 +42,13 @@ const Feed = props => {
           alt="preview"
         />
       )}
-      {showFeed ? renderPost() : <NoAccessToFeed />}
+      {isLoading ? (
+        <p>loading</p>
+      ) : showFeed ? (
+        renderPost()
+      ) : (
+        <NoAccessToFeed />
+      )}
       <div className={classes.feedEndDiv}>
         <Icon fontSize="small">panorama_fish_eye</Icon>
       </div>
@@ -63,7 +70,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center",
     height: "15vh",
-    color: "#d9d9d9"
+    color: theme.palette.gray.main
   }
 }))
 

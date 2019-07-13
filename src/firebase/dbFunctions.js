@@ -1,5 +1,5 @@
 import firebase, { db } from "./firebase"
-import { postValidTime } from "../settingsConfig"
+import { postValidTimeMilliSeconds } from "../settingsConfig"
 import { changeImageName } from "../utils"
 
 export const uploadImage = (file, user) => {
@@ -42,7 +42,7 @@ const saveImageRef = (ref, user) => {
 export const getAllPosts = () => {
   return db
     .collection("posts")
-    .where("timestamp", ">", new Date(postValidTime))
+    .where("timestamp", ">", new Date(Date.now() - postValidTimeMilliSeconds))
     .orderBy("timestamp", "desc")
     .limit(15)
     .get()
@@ -55,19 +55,20 @@ export const getAllPosts = () => {
     })
 }
 
-export const havePosted = userId => {
+export const latestTimeValidPost = userId => {
   return db
     .collection("posts")
-    .where("timestamp", ">", new Date(postValidTime))
+    .where("timestamp", ">", new Date(postValidTimeMilliSeconds))
     .where("uid", "==", userId)
+    .orderBy("timestamp", "desc")
     .limit(1)
     .get()
     .then(querySnapshot => {
-      let posted
+      let latestPost
       querySnapshot.forEach(doc => {
-        posted = doc.exists
+        latestPost = doc.data()
       })
-      return !!posted
+      return latestPost
     })
 }
 

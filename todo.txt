@@ -7,10 +7,12 @@ firebase get users sideDrawer
 log in with facebook
 PWA: icon
 
+
 delete images after 24 hours
 Establish a sizing system and colors
 lazyLoadingImages
 
+realtimeUpdate feed
 groups
 show blurred posts when feed not accessable
 notifications

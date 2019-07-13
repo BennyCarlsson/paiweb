@@ -1,35 +1,45 @@
 import React, { Fragment } from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { postValidTime } from "../settingsConfig"
+import { progressCalc } from "../utils"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
-const useStyles = makeStyles(theme => ({
-  progress: {
-    marginLeft: "5px"
-  }
-}))
-
 const PostTimer = props => {
   const classes = useStyles()
-  const timestamp = props.timestamp.toDate()
+  const timestamp = props.timestamp
   return (
     <Fragment>
-      <Typography variant="caption">{convertTimeStamp(timestamp)}</Typography>
+      <Typography variant="caption">
+        {convertTimeStamp(timestamp.toDate())}
+      </Typography>
       <CircularProgress
-        color="secondary"
+        color="primary"
         variant="static"
         value={progressCalc(timestamp)}
         className={classes.progress}
+        size={16}
+      />
+      <CircularProgress
+        color="secondary"
+        variant="static"
+        value={100}
+        className={classes.innerProgress}
         size={16}
       />
     </Fragment>
   )
 }
 
-const progressCalc = timestamp => {
-  return 100 - ((new Date() - timestamp) / postValidTime) * 1000000 * 2
-}
+const useStyles = makeStyles(theme => ({
+  progress: {
+    marginLeft: "5px"
+  },
+  innerProgress: {
+    position: "relative",
+    marginLeft: "-16px",
+    color: theme.palette.gray.light
+  }
+}))
 
 const convertTimeStamp = timestamp => {
   var now = new Date(),
