@@ -50,7 +50,11 @@ const Feed = props => {
 }
 
 const useStyles = makeStyles(theme => ({
-  feedWrapper: {},
+  feedWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
   feedTopDiv: {
     scrollSnapAlign: "end"
   },

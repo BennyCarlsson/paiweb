@@ -9,6 +9,7 @@ import { uploadImage } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { AuthContext } from "../AuthContext"
 import { compressImage } from "../utils"
+import { width } from "window-size"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -56,7 +57,10 @@ const useStyles = makeStyles(theme => ({
   App: {
     height: "100vh",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    justifyContent: "space-between",
+    maxWidth: "800px",
+    width: "100%"
   }
 }))
 

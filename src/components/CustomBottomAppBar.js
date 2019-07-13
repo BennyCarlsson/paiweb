@@ -9,7 +9,7 @@ const BottomAppBar = props => {
   const { classes } = props
 
   return (
-    <AppBar position="fixed" color="primary" className={classes.appBar}>
+    <AppBar position="sticky" color="primary" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <IconButton
           color="inherit"

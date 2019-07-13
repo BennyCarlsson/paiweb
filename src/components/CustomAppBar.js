@@ -32,7 +32,7 @@ const CustomAppBar = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky">
+      <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Pai

@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "4px",
     minHeight: "250px",
     maxHeight: "75vh",
+    maxWidth: "450px",
     overflow: "hidden"
   },
   img: {
