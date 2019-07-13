@@ -1,12 +1,22 @@
-update every 24hours
+show feed access timer
+fix preview
+change ... to info button
 camera button when signed out
 prompt on update
-firebase get users
+firebase get users sideDrawer
 log in with facebook
 PWA: icon
 
-delete images after 48 hours
+delete images after 24 hours
 Establish a sizing system and colors
 lazyLoadingImages
+
+groups
+show blurred posts when feed not accessable
+notifications
+
+fb rules
+only get images 48hours
+only read if you posted
+
 Cleanup firebase rules and db structure
-only get images 48hours (rules)

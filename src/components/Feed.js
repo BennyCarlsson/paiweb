@@ -1,15 +1,27 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import ExifOrientationImg from "react-exif-orientation-img"
-import { getAllPosts } from "../firebase/dbFunctions"
+import { getAllPosts, havePosted } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
+import { AuthContext } from "../AuthContext"
+import NoAccessToFeed from "./NoAccessToFeed"
 
 const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
+  const [showFeed, setShowFeed] = useState(false)
   const classes = useStyles()
+  const context = useContext(AuthContext)
+
   const getAllFeedImages = () => {
-    getAllPosts().then(posts => setAllPosts(posts))
+    havePosted(context.user.uid).then(posted => {
+      if (posted) {
+        setShowFeed(true)
+        getAllPosts().then(posts => setAllPosts(posts))
+      } else {
+        setShowFeed(false)
+      }
+    })
   }
 
   useEffect(() => getAllFeedImages(), [])
@@ -29,7 +41,7 @@ const Feed = props => {
           alt="preview"
         />
       )}
-      {renderPost()}
+      {showFeed ? renderPost() : <NoAccessToFeed />}
       <div className={classes.feedEndDiv}>
         <Icon fontSize="small">panorama_fish_eye</Icon>
       </div>
@@ -47,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     alignItems: "center",
     height: "15vh",
-    color: "gray"
+    color: "#d9d9d9"
   }
 }))
 

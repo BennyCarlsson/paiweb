@@ -55,6 +55,22 @@ export const getAllPosts = () => {
     })
 }
 
+export const havePosted = userId => {
+  return db
+    .collection("posts")
+    .where("timestamp", ">", new Date(postValidTime))
+    .where("uid", "==", userId)
+    .limit(1)
+    .get()
+    .then(querySnapshot => {
+      let posted
+      querySnapshot.forEach(doc => {
+        posted = doc.exists
+      })
+      return !!posted
+    })
+}
+
 export const getImageUrlOnRef = path => {
   if (!path) return
   var storageRef = firebase.storage().ref(path)

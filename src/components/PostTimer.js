@@ -28,7 +28,7 @@ const PostTimer = props => {
 }
 
 const progressCalc = timestamp => {
-  return 100 - ((new Date() - timestamp) / postValidTime) * 1000000
+  return 100 - ((new Date() - timestamp) / postValidTime) * 1000000 * 2
 }
 
 const convertTimeStamp = timestamp => {
