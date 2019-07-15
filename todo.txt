@@ -1,6 +1,8 @@
+loadinscreen when figuring out if user is logged in or not
+
 fix preview
+update feed after post image
 change ... to info button
-camera button when signed out
 firebase get users sideDrawer
 log in with facebook
 PWA: icon
