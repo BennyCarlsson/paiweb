@@ -1,6 +1,5 @@
 import React from "react"
 import Typography from "@material-ui/core/Typography"
-import Paper from "@material-ui/core/Paper"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 
@@ -9,12 +8,12 @@ const NoAccessToFeed = () => {
   return (
     <div className={classes.root}>
       <div />
-      <Paper>
-        <Typography variant="h5" gutterBottom>
-          Your friends want to know what you are up to. Post a picture to access
-          the feed.
+      <span>
+        <Typography align="center" variant="h4" color="textSecondary">
+          Tell friends what you are doing.
+          <br /> Post a picture.
         </Typography>
-      </Paper>
+      </span>
       <Icon color="disabled" className={classes.icon} fontSize="large">
         arrow_downward
       </Icon>
@@ -25,7 +24,7 @@ const NoAccessToFeed = () => {
 const useStyles = makeStyles(theme => ({
   root: {
     padding: "0px",
-    height: "82vh",
+    height: "78vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",

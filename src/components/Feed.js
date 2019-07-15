@@ -41,20 +41,20 @@ const Feed = props => {
           alt="preview"
         />
       )}
-      {isLoading ? (
-        <p>loading</p>
-      ) : showFeed ? (
-        renderPost()
-      ) : (
-        <NoAccessToFeed />
-      )}
+      <NoAccessToFeed />
       <div className={classes.feedEndDiv}>
         <Icon fontSize="small">panorama_fish_eye</Icon>
       </div>
     </div>
   )
 }
-
+// {isLoading ? (
+//   <p>loading</p>
+// ) : showFeed ? (
+//   renderPost()
+// ) : (
+//   <NoAccessToFeed />
+// )}
 const useStyles = makeStyles(theme => ({
   feedWrapper: {
     display: "flex",

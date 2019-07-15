@@ -5,14 +5,11 @@ firebase get users sideDrawer
 log in with facebook
 PWA: icon
 prompt on update
-pull to refresh
+pull to refresh - or will refresh work as PWA?
 
 
-firebase offline
-
-
-delete images after 24 hours
-Establish a sizing system and colors
+delete images after 24 hours -check if working
+Establish a sizing system and colors - dark theme
 lazyLoadingImages react-lazy-load
 
 realtimeUpdate feed
