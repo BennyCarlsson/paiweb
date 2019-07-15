@@ -9,15 +9,17 @@ const Post = props => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.avatarTimeDiv}>
-        <Avatar
-          className={classes.avatar}
-          alt="Post Avatar"
-          src={props.post.userPhotoURL}
-        />
-        <PostTimer timestamp={props.post.timestamp} />
-      </div>
-      <FeedImage imageRef={props.post.imgRef} />
+      <span>
+        <div className={classes.avatarTimeDiv}>
+          <Avatar
+            className={classes.avatar}
+            alt="Post Avatar"
+            src={props.post.userPhotoURL}
+          />
+          <PostTimer timestamp={props.post.timestamp} />
+        </div>
+        <FeedImage imageRef={props.post.imgRef} />
+      </span>
     </div>
   )
 }
@@ -30,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   avatar: {
     border: "2px solid #fafafa",

@@ -19,7 +19,8 @@ export const compressImage = (file, callback) => {
   }
 
   new Compressor(file, {
-    quality: 0.4,
+    quality: 0.2,
+    width: 450,
     success(result) {
       callback(result)
     },

@@ -1,4 +1,3 @@
-cache images!
 fix preview
 change ... to info button
 camera button when signed out
@@ -6,11 +5,15 @@ firebase get users sideDrawer
 log in with facebook
 PWA: icon
 prompt on update
+pull to refresh
+
+
+firebase offline
 
 
 delete images after 24 hours
 Establish a sizing system and colors
-lazyLoadingImages
+lazyLoadingImages react-lazy-load
 
 realtimeUpdate feed
 groups

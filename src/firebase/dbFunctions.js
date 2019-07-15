@@ -5,7 +5,10 @@ import { changeImageName } from "../utils"
 export const uploadImage = (file, user) => {
   const imagePath = "images/" + user.uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
-  var task = storageRef.put(file, { cacheControl: "max-age=432001" })
+  var task = storageRef.put(file, {
+    cacheControl: "max-age=432001",
+    contentType: file.type
+  })
   task.on(
     "state_changed",
     function progress(snapshot) {
