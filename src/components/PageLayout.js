@@ -15,6 +15,7 @@ const PageLayout = props => {
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
   const [authContext, setAuthContext] = useState({})
   const [latestValidPost, setLatestValidPost] = useState()
+  const [gotLatestPost, setGotLatestPost] = useState(false)
   const classes = useStyles()
 
   const setterAuthContext = authContext => {
@@ -27,6 +28,7 @@ const PageLayout = props => {
   const getLatestValidPost = () => {
     if (!authContext.authenticated) return
     latestTimeValidPost(authContext.user.uid).then(post => {
+      setGotLatestPost(true)
       setLatestValidPost(post)
     })
   }
@@ -51,6 +53,7 @@ const PageLayout = props => {
           <Feed
             imagePreviewUrl={imagePreviewUrl}
             latestValidPost={latestValidPost}
+            gotLatestPost={gotLatestPost}
           />
         ) : (
           <LoginPage setAuthContext={setterAuthContext} />

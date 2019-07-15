@@ -13,13 +13,17 @@ const Feed = props => {
   const classes = useStyles()
 
   const getAllFeedImages = () => {
-    if (props.latestValidPost) {
-      setShowFeed(true)
-      getAllPosts().then(posts => setAllPosts(posts))
+    if (props.gotLatestPost) {
+      if (props.latestValidPost) {
+        setShowFeed(true)
+        getAllPosts().then(posts => setAllPosts(posts))
+      } else {
+        setShowFeed(false)
+      }
+      setIsLoading(false)
     } else {
-      setShowFeed(false)
+      setIsLoading(true)
     }
-    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -42,15 +46,17 @@ const Feed = props => {
         />
       )}
       {isLoading ? (
-        <p>loading</p>
+        <p>loading..</p>
       ) : showFeed ? (
-        renderPost()
+        [
+          renderPost(),
+          <div key="alasd213" className={classes.feedEndDiv}>
+            <Icon fontSize="small">panorama_fish_eye</Icon>
+          </div>
+        ]
       ) : (
         <NoAccessToFeed />
       )}
-      <div className={classes.feedEndDiv}>
-        <Icon fontSize="small">panorama_fish_eye</Icon>
-      </div>
     </div>
   )
 }

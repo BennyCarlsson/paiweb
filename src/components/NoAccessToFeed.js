@@ -10,7 +10,7 @@ const NoAccessToFeed = () => {
       <div />
       <span>
         <Typography align="center" variant="h4" color="textSecondary">
-          Tell friends what you are doing.
+          Show friends what you are up to.
           <br /> Post a picture.
         </Typography>
       </span>

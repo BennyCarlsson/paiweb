@@ -1,8 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import firebase from "../firebase/firebase"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 
 const LoginPage = props => {
+  const [triedToAuth, setTriedToAuth] = useState(false)
+
   // Configure FirebaseUI.
   const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -17,7 +19,13 @@ const LoginPage = props => {
 
   useEffect(() => {
     let unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      props.setAuthContext({ authenticated: !!user, user: user })
+      props.setAuthContext({
+        authenticated: !!user,
+        user: user
+      })
+      if (!user) {
+        setTriedToAuth(true)
+      }
     })
     return () => {
       unregisterAuthObserver()
@@ -27,7 +35,14 @@ const LoginPage = props => {
 
   return (
     <div>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      {triedToAuth ? (
+        <StyledFirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
+      ) : (
+        <p style={{ textAlign: "center" }}>loading</p>
+      )}
     </div>
   )
 }
