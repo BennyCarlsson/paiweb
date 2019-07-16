@@ -103,7 +103,7 @@ const styles = theme => ({
     margin: "0 auto"
   },
   progressWrapper: {
-    backgroundColor: theme.palette.background.main,
+    backgroundColor: theme.palette.gray.main,
     position: "absolute",
     zIndex: 1,
     top: 0,
@@ -121,8 +121,8 @@ const styles = theme => ({
     top: -34,
     left: "-1px",
     right: 0,
-    margin: "0 auto"
-    //borderRadius: "50%",
+    margin: "0 auto",
+    color: theme.palette.color.main
   },
   hide: { display: "none" }
 })

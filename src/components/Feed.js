@@ -65,7 +65,8 @@ const useStyles = makeStyles(theme => ({
   feedWrapper: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: theme.palette.background.main
   },
   feedTopDiv: {
     scrollSnapAlign: "end"
