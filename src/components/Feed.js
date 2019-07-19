@@ -4,6 +4,7 @@ import { getAllPosts } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
+import Typography from "@material-ui/core/Typography"
 import NoAccessToFeed from "./NoAccessToFeed"
 
 const Feed = props => {
@@ -46,7 +47,9 @@ const Feed = props => {
         />
       )}
       {isLoading ? (
-        <p>loading..</p>
+        <Typography variant="subtitle1" className={classes.loading}>
+          loading..
+        </Typography>
       ) : showFeed ? (
         [
           renderPost(),
@@ -77,7 +80,8 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     height: "15vh",
     color: theme.palette.gray.main
-  }
+  },
+  loading: { color: "white" }
 }))
 
 export default Feed

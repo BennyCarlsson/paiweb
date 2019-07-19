@@ -9,7 +9,7 @@ const NoAccessToFeed = () => {
     <div className={classes.root}>
       <div />
       <span>
-        <Typography align="center" variant="h4" color="textSecondary">
+        <Typography align="center" variant="h4" className={classes.text}>
           Show friends what you are up to.
           <br /> Post a picture.
         </Typography>
@@ -35,10 +35,14 @@ const useStyles = makeStyles(theme => ({
     from: { transform: `translateY(0)` },
     to: { transform: `translateY(30px)` }
   },
+  text: {
+    color: "white"
+  },
   icon: {
     position: "relative",
     fontSize: "65px",
-    animation: "$arrowAnimation 2s infinite alternate"
+    animation: "$arrowAnimation 2s infinite alternate",
+    color: "white"
   }
 }))
 

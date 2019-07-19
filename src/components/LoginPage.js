@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import firebase from "../firebase/firebase"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+import Typography from "@material-ui/core/Typography"
 
 const LoginPage = props => {
   const [triedToAuth, setTriedToAuth] = useState(false)
@@ -41,7 +42,12 @@ const LoginPage = props => {
           firebaseAuth={firebase.auth()}
         />
       ) : (
-        <p style={{ textAlign: "center" }}>loading</p>
+        <Typography
+          variant="subtitle1"
+          style={{ textAlign: "center", color: "white" }}
+        >
+          loading
+        </Typography>
       )}
     </div>
   )
