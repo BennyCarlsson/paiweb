@@ -1,12 +1,10 @@
+prompt on update
 fix preview
-update feed after post image
+log in with facebook
 
+update feed after post image
 change ... to info button
 firebase get users sideDrawer
-log in with facebook
-PWA: icon
-
-prompt on update
 pull to refresh - or will refresh work as PWA?
 
 delete images after 24 hours -check if working

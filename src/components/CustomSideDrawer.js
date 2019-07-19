@@ -17,8 +17,7 @@ const CustomSideDrawer = props => {
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
-        <div className={classes.drawerList}>SideDrawer</div>
-        <span>v.0.0.2</span>
+        <div className={classes.drawerList}>v.0.0.6</div>
       </div>
     </SwipeableDrawer>
   )
