@@ -1,4 +1,3 @@
-prompt on update
 fix preview
 login with facebook
 

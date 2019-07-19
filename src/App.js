@@ -1,7 +1,9 @@
-import React from "react"
+import React, { Component } from "react"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import PageLayout from "./components/PageLayout"
+import * as serviceWorker from "./serviceWorker"
+import UpdateSnackbar from "./components/UpdateSnackbar"
 
 const theme = createMuiTheme({
   palette: {
@@ -14,13 +16,41 @@ const theme = createMuiTheme({
   typography: { useNextVariants: true }
 })
 
-function App(props) {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <PageLayout />
-    </MuiThemeProvider>
-  )
+class App extends Component {
+  constructor(props) {
+    super(props)
+    serviceWorker.register({
+      onUpdate: this.handleServiceWorkerUpdate
+    })
+    this.state = {
+      showUpdateSnackBar: false
+    }
+  }
+
+  handleServiceWorkerUpdate = registration => {
+    this.setState({ showUpdateSnackBar: true })
+  }
+
+  handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return
+    }
+
+    this.setState({ showUpdateSnackBar: false })
+  }
+
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <PageLayout />
+        <UpdateSnackbar
+          handleCloseSnackBar={this.handleCloseSnackBar}
+          showUpdateSnackBar={this.state.showUpdateSnackBar}
+        />
+      </MuiThemeProvider>
+    )
+  }
 }
 
 export default App
