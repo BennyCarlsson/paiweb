@@ -1,6 +1,6 @@
 prompt on update
 fix preview
-log in with facebook
+login with facebook
 
 update feed after post image
 change ... to info button
