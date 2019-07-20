@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import ExifOrientationImg from "react-exif-orientation-img"
 import { getAllPosts } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
@@ -29,7 +28,7 @@ const Feed = props => {
 
   useEffect(() => {
     getAllFeedImages()
-  }, [props.latestValidPost])
+  }, [props.latestValidPost, props.gotLatestPost])
 
   const renderPost = () => {
     return allPosts.map((post, i) => <Post key={"post" + i} post={post} />)

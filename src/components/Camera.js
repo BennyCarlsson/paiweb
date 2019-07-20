@@ -105,7 +105,7 @@ const styles = theme => ({
     position: "absolute",
     zIndex: 1,
     top: -34,
-    left: "-1px",
+    left: 0,
     right: 0,
     margin: "0 auto",
     color: theme.palette.color.main
