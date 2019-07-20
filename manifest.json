@@ -2,7 +2,7 @@
   "short_name": "Pai",
   "name": "Pai",
   "start_url": "./index.html",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "theme_color": "#FF2188",
   "background_color": "#000000",
   "icons": [
