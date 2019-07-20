@@ -60,14 +60,13 @@ const Camera = props => {
       >
         <Icon>photo_camera</Icon>
       </Fab>
-      <div className={classes.progressWrapper}>
-        <CircularProgress
-          size={66}
-          variant="static"
-          value={progressValue}
-          className={classes.fabProgress}
-        />
-      </div>
+      <CircularProgress
+        size={66}
+        variant={props.showUploadLoader ? "indeterminate" : "determinate"}
+        value={progressValue}
+        className={classes.fabProgress}
+      />
+
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
@@ -101,19 +100,6 @@ const styles = theme => ({
     left: 0,
     right: 0,
     margin: "0 auto"
-  },
-  progressWrapper: {
-    backgroundColor: theme.palette.gray.main,
-    position: "absolute",
-    zIndex: 1,
-    top: 0,
-    left: 0,
-    right: 0,
-    margin: "0 auto",
-    width: "64px",
-    height: "32px",
-    borderBottomLeftRadius: "128px",
-    borderBottomRightRadius: "128px"
   },
   fabProgress: {
     position: "absolute",

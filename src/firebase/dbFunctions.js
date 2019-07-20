@@ -2,7 +2,7 @@ import firebase, { db } from "./firebase"
 import { postValidTimeMilliSeconds } from "../settingsConfig"
 import { changeImageName } from "../utils"
 
-export const uploadImage = (file, user) => {
+export const uploadImage = (file, user, callBack) => {
   const imagePath = "images/" + user.uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
   var task = storageRef.put(file, {
@@ -20,12 +20,12 @@ export const uploadImage = (file, user) => {
     },
     function complete() {
       console.log("DONE!")
-      saveImageRef(imagePath, user)
+      saveImageRef(imagePath, user, callBack)
     }
   )
 }
 
-const saveImageRef = (ref, user) => {
+const saveImageRef = (ref, user, callBack) => {
   db.collection("posts")
     .add({
       uid: user.uid,
@@ -36,6 +36,7 @@ const saveImageRef = (ref, user) => {
     })
     .then(function(docRef) {
       console.log("Document written with docRef: ", docRef)
+      callBack()
     })
     .catch(function(error) {
       console.error("Error adding document: ", error)

@@ -16,6 +16,7 @@ const PageLayout = props => {
   const [authContext, setAuthContext] = useState({})
   const [latestValidPost, setLatestValidPost] = useState()
   const [gotLatestPost, setGotLatestPost] = useState(false)
+  const [showUploadLoader, setShowUploadLoader] = useState(false)
   const classes = useStyles()
 
   const setterAuthContext = authContext => {
@@ -38,9 +39,10 @@ const PageLayout = props => {
   const handleFile = event => {
     var file = event.target.files[0]
     if (!file && authContext.authenticated) return
+    setShowUploadLoader(true)
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, authContext.user)
+      uploadImage(file, authContext.user, () => setShowUploadLoader(false))
     })
   }
 
@@ -61,7 +63,11 @@ const PageLayout = props => {
         <CustomBottomAppBar
           toggleDrawer={toggleDrawer}
           camera={
-            <Camera handleFile={handleFile} latestValidPost={latestValidPost} />
+            <Camera
+              showUploadLoader={showUploadLoader}
+              handleFile={handleFile}
+              latestValidPost={latestValidPost}
+            />
           }
         />
       </AuthContext.Provider>

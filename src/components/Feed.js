@@ -37,15 +37,7 @@ const Feed = props => {
   return (
     <div className={classes.feedWrapper}>
       <div className={classes.feedTopDiv} />
-      {props.imagePreviewUrl && (
-        <ExifOrientationImg
-          styles={"image-orientation: from-image"}
-          width="100%"
-          height="auto"
-          src={props.imagePreviewUrl}
-          alt="preview"
-        />
-      )}
+
       {isLoading ? (
         <Typography variant="subtitle1" className={classes.loading}>
           loading..
