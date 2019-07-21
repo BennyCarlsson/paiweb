@@ -36,10 +36,32 @@ const saveImageRef = (ref, user, callBack) => {
     })
     .then(function(docRef) {
       console.log("Document written with docRef: ", docRef)
-      callBack()
+      updateLastUserPost(user.uid).then(() => {
+        callBack()
+      })
     })
     .catch(function(error) {
       console.error("Error adding document: ", error)
+    })
+}
+
+const updateLastUserPost = userId => {
+  return db
+    .collection("users")
+    .doc(userId)
+    .update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
+}
+
+export const getAllUsers = () => {
+  return db
+    .collection("users")
+    .get()
+    .then(querySnapshot => {
+      let users = []
+      querySnapshot.forEach(doc => {
+        users.push(doc.data())
+      })
+      return users
     })
 }
 
