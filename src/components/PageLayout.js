@@ -29,8 +29,8 @@ const PageLayout = props => {
   const getLatestValidPost = () => {
     if (!authContext.authenticated) return
     latestTimeValidPost(authContext.user.uid).then(post => {
-      setGotLatestPost(true)
       setLatestValidPost(post)
+      setGotLatestPost(true)
     })
   }
 

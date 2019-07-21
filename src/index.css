@@ -8,6 +8,7 @@ body {
 
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  background-color: #000000;
 }
 
 #root {

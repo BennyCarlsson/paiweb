@@ -8,7 +8,7 @@ import NoAccessToFeed from "./NoAccessToFeed"
 
 const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
-  const [showFeed, setShowFeed] = useState(false)
+  const [showFeed, setShowFeed] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const classes = useStyles()
 

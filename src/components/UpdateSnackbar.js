@@ -1,7 +1,5 @@
 import React from "react"
 import Snackbar from "@material-ui/core/Snackbar"
-import IconButton from "@material-ui/core/IconButton"
-import Icon from "@material-ui/core/Icon"
 
 function UpdateSnackbar(props) {
   return (
