@@ -12,21 +12,20 @@ const Feed = props => {
   const [isLoading, setIsLoading] = useState(true)
   const classes = useStyles()
 
-  const getAllFeedImages = () => {
-    if (props.gotLatestPost) {
-      if (props.latestValidPost) {
-        setShowFeed(true)
-        getAllPosts().then(posts => setAllPosts(posts))
-      } else {
-        setShowFeed(false)
-      }
-      setIsLoading(false)
-    } else {
-      setIsLoading(true)
-    }
-  }
-
   useEffect(() => {
+    const getAllFeedImages = () => {
+      if (props.gotLatestPost) {
+        if (props.latestValidPost) {
+          setShowFeed(true)
+          getAllPosts().then(posts => setAllPosts(posts))
+        } else {
+          setShowFeed(false)
+        }
+        setIsLoading(false)
+      } else {
+        setIsLoading(true)
+      }
+    }
     getAllFeedImages()
   }, [props.latestValidPost, props.gotLatestPost])
 
@@ -38,9 +37,7 @@ const Feed = props => {
       <div className={classes.feedTopDiv} />
 
       {isLoading ? (
-        <Typography variant="subtitle1" className={classes.loading}>
-          loading..
-        </Typography>
+        <Typography variant="subtitle1">loading</Typography>
       ) : showFeed ? (
         [
           renderPost(),
@@ -71,8 +68,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     height: "15vh",
     color: theme.palette.gray.main
-  },
-  loading: { color: "white" }
+  }
 }))
 
 export default Feed

@@ -9,6 +9,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import { AuthContext } from "../AuthContext"
 import { convertTimeStamp } from "../utils"
+import Typography from "@material-ui/core/Typography"
 
 const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
@@ -65,7 +66,9 @@ const CustomSideDrawer = props => {
         <List dense className={classes.list}>
           {renderUsers()}
         </List>
-        <div>v.0.1.1</div>
+        <Typography variant="body2" gutterBottom>
+          v.0.1.2
+        </Typography>
       </div>
     </SwipeableDrawer>
   )
@@ -77,12 +80,13 @@ const useStyles = makeStyles(theme => ({
     width: "250px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: theme.palette.background.main
   },
   list: {
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.main
   }
 }))
 

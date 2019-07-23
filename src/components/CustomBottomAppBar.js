@@ -10,7 +10,7 @@ const BottomAppBar = props => {
 
   return (
     <AppBar position="sticky" color="primary" className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
+      <Toolbar className={classes.toolbar} variant="dense">
         <IconButton
           color="inherit"
           aria-label="Open drawer"

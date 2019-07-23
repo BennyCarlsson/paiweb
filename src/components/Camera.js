@@ -52,7 +52,6 @@ const Camera = props => {
         />
       </span>
       <Fab
-        color="secondary"
         aria-label="Add"
         className={classes.fabButton}
         size="large"
@@ -62,7 +61,7 @@ const Camera = props => {
       </Fab>
       <CircularProgress
         size={66}
-        variant={props.showUploadLoader ? "indeterminate" : "determinate"}
+        variant={props.showUploadLoader ? "indeterminate" : "static"}
         value={progressValue}
         className={classes.fabProgress}
       />

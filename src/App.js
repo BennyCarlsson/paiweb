@@ -7,6 +7,7 @@ import UpdateSnackbar from "./components/UpdateSnackbar"
 
 const theme = createMuiTheme({
   palette: {
+    type: "dark",
     background: { main: "#000000" },
     primary: { main: "#000000" },
     secondary: { main: "#ffffff" },

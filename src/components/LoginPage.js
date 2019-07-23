@@ -41,10 +41,7 @@ const LoginPage = props => {
           firebaseAuth={firebase.auth()}
         />
       ) : (
-        <Typography
-          variant="subtitle1"
-          style={{ textAlign: "center", color: "white" }}
-        >
+        <Typography variant="subtitle1" style={{ textAlign: "center" }}>
           loading
         </Typography>
       )}

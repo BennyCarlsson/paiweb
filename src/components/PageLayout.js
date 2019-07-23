@@ -26,15 +26,16 @@ const PageLayout = props => {
     setOpenSideDrawer(openSideDrawer)
   }
 
-  const getLatestValidPost = () => {
-    if (!authContext.authenticated) return
-    latestTimeValidPost(authContext.user.uid).then(post => {
-      setLatestValidPost(post)
-      setGotLatestPost(true)
-    })
-  }
-
-  useEffect(() => getLatestValidPost(), [authContext.authenticated])
+  useEffect(() => {
+    const getLatestValidPost = () => {
+      if (!authContext.authenticated) return
+      latestTimeValidPost(authContext.user.uid).then(post => {
+        setLatestValidPost(post)
+        setGotLatestPost(true)
+      })
+    }
+    getLatestValidPost()
+  }, [authContext])
 
   const handleFile = event => {
     var file = event.target.files[0]

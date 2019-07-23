@@ -3,7 +3,6 @@ fix preview
 update feed after post image
 change ... to info button
 firebase get users sideDrawer
-pull to refresh - or will refresh work as PWA?
 imagePreviewUrl pagelayout->feed
 
 delete images after 24 hours -check if working

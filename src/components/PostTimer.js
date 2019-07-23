@@ -9,7 +9,7 @@ const PostTimer = props => {
   const timestamp = props.timestamp
   return (
     <Fragment>
-      <Typography variant="caption" className={classes.text}>
+      <Typography variant="caption">
         {convertTimeStamp(timestamp.toDate())}
       </Typography>
       <CircularProgress
@@ -20,7 +20,6 @@ const PostTimer = props => {
         size={16}
       />
       <CircularProgress
-        color="secondary"
         variant="static"
         value={100}
         className={classes.innerProgress}
@@ -31,9 +30,6 @@ const PostTimer = props => {
 }
 
 const useStyles = makeStyles(theme => ({
-  text: {
-    color: "white"
-  },
   progress: {
     marginLeft: "5px",
     color: theme.palette.color.main,
