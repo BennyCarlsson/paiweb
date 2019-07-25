@@ -10,7 +10,13 @@ const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
   const [showFeed, setShowFeed] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const [renderImages, setRenderImages] = useState(2)
   const classes = useStyles()
+
+  const renderNextImages = i => {
+    console.log(i + 2)
+    setRenderImages(i + 2)
+  }
 
   useEffect(() => {
     const getAllFeedImages = () => {
@@ -30,7 +36,15 @@ const Feed = props => {
   }, [props.latestValidPost, props.gotLatestPost])
 
   const renderPost = () => {
-    return allPosts.map((post, i) => <Post key={"post" + i} post={post} />)
+    return allPosts.map((post, i) => (
+      <Post
+        key={"post" + i}
+        renderNextImages={renderNextImages}
+        renderImages={renderImages}
+        index={i}
+        post={post}
+      />
+    ))
   }
   return (
     <div className={classes.feedWrapper}>
