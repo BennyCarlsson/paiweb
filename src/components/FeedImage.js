@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import ExifOrientationImg from "react-exif-orientation-img"
 import { getImageUrlOnRef } from "../firebase/dbFunctions.js"
 import { makeStyles } from "@material-ui/styles"
 import Img from "react-image"
