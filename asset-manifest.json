@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/paiweb/static/css/main.6abf1fa2.chunk.css",
-    "main.js": "/paiweb/static/js/main.eeecccb0.chunk.js",
-    "main.js.map": "/paiweb/static/js/main.eeecccb0.chunk.js.map",
+    "main.js": "/paiweb/static/js/main.01fed496.chunk.js",
+    "main.js.map": "/paiweb/static/js/main.01fed496.chunk.js.map",
     "runtime~main.js": "/paiweb/static/js/runtime~main.f48f10f2.js",
     "runtime~main.js.map": "/paiweb/static/js/runtime~main.f48f10f2.js.map",
-    "static/js/2.b0688913.chunk.js": "/paiweb/static/js/2.b0688913.chunk.js",
-    "static/js/2.b0688913.chunk.js.map": "/paiweb/static/js/2.b0688913.chunk.js.map",
+    "static/js/2.3cd8cebd.chunk.js": "/paiweb/static/js/2.3cd8cebd.chunk.js",
+    "static/js/2.3cd8cebd.chunk.js.map": "/paiweb/static/js/2.3cd8cebd.chunk.js.map",
     "index.html": "/paiweb/index.html",
-    "precache-manifest.4d3e8e43620c17083c0519b0f8ad99f7.js": "/paiweb/precache-manifest.4d3e8e43620c17083c0519b0f8ad99f7.js",
+    "precache-manifest.24b1c70ff3cee0e3ba23cea14cb17197.js": "/paiweb/precache-manifest.24b1c70ff3cee0e3ba23cea14cb17197.js",
     "service-worker.js": "/paiweb/service-worker.js",
     "static/css/main.6abf1fa2.chunk.css.map": "/paiweb/static/css/main.6abf1fa2.chunk.css.map"
   }
