@@ -4,6 +4,9 @@ update feed after post image
 change ... to info button
 imagePreviewUrl pagelayout->feed
 
+compression width vs quality
+draw on canvas
+
 groups
 show blurred posts when feed not accessable
 notifications
