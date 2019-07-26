@@ -20,7 +20,7 @@ const Camera = props => {
     if (!props.latestValidPost) {
       setProgressValue(0)
     } else {
-      setProgressValue(progressCalc(props.latestValidPost.timestamp))
+      setProgressValue(progressCalc(props.latestValidPost.timestamp.toDate()))
     }
   }, [props.latestValidPost])
 

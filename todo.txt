@@ -2,7 +2,6 @@ fix preview
 update feed after post image
 imagePreviewUrl pagelayout->feed
 
-change ... to info button
 compression width vs quality
 draw on canvas
 
@@ -13,5 +12,4 @@ notifications
 fb rules
 only get images 48hours
 only read if you posted
-
 Cleanup firebase rules and db structure

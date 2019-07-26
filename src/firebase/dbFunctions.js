@@ -82,8 +82,6 @@ export const getAllPosts = () => {
 }
 
 export const latestTimeValidPost = userId => {
-  console.log(postValidTimeMilliSeconds)
-  console.log()
   return db
     .collection("posts")
     .where("timestamp", ">", new Date(new Date() - postValidTimeMilliSeconds))

@@ -19,11 +19,12 @@ export const convertTimeStamp = timestamp => {
 }
 
 export const progressCalc = timestamp => {
-  return (
+  const calc =
     100 -
-    ((new Date().getTime() / 1000 - timestamp.seconds) / postValidTimeSeconds) *
+    ((new Date().getTime() / 1000 - timestamp.getTime() / 1000) /
+      postValidTimeSeconds) *
       100
-  )
+  return calc < 0 ? 0 : calc > 100 ? 100 : calc
 }
 
 export const changeImageName = file => {

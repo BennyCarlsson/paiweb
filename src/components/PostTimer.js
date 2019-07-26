@@ -15,7 +15,7 @@ const PostTimer = props => {
       <CircularProgress
         color="primary"
         variant="static"
-        value={progressCalc(timestamp)}
+        value={progressCalc(timestamp.toDate())}
         className={classes.progress}
         size={16}
       />
