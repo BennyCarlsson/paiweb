@@ -14,7 +14,6 @@ const Feed = props => {
   const classes = useStyles()
 
   const renderNextImages = i => {
-    console.log(i + 2)
     setRenderImages(i + 2)
   }
 

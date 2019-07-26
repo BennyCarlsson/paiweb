@@ -82,9 +82,11 @@ export const getAllPosts = () => {
 }
 
 export const latestTimeValidPost = userId => {
+  console.log(postValidTimeMilliSeconds)
+  console.log()
   return db
     .collection("posts")
-    .where("timestamp", ">", new Date(postValidTimeMilliSeconds))
+    .where("timestamp", ">", new Date(new Date() - postValidTimeMilliSeconds))
     .where("uid", "==", userId)
     .orderBy("timestamp", "desc")
     .limit(1)

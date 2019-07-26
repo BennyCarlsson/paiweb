@@ -1,9 +1,8 @@
-privacy policy facebook
 fix preview
 update feed after post image
-change ... to info button
 imagePreviewUrl pagelayout->feed
 
+change ... to info button
 compression width vs quality
 draw on canvas
 

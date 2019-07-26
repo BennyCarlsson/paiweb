@@ -19,11 +19,6 @@ const BottomAppBar = props => {
           <Icon>menu</Icon>
         </IconButton>
         {props.camera}
-        <div>
-          <IconButton color="inherit">
-            <Icon>more_vert</Icon>
-          </IconButton>
-        </div>
       </Toolbar>
     </AppBar>
   )
