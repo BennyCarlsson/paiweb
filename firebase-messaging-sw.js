@@ -14,3 +14,6 @@ messaging.setBackgroundMessageHandler(payload => {
   }
   return self.registration.showNotification(title, options)
 })
+
+//Todo https://firebase.google.com/docs/cloud-messaging/js/send-multiple
+//onTokenRefresh
