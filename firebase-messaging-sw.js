@@ -3,7 +3,7 @@ importScripts("https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js")
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("../firebase-messaging-sw.js")
+    .register("../pai/firebase-messaging-sw.js")
     .then(function(registration) {
       console.log("Registration successful, scope is:", registration.scope)
     })
