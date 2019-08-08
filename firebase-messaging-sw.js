@@ -2,7 +2,7 @@ importScripts("https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js")
 importScripts("https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js")
 
 let config = {
-  messagingSenderId: "210106….862"
+  messagingSenderId: "560094021764"
 }
 firebase.initializeApp(config)
 const messaging = firebase.messaging()
