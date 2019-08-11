@@ -11,7 +11,8 @@ messaging.setBackgroundMessageHandler(payload => {
   const title = payload.data.title
   const options = {
     body: payload.data.body,
-    icon: payload.data.icon
+    icon: payload.data.icon,
+    badge: payload.data.badge
   }
   return self.registration.showNotification(title, options)
 })
