@@ -13,7 +13,8 @@ messaging.setBackgroundMessageHandler(payload => {
   const options = {
     body: payload.data.body,
     icon: payload.data.icon,
-    badge: payload.data.badge
+    badge: payload.data.badge,
+    click_action: payload.data.click_action
   }
   return self.registration.showNotification(title, options)
 })
@@ -21,7 +22,7 @@ messaging.setBackgroundMessageHandler(payload => {
 self.addEventListener("notificationclick", function(event) {
   //For root applications: just change "'./'" to "'/'"
   //Very important having the last forward slash on "new URL('./', location)..."
-  const rootUrl = new URL("./", location).href
+  const rootUrl = new URL("/", location).href
   event.notification.close()
   event.waitUntil(
     clients.matchAll().then(matchedClients => {
