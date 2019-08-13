@@ -67,7 +67,7 @@ const CustomSideDrawer = props => {
           {renderUsers()}
         </List>
         <Typography variant="body2" gutterBottom>
-          v.0.1.2
+          v.0.1.4
         </Typography>
       </div>
     </SwipeableDrawer>

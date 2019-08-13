@@ -5,7 +5,11 @@ import CustomBottomAppBar from "./CustomBottomAppBar"
 import Feed from "./Feed"
 import CustomSideDrawer from "./CustomSideDrawer"
 import Camera from "./Camera"
-import { uploadImage, latestTimeValidPost } from "../firebase/dbFunctions"
+import {
+  uploadImage,
+  latestTimeValidPost,
+  saveFCMToken
+} from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { AuthContext } from "../AuthContext"
 import { compressImage } from "../utils"
@@ -36,6 +40,12 @@ const PageLayout = props => {
     }
     getLatestValidPost()
   }, [authContext])
+
+  useEffect(() => {
+    if (authContext.authenticated && props.FCMToken) {
+      saveFCMToken(props.FCMToken, authContext.user.uid)
+    }
+  }, [authContext, props.FCMToken])
 
   const handleFile = event => {
     var file = event.target.files[0]

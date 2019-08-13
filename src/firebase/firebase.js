@@ -2,6 +2,7 @@ import firebase from "firebase/app"
 import "firebase/firestore"
 import "firebase/auth"
 import "firebase/storage"
+import "firebase/messaging"
 import { config } from "./superSecretConfigFile"
 
 const firebaseConfig = {
@@ -10,7 +11,7 @@ const firebaseConfig = {
   databaseURL: config.databaseUrl,
   projectId: config.projectId,
   storageBucket: config.storageBucket,
-  messagingSenderId: config.mesagingSenderId,
+  messagingSenderId: config.messagingSenderId,
   appId: config.appId
 }
 

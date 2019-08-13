@@ -4,6 +4,9 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import PageLayout from "./components/PageLayout"
 import * as serviceWorker from "./serviceWorker"
 import UpdateSnackbar from "./components/UpdateSnackbar"
+import { initializePush } from "./pushNotifications"
+import firebase from "firebase"
+const messaging = firebase.messaging()
 
 const theme = createMuiTheme({
   palette: {
@@ -17,16 +20,50 @@ const theme = createMuiTheme({
   typography: { useNextVariants: true }
 })
 
+//todo make into a funcion with hooks
+
 class App extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      showUpdateSnackBar: false,
+      FCMToken: ""
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./fbsw/firebase-messaging-sw.js")
+        .then(registration => {
+          console.log("Registration successful, scope is:", registration.scope)
+          messaging.useServiceWorker(registration)
+          initializePush(messaging)
+            .then(token => {
+              console.log("FCM Token:", token)
+              //you probably want to send your new found FCM token to the
+              //application server so that they can send any push
+              //notification to you.
+              this.setState({ FCMToken: token })
+            })
+            .catch(error => {
+              if (error.code === "messaging/permission-blocked") {
+                console.log("Please Unblock Notification Request Manually")
+              } else {
+                console.log("Error Occurred", error)
+              }
+            })
+        })
+        .catch(function(err) {
+          console.log("Service worker registration failed, error:", err)
+        })
+    }
+
     serviceWorker.register({
       onUpdate: this.handleServiceWorkerUpdate
     })
-    this.state = {
-      showUpdateSnackBar: false
-    }
   }
+
+  componentDidMount = () => {}
 
   handleServiceWorkerUpdate = registration => {
     this.setState({ showUpdateSnackBar: true })
@@ -44,7 +81,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <PageLayout />
+        <PageLayout FCMToken={this.state.FCMToken} />
         <UpdateSnackbar
           handleCloseSnackBar={this.handleCloseSnackBar}
           showUpdateSnackBar={this.state.showUpdateSnackBar}

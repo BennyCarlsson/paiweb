@@ -1,3 +1,6 @@
+fix login
+fix open notifications
+
 fix preview
 update feed after post image
 imagePreviewUrl pagelayout->feed
@@ -8,6 +11,7 @@ draw on canvas
 groups
 show blurred posts when feed not accessable
 notifications
+android notifications badge
 
 fb rules
 only get images 48hours

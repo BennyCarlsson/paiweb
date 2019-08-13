@@ -103,3 +103,10 @@ export const getImageUrlOnRef = path => {
   var storageRef = firebase.storage().ref(path)
   return storageRef.getDownloadURL().then(url => url)
 }
+
+export const saveFCMToken = (token, userId) => {
+  return db
+    .collection("users")
+    .doc(userId)
+    .update({ FCMToken: token })
+}
