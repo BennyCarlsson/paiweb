@@ -5,8 +5,8 @@ import PageLayout from "./components/PageLayout"
 import * as serviceWorker from "./serviceWorker"
 import UpdateSnackbar from "./components/UpdateSnackbar"
 import { initializePush } from "./pushNotifications"
-import firebase from "firebase/app"
-import "firebase/messaging"
+import firebase from "firebase"
+
 const messaging = firebase.messaging()
 
 const theme = createMuiTheme({

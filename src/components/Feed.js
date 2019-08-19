@@ -18,21 +18,27 @@ const Feed = props => {
   }
 
   useEffect(() => {
-    const getAllFeedImages = () => {
-      if (props.gotLatestPost) {
-        if (props.latestValidPost) {
-          setShowFeed(true)
-          getAllPosts().then(posts => setAllPosts(posts))
-        } else {
-          setShowFeed(false)
-        }
-        setIsLoading(false)
+    if (props.gotLatestPost) {
+      if (props.latestValidPost) {
+        setShowFeed(true)
+        getAllPosts().then(posts => setAllPosts(posts))
       } else {
-        setIsLoading(true)
+        setShowFeed(false)
       }
+      setIsLoading(false)
+    } else {
+      setIsLoading(true)
     }
-    getAllFeedImages()
   }, [props.latestValidPost, props.gotLatestPost])
+
+  //Todo this is a quickfix remove updatefeed from pagelayout
+  // replace this with redux or something
+  useEffect(() => {
+    //ugly quickfix since it's 0 first time it won't update
+    if (props.updateFeed) {
+      getAllPosts().then(posts => setAllPosts(posts))
+    }
+  }, [props.updateFeed])
 
   const renderPost = () => {
     return allPosts.map((post, i) => (

@@ -21,6 +21,7 @@ const PageLayout = props => {
   const [latestValidPost, setLatestValidPost] = useState()
   const [gotLatestPost, setGotLatestPost] = useState(false)
   const [showUploadLoader, setShowUploadLoader] = useState(false)
+  const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
 
   const setterAuthContext = authContext => {
@@ -53,8 +54,13 @@ const PageLayout = props => {
     setShowUploadLoader(true)
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, authContext.user, () => setShowUploadLoader(false))
+      uploadImage(file, authContext.user, uploadImageCallback)
     })
+  }
+
+  const uploadImageCallback = () => {
+    setShowUploadLoader(false)
+    setUpdateFeed(updateFeed + 1)
   }
 
   return (
@@ -67,6 +73,7 @@ const PageLayout = props => {
             imagePreviewUrl={imagePreviewUrl}
             latestValidPost={latestValidPost}
             gotLatestPost={gotLatestPost}
+            updateFeed={updateFeed}
           />
         ) : (
           <LoginPage setAuthContext={setterAuthContext} />

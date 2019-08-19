@@ -9,6 +9,8 @@ show blurred posts when feed not accessable
 notifications
 android notifications badge
 
+if remove import firebase from app.js push notifications breaks :S
+
 pushnotifications accurate feedback
 
 fb rules

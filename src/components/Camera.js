@@ -36,7 +36,6 @@ const Camera = props => {
     if (reason === "clickaway") {
       return
     }
-
     setOpenSnackbar(false)
   }
 
