@@ -35,14 +35,9 @@ class App extends Component {
       navigator.serviceWorker
         .register("./fbsw/firebase-messaging-sw.js")
         .then(registration => {
-          console.log("Registration successful, scope is:", registration.scope)
           messaging.useServiceWorker(registration)
           initializePush(messaging)
             .then(token => {
-              console.log("FCM Token:", token)
-              //you probably want to send your new found FCM token to the
-              //application server so that they can send any push
-              //notification to you.
               this.setState({ FCMToken: token })
             })
             .catch(error => {

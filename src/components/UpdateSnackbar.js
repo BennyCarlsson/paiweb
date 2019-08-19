@@ -1,7 +1,7 @@
 import React from "react"
 import Snackbar from "@material-ui/core/Snackbar"
 
-function UpdateSnackbar(props) {
+const UpdateSnackbar = props => {
   return (
     <div>
       <Snackbar

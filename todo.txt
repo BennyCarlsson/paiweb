@@ -1,7 +1,3 @@
-fix login
-fix open notifications
-
-fix preview
 update feed after post image
 imagePreviewUrl pagelayout->feed
 
@@ -13,7 +9,10 @@ show blurred posts when feed not accessable
 notifications
 android notifications badge
 
+pushnotifications accurate feedback
+
 fb rules
+pushnotifications
 only get images 48hours
 only read if you posted
 Cleanup firebase rules and db structure

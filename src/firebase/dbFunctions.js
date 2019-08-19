@@ -12,14 +12,13 @@ export const uploadImage = (file, user, callBack) => {
   task.on(
     "state_changed",
     function progress(snapshot) {
-      var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      console.log("percentage", percentage)
+      // var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      // console.log("percentage", percentage)
     },
     function error(err) {
       "ERROR!"
     },
     function complete() {
-      console.log("DONE!")
       saveImageRef(imagePath, user, callBack)
     }
   )
@@ -35,7 +34,6 @@ const saveImageRef = (ref, user, callBack) => {
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
     .then(function(docRef) {
-      console.log("Document written with docRef: ", docRef)
       updateLastUserPost(user.uid).then(() => {
         callBack()
       })
@@ -52,7 +50,7 @@ const updateLastUserPost = userId => {
     .update({ lastUpdate: firebase.firestore.FieldValue.serverTimestamp() })
 }
 
-export const getAllUsers = () => {
+export const getAllUsers = async () => {
   return db
     .collection("users")
     .get()
@@ -109,4 +107,13 @@ export const saveFCMToken = (token, userId) => {
     .collection("users")
     .doc(userId)
     .update({ FCMToken: token })
+}
+
+export const sendPushNotification = FCMToken => {
+  const sendPushNotificationTest = firebase
+    .functions()
+    .httpsCallable("sendPushNotificationTest")
+  sendPushNotificationTest({
+    FCMToken: FCMToken
+  })
 }
