@@ -11,6 +11,8 @@ import { AuthContext } from "../AuthContext"
 import { convertTimeStamp } from "../utils"
 import Typography from "@material-ui/core/Typography"
 import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
+import CreateGroupButton from "./CreateGroupButton"
+import ListGroups from "./ListGroups"
 
 const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
@@ -82,8 +84,10 @@ const CustomSideDrawer = props => {
           <List dense className={classes.list}>
             {renderUsers()}
           </List>
+          <ListGroups />
+          <CreateGroupButton />
           <Typography variant="body2" gutterBottom>
-            v.0.1.4
+            Beta v.0.1.4
           </Typography>
         </div>
       </SwipeableDrawer>

@@ -8,14 +8,15 @@ import Camera from "./Camera"
 import {
   uploadImage,
   latestTimeValidPost,
-  saveFCMToken
+  saveFCMToken,
+  joinGroup
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { AuthContext } from "../AuthContext"
 import { compressImage } from "../utils"
 
 const PageLayout = props => {
-  const [openSideDrawer, setOpenSideDrawer] = useState(false)
+  const [openSideDrawer, setOpenSideDrawer] = useState(true)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
   const [authContext, setAuthContext] = useState({})
   const [latestValidPost, setLatestValidPost] = useState()
@@ -47,6 +48,16 @@ const PageLayout = props => {
       saveFCMToken(props.FCMToken, authContext.user.uid)
     }
   }, [authContext, props.FCMToken])
+
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    const groupId = url.searchParams.get("groupId")
+
+    if (groupId && authContext.authenticated) {
+      window.history.pushState({}, "", "/")
+      joinGroup(groupId, authContext.user)
+    }
+  }, [authContext.user, authContext.authenticated])
 
   const handleFile = event => {
     var file = event.target.files[0]

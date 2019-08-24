@@ -59,8 +59,6 @@ class App extends Component {
     })
   }
 
-  componentDidMount = () => {}
-
   handleServiceWorkerUpdate = registration => {
     this.setState({ showUpdateSnackBar: true })
   }

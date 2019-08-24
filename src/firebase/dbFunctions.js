@@ -117,3 +117,68 @@ export const sendPushNotification = FCMToken => {
     FCMToken: FCMToken
   })
 }
+
+export const createNewGroup = user => {
+  db.collection("groups").add({
+    uidList: [user.uid],
+    members: [{ uid: user.uid, photoURL: user.photoURL }]
+  })
+}
+
+export const getUserGroups = uid => {
+  add()
+  return db
+    .collection("groups")
+    .where("uidList", "array-contains", uid)
+    .get()
+    .then(querySnapshot => {
+      let groups = []
+      querySnapshot.forEach(doc => {
+        const group = doc.data()
+        group.id = doc.id
+        groups.push(group)
+      })
+      return groups
+    })
+}
+
+export const joinGroup = (groupId, user) => {
+  db.collection("groups")
+    .doc(groupId)
+    .update({
+      uidList: firebase.firestore.FieldValue.arrayUnion(user.uid),
+      members: firebase.firestore.FieldValue.arrayUnion({
+        uid: user.uid,
+        photoURL: user.photoURL
+      })
+    })
+}
+
+const add = () => {
+  const groupId = "CDOIrF5OQvtZn7Rzpb0U"
+  db.collection("groups")
+    .doc(groupId)
+    .update({
+      uidList: firebase.firestore.FieldValue.arrayUnion(
+        "cR6Eh2RP0FgSuFwOBel9F4OPEuq1"
+      ),
+      members: firebase.firestore.FieldValue.arrayUnion({
+        uid: "cR6Eh2RP0FgSuFwOBel9F4OPEuq1",
+        photoURL: "https://graph.facebook.com/10205753119545045/picture"
+      })
+    })
+  add2(groupId)
+}
+const add2 = groupId => {
+  db.collection("groups")
+    .doc(groupId)
+    .update({
+      uidList: firebase.firestore.FieldValue.arrayUnion(
+        "22XINNhuU7eJT2AylF6zsD3Ytmj1"
+      ),
+      members: firebase.firestore.FieldValue.arrayUnion({
+        uid: "22XINNhuU7eJT2AylF6zsD3Ytmj1",
+        photoURL: "https://graph.facebook.com/10215215601204013/picture"
+      })
+    })
+}
