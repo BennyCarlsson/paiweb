@@ -1,4 +1,6 @@
-import React, { useEffect, useContext, useState } from "react"
+import React, { useEffect, useContext } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { setGroups } from "../redux/actions"
 import { AuthContext } from "../AuthContext"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
@@ -8,17 +10,18 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/styles"
 
 const ListGroups = () => {
-  const [groups, setGroups] = useState([])
   const context = useContext(AuthContext)
   const classes = useStyle()
+  const dispatch = useDispatch()
+  const groups = useSelector(state => state.groups.groups)
 
   useEffect(() => {
     if (context.authenticated && context.user) {
       getUserGroups(context.user.uid).then(groups => {
-        setGroups(groups)
+        dispatch(setGroups(groups))
       })
     }
-  }, [context.authenticated, context.user])
+  }, [context.authenticated, context.user, dispatch])
 
   const renderGroups = () => {
     return groups ? (

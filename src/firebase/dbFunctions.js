@@ -126,7 +126,6 @@ export const createNewGroup = user => {
 }
 
 export const getUserGroups = uid => {
-  add()
   return db
     .collection("groups")
     .where("uidList", "array-contains", uid)

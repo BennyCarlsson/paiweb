@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
@@ -78,14 +78,20 @@ const PageLayout = props => {
     <div className={classes.App}>
       <AuthContext.Provider value={authContext}>
         <CustomAppBar setAuthContext={setterAuthContext} />
-        <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
+
         {authContext.authenticated ? (
-          <Feed
-            imagePreviewUrl={imagePreviewUrl}
-            latestValidPost={latestValidPost}
-            gotLatestPost={gotLatestPost}
-            updateFeed={updateFeed}
-          />
+          <Fragment>
+            <CustomSideDrawer
+              open={openSideDrawer}
+              toggleDrawer={toggleDrawer}
+            />
+            <Feed
+              imagePreviewUrl={imagePreviewUrl}
+              latestValidPost={latestValidPost}
+              gotLatestPost={gotLatestPost}
+              updateFeed={updateFeed}
+            />
+          </Fragment>
         ) : (
           <LoginPage setAuthContext={setterAuthContext} />
         )}

@@ -6,6 +6,8 @@ import * as serviceWorker from "./serviceWorker"
 import UpdateSnackbar from "./components/UpdateSnackbar"
 import { initializePush } from "./pushNotifications"
 import firebase from "firebase"
+import { Provider } from "react-redux"
+import store from "./redux/store"
 
 const messaging = firebase.messaging()
 
@@ -75,7 +77,9 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <PageLayout FCMToken={this.state.FCMToken} />
+        <Provider store={store}>
+          <PageLayout FCMToken={this.state.FCMToken} />
+        </Provider>
         <UpdateSnackbar
           handleCloseSnackBar={this.handleCloseSnackBar}
           showUpdateSnackBar={this.state.showUpdateSnackBar}
