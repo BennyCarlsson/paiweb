@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import { withStyles } from "@material-ui/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -8,17 +8,20 @@ import Icon from "@material-ui/core/Icon"
 import Avatar from "@material-ui/core/Avatar"
 import MenuItem from "@material-ui/core/MenuItem"
 import Menu from "@material-ui/core/Menu"
-import { AuthContext } from "../AuthContext"
+import { useSelector } from "react-redux"
 import firebase from "../firebase/firebase"
+import { useDispatch } from "react-redux"
+import { logout } from "../redux/actions"
 
 const CustomAppBar = props => {
   const { classes } = props
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
-  const context = useContext(AuthContext)
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   function handleMenu(event) {
-    context.authenticated && setAnchorEl(event.currentTarget)
+    user.authenticated && setAnchorEl(event.currentTarget)
   }
 
   function handleClose() {
@@ -27,7 +30,7 @@ const CustomAppBar = props => {
   function handleSignOut() {
     setAnchorEl(null)
     firebase.auth().signOut()
-    props.setAuthContext({})
+    dispatch(logout())
   }
 
   return (
@@ -38,10 +41,10 @@ const CustomAppBar = props => {
             Pai
           </Typography>
           <IconButton color="inherit" onClick={handleMenu}>
-            {context.authenticated ? (
+            {user.authenticated ? (
               <Avatar
                 alt="Remy Sharp"
-                src={context.user.photoURL}
+                src={user.data.photoURL}
                 className={classes.avatar}
               />
             ) : (

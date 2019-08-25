@@ -1,7 +1,8 @@
-import { SET_USER } from "../actionTypes"
+import { SET_USER, LOGOUT } from "../actionTypes"
 
 const initialState = {
-  groups: {}
+  authenticated: false,
+  data: {}
 }
 
 export default (state = initialState, action) => {
@@ -10,7 +11,15 @@ export default (state = initialState, action) => {
       const { user } = action.payload
       return {
         ...state,
-        user: user
+        authenticated: !!user,
+        data: user
+      }
+    }
+    case LOGOUT: {
+      return {
+        ...state,
+        authenticated: false,
+        data: {}
       }
     }
     default:

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react"
+import { useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
@@ -12,60 +13,57 @@ import {
   joinGroup
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
-import { AuthContext } from "../AuthContext"
 import { compressImage } from "../utils"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(true)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
-  const [authContext, setAuthContext] = useState({})
+
   const [latestValidPost, setLatestValidPost] = useState()
   const [gotLatestPost, setGotLatestPost] = useState(false)
   const [showUploadLoader, setShowUploadLoader] = useState(false)
   const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
+  const user = useSelector(state => state.user)
 
-  const setterAuthContext = authContext => {
-    setAuthContext(authContext)
-  }
   const toggleDrawer = openSideDrawer => () => {
     setOpenSideDrawer(openSideDrawer)
   }
 
   useEffect(() => {
     const getLatestValidPost = () => {
-      if (!authContext.authenticated) return
-      latestTimeValidPost(authContext.user.uid).then(post => {
+      if (!user.authenticated) return
+      latestTimeValidPost(user.data.uid).then(post => {
         setLatestValidPost(post)
         setGotLatestPost(true)
       })
     }
     getLatestValidPost()
-  }, [authContext])
+  }, [user])
 
   useEffect(() => {
-    if (authContext.authenticated && props.FCMToken) {
-      saveFCMToken(props.FCMToken, authContext.user.uid)
+    if (user.authenticated && props.FCMToken) {
+      saveFCMToken(props.FCMToken, user.data.uid)
     }
-  }, [authContext, props.FCMToken])
+  }, [user, props.FCMToken]) //Todo FCMToken in redux
 
   useEffect(() => {
     const url = new URL(window.location.href)
     const groupId = url.searchParams.get("groupId")
 
-    if (groupId && authContext.authenticated) {
+    if (groupId && user.authenticated) {
       window.history.pushState({}, "", "/")
-      joinGroup(groupId, authContext.user)
+      joinGroup(groupId, user.data)
     }
-  }, [authContext.user, authContext.authenticated])
+  }, [user, user.authenticated])
 
   const handleFile = event => {
     var file = event.target.files[0]
-    if (!file && authContext.authenticated) return
+    if (!file && user.authenticated) return
     setShowUploadLoader(true)
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, authContext.user, uploadImageCallback)
+      uploadImage(file, user.data, uploadImageCallback)
     })
   }
 
@@ -76,36 +74,31 @@ const PageLayout = props => {
 
   return (
     <div className={classes.App}>
-      <AuthContext.Provider value={authContext}>
-        <CustomAppBar setAuthContext={setterAuthContext} />
+      <CustomAppBar />
 
-        {authContext.authenticated ? (
-          <Fragment>
-            <CustomSideDrawer
-              open={openSideDrawer}
-              toggleDrawer={toggleDrawer}
-            />
-            <Feed
-              imagePreviewUrl={imagePreviewUrl}
-              latestValidPost={latestValidPost}
-              gotLatestPost={gotLatestPost}
-              updateFeed={updateFeed}
-            />
-          </Fragment>
-        ) : (
-          <LoginPage setAuthContext={setterAuthContext} />
-        )}
-        <CustomBottomAppBar
-          toggleDrawer={toggleDrawer}
-          camera={
-            <Camera
-              showUploadLoader={showUploadLoader}
-              handleFile={handleFile}
-              latestValidPost={latestValidPost}
-            />
-          }
-        />
-      </AuthContext.Provider>
+      {user.authenticated ? (
+        <Fragment>
+          <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
+          <Feed
+            imagePreviewUrl={imagePreviewUrl}
+            latestValidPost={latestValidPost}
+            gotLatestPost={gotLatestPost}
+            updateFeed={updateFeed}
+          />
+        </Fragment>
+      ) : (
+        <LoginPage />
+      )}
+      <CustomBottomAppBar
+        toggleDrawer={toggleDrawer}
+        camera={
+          <Camera
+            showUploadLoader={showUploadLoader}
+            handleFile={handleFile}
+            latestValidPost={latestValidPost}
+          />
+        }
+      />
     </div>
   )
 }

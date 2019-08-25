@@ -1,5 +1,5 @@
-import React, { createRef, useState, useEffect, useContext } from "react"
-import { AuthContext } from "../AuthContext"
+import React, { createRef, useState, useEffect } from "react"
+import { useSelector } from "react-redux"
 import { withStyles } from "@material-ui/styles"
 import Fab from "@material-ui/core/Fab"
 import Icon from "@material-ui/core/Icon"
@@ -13,8 +13,7 @@ const Camera = props => {
   const inputRef = createRef()
   const [progressValue, setProgressValue] = useState(0)
   const [openSnackbar, setOpenSnackbar] = React.useState(false)
-
-  const context = useContext(AuthContext)
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     if (!props.latestValidPost) {
@@ -25,7 +24,7 @@ const Camera = props => {
   }, [props.latestValidPost])
 
   const handleCameraClick = () => {
-    if (!context.authenticated) {
+    if (!user.authenticated) {
       setOpenSnackbar(true)
     } else {
       inputRef.current.click()

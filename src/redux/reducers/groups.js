@@ -7,8 +7,8 @@ export default (state = initialState, action) => {
     case SET_GROUPS: {
       const { groups } = action.payload
       return {
-        groups,
-        ...state
+        ...state,
+        groups
       }
     }
     default:

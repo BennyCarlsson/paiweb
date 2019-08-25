@@ -1,14 +1,14 @@
-import React, { useContext } from "react"
+import React from "react"
 import Button from "@material-ui/core/Button"
 import Icon from "@material-ui/core/Icon"
 import { createNewGroup } from "../firebase/dbFunctions"
-import { AuthContext } from "../AuthContext"
+import { useSelector } from "react-redux"
 
 const CreateGroupButton = () => {
-  const context = useContext(AuthContext)
+  const user = useSelector(state => state.user)
   const onPress = () => {
-    if (context.authenticated && context.user) {
-      createNewGroup(context.user)
+    if (user.authenticated && user.data) {
+      createNewGroup(user.data)
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, Fragment } from "react"
+import React, { useEffect, useState, Fragment } from "react"
 import { makeStyles } from "@material-ui/styles"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
 import { getAllUsers, sendPushNotification } from "../firebase/dbFunctions"
@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
-import { AuthContext } from "../AuthContext"
+import { useSelector } from "react-redux"
 import { convertTimeStamp } from "../utils"
 import Typography from "@material-ui/core/Typography"
 import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
@@ -19,15 +19,15 @@ const CustomSideDrawer = props => {
   const classes = useStyles()
   const [users, setUsers] = useState()
   const [showSnackBar, setShowSnackBar] = useState(false)
-  const context = useContext(AuthContext)
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
-    if (context.authenticated) {
+    if (user.authenticated) {
       getAllUsers().then(users => setUsers(users))
     } else {
       setUsers([])
     }
-  }, [context.authenticated])
+  }, [user.authenticated])
 
   const onPress = FCMToken => {
     setShowSnackBar(true)
@@ -42,10 +42,10 @@ const CustomSideDrawer = props => {
       return <p>...</p>
     }
 
-    return users.map((u, i) => user(u, i))
+    return users.map((u, i) => userItem(u, i))
   }
 
-  const user = (u, i) => {
+  const userItem = (u, i) => {
     return (
       <ListItem key={i + "1"} button onClick={() => onPress(u.FCMToken)}>
         <ListItemAvatar>

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react"
 import firebase from "../firebase/firebase"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import Typography from "@material-ui/core/Typography"
+import { useDispatch } from "react-redux"
+import { setUser } from "../redux/actions"
 
 const LoginPage = props => {
   const [triedToAuth, setTriedToAuth] = useState(false)
-
+  const dispatch = useDispatch()
   // Configure FirebaseUI.
   const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -20,10 +22,7 @@ const LoginPage = props => {
 
   useEffect(() => {
     let unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      props.setAuthContext({
-        authenticated: !!user,
-        user: user
-      })
+      dispatch(setUser(user))
       if (!user) {
         setTriedToAuth(true)
       }
