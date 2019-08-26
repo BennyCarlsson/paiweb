@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setGroups } from "../redux/actions"
 import List from "@material-ui/core/List"
@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/styles"
 const ListGroups = () => {
   const classes = useStyle()
   const dispatch = useDispatch()
-  const groups = useSelector(state => state.groups.groups)
+  const groups = useSelector(state => state.groups)
   const user = useSelector(state => state.user)
 
   useEffect(() => {
@@ -37,11 +37,12 @@ const ListGroups = () => {
   }
 
   const groupItem = (group, i) => {
-    return (
-      <ListItem key={"key" + i} button onClick={() => onPress(group.id)}>
-        {renderMembersAvatar(group)}
-      </ListItem>
-    )
+    return ""
+    // return (
+    //   <ListItem key={"key" + i} button onClick={() => onPress(group.id)}>
+    //     {renderMembersAvatar(group)}
+    //   </ListItem>
+    // )
   }
 
   const renderMembersAvatar = group => {

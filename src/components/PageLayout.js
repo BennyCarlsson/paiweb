@@ -16,7 +16,7 @@ import LoginPage from "./LoginPage"
 import { compressImage } from "../utils"
 
 const PageLayout = props => {
-  const [openSideDrawer, setOpenSideDrawer] = useState(true)
+  const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
 
   const [latestValidPost, setLatestValidPost] = useState()
@@ -25,6 +25,7 @@ const PageLayout = props => {
   const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
   const user = useSelector(state => state.user)
+  const groups = useSelector(state => state.groups)
 
   const toggleDrawer = openSideDrawer => () => {
     setOpenSideDrawer(openSideDrawer)
@@ -61,10 +62,25 @@ const PageLayout = props => {
     var file = event.target.files[0]
     if (!file && user.authenticated) return
     setShowUploadLoader(true)
+    const groupIds = extractGroupId(groups)
+    const groupUserIds = extractUserIds(groups)
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, user.data, uploadImageCallback)
+      uploadImage(file, user.data, groupIds, groupUserIds, uploadImageCallback)
     })
+  }
+  const extractGroupId = groups => {
+    return groups.map(group => group.id)
+  }
+
+  const extractUserIds = groups => {
+    let array = []
+    groups.forEach(group => {
+      array = array.concat(
+        group.uidList.filter(item => array.indexOf(item) < 0)
+      )
+    })
+    return array
   }
 
   const uploadImageCallback = () => {

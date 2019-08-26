@@ -6,10 +6,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_GROUPS: {
       const { groups } = action.payload
-      return {
-        ...state,
-        groups
-      }
+      return groups
     }
     default:
       return state

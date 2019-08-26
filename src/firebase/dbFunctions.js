@@ -2,7 +2,7 @@ import firebase, { db } from "./firebase"
 import { postValidTimeMilliSeconds } from "../settingsConfig"
 import { changeImageName } from "../utils"
 
-export const uploadImage = (file, user, callBack) => {
+export const uploadImage = (file, user, groupIds, groupUserIds, callBack) => {
   const imagePath = "images/" + user.uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
   var task = storageRef.put(file, {
@@ -19,19 +19,20 @@ export const uploadImage = (file, user, callBack) => {
       "ERROR!"
     },
     function complete() {
-      saveImageRef(imagePath, user, callBack)
+      saveImageRef(imagePath, user, groupIds, groupUserIds, callBack)
     }
   )
 }
 
-const saveImageRef = (ref, user, callBack) => {
+const saveImageRef = (ref, user, groupIds, groupUserIds, callBack) => {
   db.collection("posts")
     .add({
       uid: user.uid,
       userPhotoURL: user.photoURL,
       imgRef: ref,
-      text: "",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      groupIds,
+      groupUserIds
     })
     .then(function(docRef) {
       updateLastUserPost(user.uid).then(() => {
@@ -63,7 +64,7 @@ export const getAllUsers = async () => {
     })
 }
 
-export const getAllPosts = () => {
+export const getAllPosts = uid => {
   return db
     .collection("posts")
     .where("timestamp", ">", new Date(Date.now() - postValidTimeMilliSeconds))

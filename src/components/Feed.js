@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 import Typography from "@material-ui/core/Typography"
 import NoAccessToFeed from "./NoAccessToFeed"
+import { useSelector } from "react-redux"
 
 const Feed = props => {
   const [allPosts, setAllPosts] = useState([])
@@ -12,7 +13,7 @@ const Feed = props => {
   const [isLoading, setIsLoading] = useState(true)
   const [renderImages, setRenderImages] = useState(2)
   const classes = useStyles()
-
+  const user = useSelector(state => state.user)
   const renderNextImages = i => {
     setRenderImages(i + 2)
   }
@@ -21,7 +22,7 @@ const Feed = props => {
     if (props.gotLatestPost) {
       if (props.latestValidPost) {
         setShowFeed(true)
-        getAllPosts().then(posts => setAllPosts(posts))
+        getAllPosts(user.data.uid).then(posts => setAllPosts(posts))
       } else {
         setShowFeed(false)
       }
@@ -29,16 +30,16 @@ const Feed = props => {
     } else {
       setIsLoading(true)
     }
-  }, [props.latestValidPost, props.gotLatestPost])
+  }, [props.latestValidPost, props.gotLatestPost, user])
 
   //Todo this is a quickfix remove updatefeed from pagelayout
   // replace this with redux or something
   useEffect(() => {
     //ugly quickfix since it's 0 first time it won't update
     if (props.updateFeed) {
-      getAllPosts().then(posts => setAllPosts(posts))
+      getAllPosts(user.uid.data).then(posts => setAllPosts(posts))
     }
-  }, [props.updateFeed])
+  }, [props.updateFeed, user])
 
   const renderPost = () => {
     return allPosts.map((post, i) => (
