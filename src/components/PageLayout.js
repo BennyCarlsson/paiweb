@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
@@ -10,10 +10,12 @@ import {
   uploadImage,
   latestTimeValidPost,
   saveFCMToken,
-  joinGroup
+  joinGroup,
+  getUserGroups
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { compressImage } from "../utils"
+import { setGroups } from "../redux/actions"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -24,6 +26,7 @@ const PageLayout = props => {
   const [showUploadLoader, setShowUploadLoader] = useState(false)
   const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const groups = useSelector(state => state.groups)
 
@@ -57,6 +60,14 @@ const PageLayout = props => {
       joinGroup(groupId, user.data)
     }
   }, [user, user.authenticated])
+
+  useEffect(() => {
+    if (user.authenticated && user.data) {
+      getUserGroups(user.data.uid).then(groups => {
+        dispatch(setGroups(groups))
+      })
+    }
+  }, [user, dispatch])
 
   const handleFile = event => {
     var file = event.target.files[0]

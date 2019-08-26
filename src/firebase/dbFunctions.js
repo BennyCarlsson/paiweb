@@ -154,31 +154,31 @@ export const joinGroup = (groupId, user) => {
     })
 }
 
-const add = () => {
-  const groupId = "CDOIrF5OQvtZn7Rzpb0U"
-  db.collection("groups")
-    .doc(groupId)
-    .update({
-      uidList: firebase.firestore.FieldValue.arrayUnion(
-        "cR6Eh2RP0FgSuFwOBel9F4OPEuq1"
-      ),
-      members: firebase.firestore.FieldValue.arrayUnion({
-        uid: "cR6Eh2RP0FgSuFwOBel9F4OPEuq1",
-        photoURL: "https://graph.facebook.com/10205753119545045/picture"
-      })
-    })
-  add2(groupId)
-}
-const add2 = groupId => {
-  db.collection("groups")
-    .doc(groupId)
-    .update({
-      uidList: firebase.firestore.FieldValue.arrayUnion(
-        "22XINNhuU7eJT2AylF6zsD3Ytmj1"
-      ),
-      members: firebase.firestore.FieldValue.arrayUnion({
-        uid: "22XINNhuU7eJT2AylF6zsD3Ytmj1",
-        photoURL: "https://graph.facebook.com/10215215601204013/picture"
-      })
-    })
-}
+// const add = () => {
+//   const groupId = "CDOIrF5OQvtZn7Rzpb0U"
+//   db.collection("groups")
+//     .doc(groupId)
+//     .update({
+//       uidList: firebase.firestore.FieldValue.arrayUnion(
+//         "cR6Eh2RP0FgSuFwOBel9F4OPEuq1"
+//       ),
+//       members: firebase.firestore.FieldValue.arrayUnion({
+//         uid: "cR6Eh2RP0FgSuFwOBel9F4OPEuq1",
+//         photoURL: "https://graph.facebook.com/10205753119545045/picture"
+//       })
+//     })
+//   add2(groupId)
+// }
+// const add2 = groupId => {
+//   db.collection("groups")
+//     .doc(groupId)
+//     .update({
+//       uidList: firebase.firestore.FieldValue.arrayUnion(
+//         "22XINNhuU7eJT2AylF6zsD3Ytmj1"
+//       ),
+//       members: firebase.firestore.FieldValue.arrayUnion({
+//         uid: "22XINNhuU7eJT2AylF6zsD3Ytmj1",
+//         photoURL: "https://graph.facebook.com/10215215601204013/picture"
+//       })
+//     })
+// }

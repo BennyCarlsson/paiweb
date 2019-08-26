@@ -1,26 +1,15 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { setGroups } from "../redux/actions"
+import React from "react"
+import { useSelector } from "react-redux"
+
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import Avatar from "@material-ui/core/Avatar"
-import { getUserGroups } from "../firebase/dbFunctions"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/styles"
 
 const ListGroups = () => {
   const classes = useStyle()
-  const dispatch = useDispatch()
   const groups = useSelector(state => state.groups)
-  const user = useSelector(state => state.user)
-
-  useEffect(() => {
-    if (user.authenticated && user.data) {
-      getUserGroups(user.data.uid).then(groups => {
-        dispatch(setGroups(groups))
-      })
-    }
-  }, [user, dispatch])
 
   const renderGroups = () => {
     return groups ? (
@@ -37,12 +26,11 @@ const ListGroups = () => {
   }
 
   const groupItem = (group, i) => {
-    return ""
-    // return (
-    //   <ListItem key={"key" + i} button onClick={() => onPress(group.id)}>
-    //     {renderMembersAvatar(group)}
-    //   </ListItem>
-    // )
+    return (
+      <ListItem key={"key" + i} button onClick={() => onPress(group.id)}>
+        {renderMembersAvatar(group)}
+      </ListItem>
+    )
   }
 
   const renderMembersAvatar = group => {
@@ -68,7 +56,8 @@ const ListGroups = () => {
     )
   }
 
-  return <List>{renderGroups()}</List>
+  return ""
+  //return <List>{renderGroups()}</List>
 }
 
 const useStyle = makeStyles(theme => ({

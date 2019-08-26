@@ -37,7 +37,7 @@ const Feed = props => {
   useEffect(() => {
     //ugly quickfix since it's 0 first time it won't update
     if (props.updateFeed) {
-      getAllPosts(user.uid.data).then(posts => setAllPosts(posts))
+      getAllPosts(user.data.uid).then(posts => setAllPosts(posts))
     }
   }, [props.updateFeed, user])
 
