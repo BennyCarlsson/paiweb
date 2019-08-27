@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { getAllPosts } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
-import Icon from "@material-ui/core/Icon"
 import Typography from "@material-ui/core/Typography"
 import NoAccessToFeed from "./NoAccessToFeed"
 import { useSelector, useDispatch } from "react-redux"
@@ -43,6 +42,7 @@ const Feed = props => {
     //ugly quickfix since it's 0 first time it won't update
     if (props.updateFeed) {
       getAllPosts(user.data.uid).then(posts => dispatch(setAllPosts(posts)))
+      setShowFeed(true)
     }
   }, [props.updateFeed, user, dispatch])
 
@@ -70,12 +70,7 @@ const Feed = props => {
       {isLoading ? (
         <Typography variant="subtitle1">loading</Typography>
       ) : showFeed ? (
-        [
-          renderPost(),
-          <div key="uniqeKeyforlastfeedfisheye" className={classes.feedEndDiv}>
-            <Icon fontSize="small">panorama_fish_eye</Icon>
-          </div>
-        ]
+        renderPost()
       ) : (
         <NoAccessToFeed />
       )}
@@ -92,13 +87,6 @@ const useStyles = makeStyles(theme => ({
   },
   feedTopDiv: {
     scrollSnapAlign: "end"
-  },
-  feedEndDiv: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "15vh",
-    color: theme.palette.gray.main
   }
 }))
 

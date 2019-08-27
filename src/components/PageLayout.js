@@ -98,6 +98,10 @@ const PageLayout = props => {
   const uploadImageCallback = () => {
     setShowUploadLoader(false)
     setUpdateFeed(updateFeed + 1)
+    latestTimeValidPost(user.data.uid).then(post => {
+      setLatestValidPost(post)
+      setGotLatestPost(true)
+    })
   }
 
   return (
