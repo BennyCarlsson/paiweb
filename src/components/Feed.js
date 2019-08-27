@@ -5,15 +5,18 @@ import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 import Typography from "@material-ui/core/Typography"
 import NoAccessToFeed from "./NoAccessToFeed"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { setAllPosts } from "../redux/actions"
 
 const Feed = props => {
-  const [allPosts, setAllPosts] = useState([])
   const [showFeed, setShowFeed] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [renderImages, setRenderImages] = useState(2)
   const classes = useStyles()
   const user = useSelector(state => state.user)
+  const feed = useSelector(state => state.feed)
+  const dispatch = useDispatch()
+
   const renderNextImages = i => {
     setRenderImages(i + 2)
   }
@@ -22,7 +25,9 @@ const Feed = props => {
     if (props.gotLatestPost) {
       if (props.latestValidPost) {
         setShowFeed(true)
-        getAllPosts(user.data.uid).then(posts => setAllPosts(posts))
+        getAllPosts(user.data.uid).then(posts => {
+          dispatch(setAllPosts(posts))
+        })
       } else {
         setShowFeed(false)
       }
@@ -30,19 +35,25 @@ const Feed = props => {
     } else {
       setIsLoading(true)
     }
-  }, [props.latestValidPost, props.gotLatestPost, user])
+  }, [props.latestValidPost, props.gotLatestPost, user, dispatch])
 
   //Todo this is a quickfix remove updatefeed from pagelayout
   // replace this with redux or something
   useEffect(() => {
     //ugly quickfix since it's 0 first time it won't update
     if (props.updateFeed) {
-      getAllPosts(user.data.uid).then(posts => setAllPosts(posts))
+      getAllPosts(user.data.uid).then(posts => dispatch(setAllPosts(posts)))
     }
-  }, [props.updateFeed, user])
+  }, [props.updateFeed, user, dispatch])
 
   const renderPost = () => {
-    return allPosts.map((post, i) => (
+    const posts =
+      feed.currentGroup && feed.allPosts
+        ? feed.allPosts.filter(post =>
+            post.groupIds.includes(feed.currentGroup.id)
+          )
+        : []
+    return posts.map((post, i) => (
       <Post
         key={"post" + i}
         renderNextImages={renderNextImages}
@@ -61,7 +72,7 @@ const Feed = props => {
       ) : showFeed ? (
         [
           renderPost(),
-          <div key="alasd213" className={classes.feedEndDiv}>
+          <div key="uniqeKeyforlastfeedfisheye" className={classes.feedEndDiv}>
             <Icon fontSize="small">panorama_fish_eye</Icon>
           </div>
         ]

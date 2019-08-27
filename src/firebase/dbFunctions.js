@@ -68,6 +68,7 @@ export const getAllPosts = uid => {
   return db
     .collection("posts")
     .where("timestamp", ">", new Date(Date.now() - postValidTimeMilliSeconds))
+    .where("groupUserIds", "array-contains", uid)
     .orderBy("timestamp", "desc")
     .limit(15)
     .get()

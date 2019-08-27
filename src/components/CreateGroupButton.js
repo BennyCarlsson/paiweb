@@ -12,7 +12,6 @@ const CreateGroupButton = () => {
     }
   }
 
-  return ""
   return (
     <Button color="secondary" onClick={onPress}>
       Create Group <Icon>add</Icon>

@@ -1,6 +1,6 @@
 import React from "react"
-import { useSelector } from "react-redux"
-
+import { useSelector, useDispatch } from "react-redux"
+import { changeGroup } from "../redux/actions"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import Avatar from "@material-ui/core/Avatar"
@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/styles"
 const ListGroups = () => {
   const classes = useStyle()
   const groups = useSelector(state => state.groups)
+  const dispatch = useDispatch()
 
   const renderGroups = () => {
     return groups ? (
@@ -27,7 +28,7 @@ const ListGroups = () => {
 
   const groupItem = (group, i) => {
     return (
-      <ListItem key={"key" + i} button onClick={() => onPress(group.id)}>
+      <ListItem key={"key" + i} button onClick={() => onPress(group)}>
         {renderMembersAvatar(group)}
       </ListItem>
     )
@@ -44,8 +45,11 @@ const ListGroups = () => {
     ))
   }
 
-  const onPress = groupId => {
-    const link = window.location.href + "?groupId=" + groupId
+  //Todo share button
+  const onPress = group => {
+    console.log(group)
+    dispatch(changeGroup(group))
+    const link = window.location.href + "?groupId=" + group.id
     navigator.clipboard.writeText(link).then(
       function() {
         //console.log("Async: Copying to clipboard was successful!", link)
@@ -56,8 +60,7 @@ const ListGroups = () => {
     )
   }
 
-  return ""
-  //return <List>{renderGroups()}</List>
+  return <List>{renderGroups()}</List>
 }
 
 const useStyle = makeStyles(theme => ({
