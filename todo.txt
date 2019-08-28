@@ -5,6 +5,7 @@ CustomSideDrawer extract users
 
 compression width vs quality
 draw on canvas
+comments/text
 
 groups
 don't join on groupId in url
@@ -12,8 +13,6 @@ share button for group
 only show users from your group
 if you leave a group remove?
 when joining group see old posts?
-create group only for admin
-invite to group only for admin
 
 show blurred posts when feed not accessable
 notifications

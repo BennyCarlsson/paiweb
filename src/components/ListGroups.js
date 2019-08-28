@@ -6,10 +6,13 @@ import ListItem from "@material-ui/core/ListItem"
 import Avatar from "@material-ui/core/Avatar"
 import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/styles"
+import Icon from "@material-ui/core/Icon"
+import IconButton from "@material-ui/core/IconButton"
 
 const ListGroups = () => {
   const classes = useStyle()
   const groups = useSelector(state => state.groups)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   const renderGroups = () => {
@@ -28,9 +31,18 @@ const ListGroups = () => {
 
   const groupItem = (group, i) => {
     return (
-      <ListItem key={"key" + i} button onClick={() => onPress(group)}>
-        {renderMembersAvatar(group)}
-      </ListItem>
+      <div key={"key" + i} className={classes.groupButtonWrapper}>
+        <ListItem button onClick={() => onPress(group)}>
+          {renderMembersAvatar(group)}
+        </ListItem>
+        {user.data.uid === "CtJDRqu7FUf6OReDg8ztcTo1wmv2" ? (
+          <IconButton onClick={() => onInvitePress(group.id)}>
+            <Icon>group_add</Icon>
+          </IconButton>
+        ) : (
+          ""
+        )}
+      </div>
     )
   }
 
@@ -45,10 +57,8 @@ const ListGroups = () => {
     ))
   }
 
-  //Todo share button
-  const onPress = group => {
-    dispatch(changeGroup(group))
-    const link = window.location.href + "?groupId=" + group.id
+  const onInvitePress = groupId => {
+    const link = window.location.href + "?groupId=" + groupId
     navigator.clipboard.writeText(link).then(
       function() {
         //console.log("Async: Copying to clipboard was successful!", link)
@@ -57,6 +67,11 @@ const ListGroups = () => {
         console.error("Async: Could not copy text: ", err)
       }
     )
+  }
+
+  //Todo share button
+  const onPress = group => {
+    dispatch(changeGroup(group))
   }
 
   return <List>{renderGroups()}</List>
@@ -69,6 +84,10 @@ const useStyle = makeStyles(theme => ({
   avatar: {
     marginLeft: "-6px",
     border: "2px solid white"
+  },
+  groupButtonWrapper: {
+    display: "flex",
+    alignItems: "center"
   }
 }))
 
