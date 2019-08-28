@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import Button from "@material-ui/core/Button"
 import Icon from "@material-ui/core/Icon"
 import { createNewGroup } from "../firebase/dbFunctions"
@@ -12,10 +12,17 @@ const CreateGroupButton = () => {
     }
   }
 
+  //Todo remove uid check
   return (
-    <Button color="secondary" onClick={onPress}>
-      Create Group <Icon>add</Icon>
-    </Button>
+    <Fragment>
+      {user.data.uid === "CtJDRqu7FUf6OReDg8ztcTo1wmv2" ? (
+        <Button color="secondary" onClick={onPress}>
+          Create Group <Icon>add</Icon>
+        </Button>
+      ) : (
+        ""
+      )}
+    </Fragment>
   )
 }
 

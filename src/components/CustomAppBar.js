@@ -32,7 +32,6 @@ const CustomAppBar = props => {
     firebase.auth().signOut()
     dispatch(logout())
   }
-
   return (
     <div className={classes.root}>
       <AppBar position="static">

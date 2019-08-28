@@ -47,7 +47,6 @@ const ListGroups = () => {
 
   //Todo share button
   const onPress = group => {
-    console.log(group)
     dispatch(changeGroup(group))
     const link = window.location.href + "?groupId=" + group.id
     navigator.clipboard.writeText(link).then(

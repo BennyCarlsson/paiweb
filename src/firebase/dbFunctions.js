@@ -111,12 +111,13 @@ export const saveFCMToken = (token, userId) => {
     .update({ FCMToken: token })
 }
 
-export const sendPushNotification = FCMToken => {
-  const sendPushNotificationTest = firebase
+export const sendPushNotification = toUid => {
+  const sendPushNotification = firebase
     .functions()
     .httpsCallable("sendPushNotificationTest")
-  sendPushNotificationTest({
-    FCMToken: FCMToken
+
+  sendPushNotification({
+    toUid
   })
 }
 
@@ -150,7 +151,8 @@ export const joinGroup = (groupId, user) => {
       uidList: firebase.firestore.FieldValue.arrayUnion(user.uid),
       members: firebase.firestore.FieldValue.arrayUnion({
         uid: user.uid,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        displayName: user.displayName
       })
     })
 }

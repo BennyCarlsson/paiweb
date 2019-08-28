@@ -18,7 +18,7 @@ import { compressImage } from "../utils"
 import { setGroups, changeGroup } from "../redux/actions"
 
 const PageLayout = props => {
-  const [openSideDrawer, setOpenSideDrawer] = useState(false)
+  const [openSideDrawer, setOpenSideDrawer] = useState(true)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
 
   const [latestValidPost, setLatestValidPost] = useState()

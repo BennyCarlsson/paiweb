@@ -1,66 +1,23 @@
-import React, { useEffect, useState, Fragment } from "react"
+import React, { useState, Fragment } from "react"
 import { makeStyles } from "@material-ui/styles"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
-import { getAllUsers, sendPushNotification } from "../firebase/dbFunctions"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemAvatar from "@material-ui/core/ListItemAvatar"
-import Avatar from "@material-ui/core/Avatar"
-import { useSelector } from "react-redux"
-import { convertTimeStamp } from "../utils"
 import Typography from "@material-ui/core/Typography"
 import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
 import CreateGroupButton from "./CreateGroupButton"
 import ListGroups from "./ListGroups"
+import DisplayGroupMembers from "./DisplayGroupMembers"
 
 const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
   const classes = useStyles()
-  const [users, setUsers] = useState()
   const [showSnackBar, setShowSnackBar] = useState(false)
-  const user = useSelector(state => state.user)
 
-  useEffect(() => {
-    if (user.authenticated) {
-      getAllUsers().then(users => setUsers(users))
-    } else {
-      setUsers([])
-    }
-  }, [user.authenticated])
-
-  const onPress = FCMToken => {
-    setShowSnackBar(true)
-    sendPushNotification(FCMToken)
-  }
   const handleCloseSnackBar = () => {
     setShowSnackBar(false)
   }
 
-  const renderUsers = () => {
-    if (!users) {
-      return <p>...</p>
-    }
-
-    return users.map((u, i) => userItem(u, i))
-  }
-
-  const userItem = (u, i) => {
-    return (
-      <ListItem key={i + "1"} button onClick={() => onPress(u.FCMToken)}>
-        <ListItemAvatar>
-          <Avatar alt={"Avatar photo"} src={u.photoURL} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={u.displayName}
-          secondary={
-            u.lastUpdate
-              ? "posted " + convertTimeStamp(u.lastUpdate.toDate()) + " ago"
-              : ""
-          }
-        />
-      </ListItem>
-    )
+  const _setShowSnackBar = bool => {
+    setShowSnackBar(bool)
   }
 
   return (
@@ -81,9 +38,7 @@ const CustomSideDrawer = props => {
           onKeyDown={toggleDrawer(false)}
           className={classes.drawerList}
         >
-          <List dense className={classes.list}>
-            {renderUsers()}
-          </List>
+          <DisplayGroupMembers setShowSnackBar={_setShowSnackBar} />
           <ListGroups />
           <CreateGroupButton />
           <Typography variant="body2" gutterBottom>
@@ -102,11 +57,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: theme.palette.background.main
-  },
-  list: {
-    width: "100%",
-    maxWidth: 360,
     backgroundColor: theme.palette.background.main
   }
 }))
