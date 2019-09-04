@@ -11,13 +11,15 @@ const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
   const classes = useStyles()
   const [showSnackBar, setShowSnackBar] = useState(false)
+  const [snackBarText, setSnackBarText] = useState("Push Notification")
 
   const handleCloseSnackBar = () => {
     setShowSnackBar(false)
   }
 
-  const _setShowSnackBar = bool => {
+  const _setShowSnackBar = (bool, text) => {
     setShowSnackBar(bool)
+    setSnackBarText(text)
   }
 
   return (
@@ -25,6 +27,7 @@ const CustomSideDrawer = props => {
       <SentPushNotificationSnackBar
         handleCloseSnackBar={handleCloseSnackBar}
         showSnackBar={showSnackBar}
+        snackBarText={snackBarText}
       />
       <SwipeableDrawer
         open={open}

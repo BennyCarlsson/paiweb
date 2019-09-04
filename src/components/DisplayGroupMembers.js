@@ -17,8 +17,12 @@ const DisplayGroupMembers = props => {
   const classes = useStyles()
 
   const onPress = toUid => {
-    props.setShowSnackBar(true)
-    sendPushNotification(toUid)
+    sendPushNotification(toUid).then(val => {
+      const text = val.data
+        ? "Sent Notification!"
+        : "Couldn't send notification"
+      props.setShowSnackBar(true, text)
+    })
   }
 
   const renderUsers = () => {

@@ -21,7 +21,7 @@ const SentPushNotificationSnackBar = props => {
       ContentProps={{
         "aria-describedby": "message-id"
       }}
-      message={<span id="message-id">Sent Push Notification</span>}
+      message={<span id="message-id">{props.snackBarText}</span>}
       action={[
         <IconButton
           key="close"

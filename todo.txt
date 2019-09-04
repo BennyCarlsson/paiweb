@@ -12,7 +12,7 @@ don't join on groupId in url
 share button for group
 only show users from your group
 if you leave a group remove?
-when joining group see old posts?
+when joining group see old posts? (you can see some old post if you already in another group with the user)
 
 show blurred posts when feed not accessable
 notifications

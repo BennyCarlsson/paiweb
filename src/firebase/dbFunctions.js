@@ -116,7 +116,7 @@ export const sendPushNotification = toUid => {
     .functions()
     .httpsCallable("sendPushNotificationTest")
 
-  sendPushNotification({
+  return sendPushNotification({
     toUid
   })
 }
@@ -124,7 +124,9 @@ export const sendPushNotification = toUid => {
 export const createNewGroup = user => {
   db.collection("groups").add({
     uidList: [user.uid],
-    members: [{ uid: user.uid, photoURL: user.photoURL }]
+    members: [
+      { uid: user.uid, photoURL: user.photoURL, displayName: user.displayName }
+    ]
   })
 }
 
