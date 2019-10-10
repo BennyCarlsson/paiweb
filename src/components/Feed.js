@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, Fragment } from "react"
 import { getAllPosts } from "../firebase/dbFunctions"
 import Post from "./Post"
 import { makeStyles } from "@material-ui/styles"
@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography"
 import NoAccessToFeed from "./NoAccessToFeed"
 import { useSelector, useDispatch } from "react-redux"
 import { setAllPosts } from "../redux/actions"
+import ListGroupInFeed from "./ListGroupInFeed"
 
 const Feed = props => {
   const [showFeed, setShowFeed] = useState(true)
@@ -14,6 +15,7 @@ const Feed = props => {
   const classes = useStyles()
   const user = useSelector(state => state.user)
   const feed = useSelector(state => state.feed)
+  const groups = useSelector(state => state.groups)
   const dispatch = useDispatch()
 
   const renderNextImages = i => {
@@ -46,13 +48,21 @@ const Feed = props => {
     }
   }, [props.updateFeed, user, dispatch])
 
-  const renderPost = () => {
-    const posts =
-      feed.currentGroup && feed.allPosts
-        ? feed.allPosts.filter(post =>
-            post.groupIds.includes(feed.currentGroup.id)
-          )
-        : []
+  const renderFeed = () => {
+    return groups.map((group, i) => renderGroupSection(group, i))
+  }
+
+  const renderGroupSection = (group, i) => {
+    return (
+      <Fragment>
+        <ListGroupInFeed key={"key" + i} group={group} />
+        {renderPosts(group.id)}
+      </Fragment>
+    )
+  }
+
+  const renderPosts = groupId => {
+    const posts = feed.allPosts.filter(post => post.groupIds.includes(groupId))
     return posts.map((post, i) => (
       <Post
         key={"post" + i}
@@ -63,6 +73,7 @@ const Feed = props => {
       />
     ))
   }
+
   return (
     <div className={classes.feedWrapper}>
       <div className={classes.feedTopDiv} />
@@ -70,7 +81,7 @@ const Feed = props => {
       {isLoading ? (
         <Typography variant="subtitle1">loading</Typography>
       ) : showFeed ? (
-        renderPost()
+        renderFeed()
       ) : (
         <NoAccessToFeed />
       )}

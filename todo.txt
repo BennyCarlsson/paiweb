@@ -1,3 +1,5 @@
+Todo remove currentGroup!
+
 update camera timer slider after post image
 imagePreviewUrl pagelayout->feed
 CustomSideDrawer extract users
