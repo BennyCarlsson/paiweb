@@ -1,9 +1,4 @@
-Todo remove currentGroup!
-
-update camera timer slider after post image
-imagePreviewUrl pagelayout->feed
-CustomSideDrawer extract users
-
+Todo remove currentGroup! but first fix CustomSideDrawer
 
 compression width vs quality
 draw on canvas

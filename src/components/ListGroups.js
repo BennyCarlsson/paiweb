@@ -8,12 +8,14 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 import IconButton from "@material-ui/core/IconButton"
+import { convertTimeStamp } from "../utils"
 
 const ListGroups = () => {
   const classes = useStyle()
   const groups = useSelector(state => state.groups)
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const { allPosts } = useSelector(state => state.feed)
 
   const renderGroups = () => {
     return groups ? (
@@ -48,12 +50,15 @@ const ListGroups = () => {
 
   const renderMembersAvatar = group => {
     return group.members.map((user, i) => (
-      <Avatar
-        key={"key" + i}
-        alt={"Avatar photo"}
-        src={user.photoURL}
-        className={classes.avatar}
-      />
+      <div>
+        <Avatar
+          key={"key" + i}
+          alt={"Avatar photo"}
+          src={user.photoURL}
+          className={classes.avatar}
+        />
+        <p className={classes.timer}>{getLastPostDate(user.uid, allPosts)}</p>
+      </div>
     ))
   }
 
@@ -77,6 +82,18 @@ const ListGroups = () => {
   return <List>{renderGroups()}</List>
 }
 
+const getLastPostDate = (uid, allPosts) => {
+  if (!uid || !allPosts) return
+  const latestPost = allPosts
+    .filter(post => post.uid === uid)
+    .sort(
+      (a, b) => a.timestamp.toDate().getTime() - b.timestamp.toDate().getTime()
+    )
+  return latestPost[0]
+    ? convertTimeStamp(latestPost[latestPost.length - 1].timestamp.toDate())
+    : "😴"
+}
+
 const useStyle = makeStyles(theme => ({
   loadingText: {
     marginLeft: "16px"
@@ -88,6 +105,9 @@ const useStyle = makeStyles(theme => ({
   groupButtonWrapper: {
     display: "flex",
     alignItems: "center"
+  },
+  timer: {
+    margin: 0
   }
 }))
 

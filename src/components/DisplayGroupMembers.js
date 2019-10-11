@@ -47,24 +47,23 @@ const DisplayGroupMembers = props => {
     )
   }
 
-  const getLastPostDate = (uid, allPosts) => {
-    if (!uid || !allPosts) return
-    const latestPost = allPosts
-      .filter(post => post.uid === uid)
-      .sort(
-        (a, b) =>
-          a.timestamp.toDate().getTime() - b.timestamp.toDate().getTime()
-      )
-    return latestPost[0]
-      ? convertTimeStamp(latestPost[latestPost.length - 1].timestamp.toDate())
-      : "😴"
-  }
-
   return (
     <List dense className={classes.list}>
       {renderUsers()}
     </List>
   )
+}
+
+const getLastPostDate = (uid, allPosts) => {
+  if (!uid || !allPosts) return
+  const latestPost = allPosts
+    .filter(post => post.uid === uid)
+    .sort(
+      (a, b) => a.timestamp.toDate().getTime() - b.timestamp.toDate().getTime()
+    )
+  return latestPost[0]
+    ? convertTimeStamp(latestPost[latestPost.length - 1].timestamp.toDate())
+    : "😴"
 }
 
 const useStyles = makeStyles(theme => ({
