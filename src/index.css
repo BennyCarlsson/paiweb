@@ -1,5 +1,8 @@
 html {
   background-color: #000000;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -9,9 +12,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   background-color: #000000;
 }
 

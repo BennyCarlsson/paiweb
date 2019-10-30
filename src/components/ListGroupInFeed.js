@@ -32,7 +32,8 @@ const RenderMembersAvatar = group => {
 const useStyle = makeStyles(theme => ({
   groupWrapper: {
     display: "flex",
-    width: "100%"
+    width: "100%",
+    scrollSnapAlign: "start"
   },
   avatar: {
     marginLeft: "-6px",
