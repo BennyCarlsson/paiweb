@@ -1,6 +1,5 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { changeGroup } from "../redux/actions"
+import { useSelector } from "react-redux"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import Avatar from "@material-ui/core/Avatar"
@@ -9,12 +8,12 @@ import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 import IconButton from "@material-ui/core/IconButton"
 import { convertTimeStamp } from "../utils"
+import { sendPushNotification } from "../firebase/dbFunctions"
 
-const ListGroups = () => {
+const ListGroups = props => {
   const classes = useStyle()
   const groups = useSelector(state => state.groups)
   const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
   const { allPosts } = useSelector(state => state.feed)
 
   const renderGroups = () => {
@@ -34,9 +33,7 @@ const ListGroups = () => {
   const groupItem = (group, i) => {
     return (
       <div key={"key" + i} className={classes.groupButtonWrapper}>
-        <ListItem button onClick={() => onPress(group)}>
-          {renderMembersAvatar(group)}
-        </ListItem>
+        <ListItem>{renderMembersAvatar(group)}</ListItem>
         {user.data.uid === "CtJDRqu7FUf6OReDg8ztcTo1wmv2" ? (
           <IconButton onClick={() => onInvitePress(group.id)}>
             <Icon>group_add</Icon>
@@ -50,8 +47,9 @@ const ListGroups = () => {
 
   const renderMembersAvatar = group => {
     return group.members.map((user, i) => (
-      <div>
+      <div key={"avatar" + i}>
         <Avatar
+          onClick={() => onPressSendNotification(user)}
           key={"key" + i}
           alt={"Avatar photo"}
           src={user.photoURL}
@@ -74,9 +72,14 @@ const ListGroups = () => {
     )
   }
 
-  //Todo share button
-  const onPress = group => {
-    dispatch(changeGroup(group))
+  const onPressSendNotification = user => {
+    props.setShowSnackBar(true, "Notification to " + user.displayName)
+    sendPushNotification(user.uid).then(val => {
+      const text = val.data
+        ? "Sent Notification!"
+        : "Couldn't send notification"
+      props.setShowSnackBar(true, text)
+    })
   }
 
   return <List>{renderGroups()}</List>

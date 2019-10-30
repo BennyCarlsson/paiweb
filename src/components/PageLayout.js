@@ -15,7 +15,7 @@ import {
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { compressImage } from "../utils"
-import { setGroups, changeGroup } from "../redux/actions"
+import { setGroups } from "../redux/actions"
 
 const PageLayout = props => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
@@ -65,7 +65,6 @@ const PageLayout = props => {
     if (user.authenticated && user.data) {
       getUserGroups(user.data.uid).then(groups => {
         dispatch(setGroups(groups))
-        dispatch(changeGroup(groups[0]))
       })
     }
   }, [user, dispatch])

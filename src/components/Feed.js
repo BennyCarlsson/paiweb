@@ -54,8 +54,8 @@ const Feed = props => {
 
   const renderGroupSection = (group, i) => {
     return (
-      <Fragment>
-        <ListGroupInFeed key={"key" + i} group={group} />
+      <Fragment key={"key" + i}>
+        <ListGroupInFeed group={group} />
         {renderPosts(group.id)}
       </Fragment>
     )

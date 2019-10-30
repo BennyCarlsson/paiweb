@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography"
 import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
 import CreateGroupButton from "./CreateGroupButton"
 import ListGroups from "./ListGroups"
-import DisplayGroupMembers from "./DisplayGroupMembers"
 
 const CustomSideDrawer = props => {
   const { open, toggleDrawer } = props
@@ -41,8 +40,7 @@ const CustomSideDrawer = props => {
           onKeyDown={toggleDrawer(false)}
           className={classes.drawerList}
         >
-          <DisplayGroupMembers setShowSnackBar={_setShowSnackBar} />
-          <ListGroups />
+          <ListGroups setShowSnackBar={_setShowSnackBar} />
           <CreateGroupButton />
           <Typography variant="body2" gutterBottom>
             Beta v.0.1.4
