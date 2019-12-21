@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { getImageUrlOnRef } from "../firebase/dbFunctions.js"
 import { makeStyles } from "@material-ui/styles"
 import Img from "react-image"
 import VisibilitySensor from "react-visibility-sensor"
 import CircularProgress from "@material-ui/core/CircularProgress"
+import FeedImageCanvas from "./FeedImageCanvas"
 
 const FeedImage = props => {
   const [imageUrl, setImageUrl] = useState("")
   const [shouldRenderImage, setShouldRenderImage] = useState(false)
-  useEffect(() => getImageUrl(props.imageRef), [props.imageRef])
+  let imageWrapperRef = useRef()
   const classes = useStyles()
+
+  useEffect(() => getImageUrl(props.imageRef), [props.imageRef])
 
   const getImageUrl = imageRef => {
     getImageUrlOnRef(imageRef).then(url => setImageUrl(url))
@@ -43,13 +46,20 @@ const FeedImage = props => {
   }
   return (
     <VisibilitySensor onChange={onChange} active={!shouldRenderImage}>
-      <div className={classes.imgDiv}>{renderImage()}</div>
+      <div className={classes.imgDiv} ref={imageWrapperRef}>
+        {renderImage()}
+        <FeedImageCanvas
+          drawEnabled={props.drawEnabled}
+          imageWrapperRef={imageWrapperRef}
+        />
+      </div>
     </VisibilitySensor>
   )
 }
 
 const useStyles = makeStyles(theme => ({
   imgDiv: {
+    position: "relative",
     borderRadius: "4px",
     minHeight: "250px",
     maxHeight: "75vh",

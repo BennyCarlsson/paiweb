@@ -1,3 +1,5 @@
+update react
+
 Todo remove currentGroup! but first fix CustomSideDrawer
 
 compression width vs quality

@@ -22,6 +22,7 @@ firebase
   .enablePersistence()
   .catch(function(err) {
     if (err.code === "failed-precondition") {
+      console.log(err.code)
       // Multiple tabs open, persistence can only be enabled
       // in one tab at a a time.
       // ...
@@ -29,6 +30,7 @@ firebase
       // The current browser does not support all of the
       // features required to enable persistence
       // ...
+      console.log(err.code)
     }
   })
 
