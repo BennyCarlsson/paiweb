@@ -1,0 +1,155 @@
+import React, { useRef, useEffect, useCallback } from "react"
+import ReactDOM from "react-dom"
+import { makeStyles } from "@material-ui/styles"
+import { saveCanvasData } from "../firebase/dbFunctions"
+import { useSelector } from "react-redux"
+
+const PostImageCanvasDraw = props => {
+  const classes = useStyles()
+  const uid = useSelector(state => state.user.data.uid)
+  const { canvasDrawing, imageWrapperRef, postId } = props
+  let canvasRef = useRef()
+  let canvasData = useRef([])
+  let pressing = false
+  let lastX = useRef()
+  let lastY = useRef()
+  let count = 0
+
+  const draw = useCallback((x, y) => {
+    let context = canvasRef.current.getContext("2d")
+    canvasData.current.push({ x, y })
+    context.beginPath()
+    context.strokeStyle = "red"
+    context.lineWidth = 3
+    context.lineJoin = "round"
+    context.moveTo(lastX.current, lastY.current)
+    context.lineTo(x, y)
+    context.stroke()
+    context.closePath()
+    lastX.current = x
+    lastY.current = y
+  }, [])
+
+  const resetLastPosition = useCallback(() => {
+    lastX.current = undefined
+    lastY.current = undefined
+  }, [])
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      const drawCanvasDrawing = () => {
+        if (canvasDrawing) {
+          canvasData.current = []
+          resetLastPosition()
+          let context = canvasRef.current.getContext("2d")
+          context.clearRect(0, 0, canvasRef.width, canvasRef.height)
+          canvasDrawing.canvasData.forEach(data => {
+            if (data === "up") {
+              canvasData.current.push("up")
+              resetLastPosition()
+            } else {
+              draw(data.x, data.y)
+            }
+          })
+        }
+      }
+      resize()
+      drawCanvasDrawing()
+    })
+    resizeObserver.observe(imageWrapperRef.current)
+  }, [imageWrapperRef, canvasDrawing, draw, resetLastPosition])
+
+  const resize = () => {
+    canvasRef.current.style.width = "100%"
+    canvasRef.current.style.height = "100%"
+    canvasRef.current.width = canvasRef.current.offsetWidth
+    canvasRef.current.height = canvasRef.current.offsetHeight
+  }
+
+  const getPointerPos = e => {
+    const rect = ReactDOM.findDOMNode(canvasRef.current).getBoundingClientRect()
+    let clientX = e.clientX
+    let clientY = e.clientY
+
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      clientX = e.changedTouches[0].clientX
+      clientY = e.changedTouches[0].clientY
+    }
+
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    }
+  }
+
+  const handleTouch = (action, e) => {
+    if (props.drawEnabled) {
+      if (action === "down") {
+        down(e)
+      }
+      if (action === "move") {
+        move(e)
+      }
+      if (action === "up") {
+        up(e)
+      }
+    }
+  }
+
+  const down = e => {
+    pressing = true
+  }
+
+  const move = e => {
+    e.preventDefault()
+    if (canDraw()) {
+      const { x, y } = getPointerPos(e)
+      draw(x, y)
+    }
+  }
+
+  const canDraw = () => {
+    if (pressing && count > 10) {
+      count = 0
+      return true
+    }
+    count++
+    return false
+  }
+
+  const up = e => {
+    if (pressing) {
+      canvasData.current.push("up")
+      resetLastPosition()
+      saveCanvasData(canvasData.current, postId, uid)
+    }
+    pressing = false
+  }
+
+  return (
+    <canvas
+      className={classes.canvas}
+      onMouseDown={e => handleTouch("down", e)}
+      onTouchStart={e => handleTouch("down", e)}
+      onMouseMove={e => handleTouch("move", e)}
+      onTouchMove={e => handleTouch("move", e)}
+      onMouseUp={e => handleTouch("up", e)}
+      onTouchEnd={e => handleTouch("up", e)}
+      onMouseOut={e => handleTouch("up", e)}
+      onTouchCancel={e => handleTouch("up", e)}
+      ref={canvasRef}
+    />
+  )
+}
+
+const useStyles = makeStyles(theme => ({
+  canvas: {
+    position: "absolute",
+    top: "0px",
+    left: "0",
+    backgroundColor: "#ffffff00",
+    touchAction: "none"
+  }
+}))
+
+export default PostImageCanvasDraw

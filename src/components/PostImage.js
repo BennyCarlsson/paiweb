@@ -1,18 +1,29 @@
 import React, { useRef, useState, useEffect } from "react"
+import { useSelector } from "react-redux"
 import { getImageUrlOnRef } from "../firebase/dbFunctions.js"
 import { makeStyles } from "@material-ui/styles"
 import Img from "react-image"
 import VisibilitySensor from "react-visibility-sensor"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import FeedImageCanvas from "./FeedImageCanvas"
+import PostImageCanvasDraw from "./PostImageCanvasDraw"
 
-const FeedImage = props => {
+const PostImage = props => {
   const [imageUrl, setImageUrl] = useState("")
   const [shouldRenderImage, setShouldRenderImage] = useState(false)
   let imageWrapperRef = useRef()
   const classes = useStyles()
+  const uid = useSelector(state => state.user.data.uid)
+  const {
+    imageRef,
+    renderNextImages,
+    renderImages,
+    index,
+    drawEnabled,
+    postId,
+    canvasDrawings
+  } = props
 
-  useEffect(() => getImageUrl(props.imageRef), [props.imageRef])
+  useEffect(() => getImageUrl(imageRef), [imageRef])
 
   const getImageUrl = imageRef => {
     getImageUrlOnRef(imageRef).then(url => setImageUrl(url))
@@ -21,12 +32,12 @@ const FeedImage = props => {
   function onChange(isVisible) {
     setShouldRenderImage(isVisible)
     if (isVisible) {
-      props.renderNextImages(props.index)
+      renderNextImages(index)
     }
   }
 
   const renderImage = () => {
-    if (props.index <= props.renderImages) {
+    if (index <= renderImages) {
       return (
         <Img
           width="100%"
@@ -48,9 +59,13 @@ const FeedImage = props => {
     <VisibilitySensor onChange={onChange} active={!shouldRenderImage}>
       <div className={classes.imgDiv} ref={imageWrapperRef}>
         {renderImage()}
-        <FeedImageCanvas
-          drawEnabled={props.drawEnabled}
+        <PostImageCanvasDraw
+          drawEnabled={drawEnabled}
           imageWrapperRef={imageWrapperRef}
+          postId={postId}
+          canvasDrawing={
+            canvasDrawings && canvasDrawings.find(data => data.uid === uid)
+          }
         />
       </div>
     </VisibilitySensor>
@@ -83,4 +98,4 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default FeedImage
+export default PostImage

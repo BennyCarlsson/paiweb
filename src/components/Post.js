@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import FeedImage from "./FeedImage"
+import PostImage from "./PostImage"
 import PostTimer from "./PostTimer"
 import { makeStyles } from "@material-ui/styles"
 import Avatar from "@material-ui/core/Avatar"
@@ -7,7 +7,8 @@ import DrawIcon from "./DrawIcon"
 
 const Post = props => {
   const classes = useStyles()
-  const [drawEnabled, setDrawEnabled] = useState(false)
+  const [drawEnabled, setDrawEnabled] = useState(true)
+  const { post, renderNextImages, renderImages, index } = props
 
   const editDrawEnabled = () => {
     setDrawEnabled(!drawEnabled)
@@ -20,16 +21,18 @@ const Post = props => {
           <Avatar
             className={classes.avatar}
             alt="Post Avatar"
-            src={props.post.userPhotoURL}
+            src={post.userPhotoURL}
           />
-          <PostTimer timestamp={props.post.timestamp} />
+          <PostTimer timestamp={post.timestamp} />
         </div>
-        <FeedImage
+        <PostImage
           drawEnabled={drawEnabled}
-          imageRef={props.post.imgRef}
-          renderNextImages={props.renderNextImages}
-          renderImages={props.renderImages}
-          index={props.index}
+          imageRef={post.imgRef}
+          renderNextImages={renderNextImages}
+          renderImages={renderImages}
+          index={index}
+          canvasDrawings={post.canvasDrawings}
+          postId={post.postId}
         />
         <DrawIcon editDrawEnabled={editDrawEnabled} drawEnabled={drawEnabled} />
       </div>
