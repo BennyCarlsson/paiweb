@@ -68,8 +68,7 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     top: "0px",
     left: "0",
-    backgroundColor: "#ffffff00",
-    touchAction: "none"
+    backgroundColor: "#ffffff00"
   }
 }))
 

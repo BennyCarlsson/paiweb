@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 const PostImageCanvasDraw = props => {
   const classes = useStyles()
   const uid = useSelector(state => state.user.data.uid)
-  const { canvasDrawing, imageWrapperRef, postId } = props
+  const { canvasDrawing, imageWrapperRef, postId, drawEnabled } = props
   let canvasRef = useRef()
   let canvasData = useRef([])
   let pressing = false
@@ -85,7 +85,7 @@ const PostImageCanvasDraw = props => {
   }
 
   const handleTouch = (action, e) => {
-    if (props.drawEnabled) {
+    if (drawEnabled) {
       if (action === "down") {
         down(e)
       }
@@ -111,7 +111,7 @@ const PostImageCanvasDraw = props => {
   }
 
   const canDraw = () => {
-    if (pressing && count > 10) {
+    if (pressing && count > 5) {
       count = 0
       return true
     }
@@ -130,7 +130,7 @@ const PostImageCanvasDraw = props => {
 
   return (
     <canvas
-      className={classes.canvas}
+      className={drawEnabled ? classes.touchActionNone : classes.canvas}
       onMouseDown={e => handleTouch("down", e)}
       onTouchStart={e => handleTouch("down", e)}
       onMouseMove={e => handleTouch("move", e)}
@@ -146,6 +146,12 @@ const PostImageCanvasDraw = props => {
 
 const useStyles = makeStyles(theme => ({
   canvas: {
+    position: "absolute",
+    top: "0px",
+    left: "0",
+    backgroundColor: "#ffffff00"
+  },
+  touchActionNone: {
     position: "absolute",
     top: "0px",
     left: "0",
