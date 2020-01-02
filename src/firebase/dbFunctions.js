@@ -2,7 +2,7 @@ import firebase, { db } from "./firebase"
 import { postValidTimeMilliSeconds } from "../settingsConfig"
 import { changeImageName } from "../utils"
 
-export const uploadImage = (file, user, groupIds, groupUserIds, callBack) => {
+export const uploadImage = (file, user, groupIds, callBack) => {
   const imagePath = "images/" + user.uid + "/" + changeImageName(file)
   var storageRef = firebase.storage().ref(imagePath)
   var task = storageRef.put(file, {
@@ -19,21 +19,26 @@ export const uploadImage = (file, user, groupIds, groupUserIds, callBack) => {
       "ERROR!"
     },
     function complete() {
-      saveImageRef(imagePath, user, groupIds, groupUserIds, callBack)
+      saveImageRef(imagePath, user, groupIds, callBack)
     }
   )
 }
 
-const saveImageRef = (ref, user, groupIds, groupUserIds, callBack) => {
-  db.collection("posts")
-    .add({
+const saveImageRef = (ref, user, groupIds, callBack) => {
+  var batch = db.batch()
+
+  groupIds.forEach(groupId => {
+    var postRef = db.collection("posts").doc()
+    batch.set(postRef, {
       uid: user.uid,
       userPhotoURL: user.photoURL,
       imgRef: ref,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      groupIds,
-      groupUserIds
+      groupId
     })
+  })
+  batch
+    .commit()
     .then(function(docRef) {
       updateLastUserPost(user.uid).then(() => {
         callBack()
@@ -47,7 +52,7 @@ export const saveCanvasData = (canvasData, postId, uid) => {
   db.collection("posts")
     .doc(postId)
     .update({
-      canvasDrawings: [{ uid, canvasData }]
+      [`canvasDrawings.${uid}`]: canvasData
     })
 }
 
@@ -71,11 +76,11 @@ export const getAllUsers = async () => {
     })
 }
 
-export const getAllPosts = uid => {
+export const getAllPosts = groupIds => {
   return db
     .collection("posts")
     .where("timestamp", ">", new Date(Date.now() - postValidTimeMilliSeconds))
-    .where("groupUserIds", "array-contains", uid)
+    .where("groupId", "in", groupIds)
     .orderBy("timestamp", "desc")
     .limit(15)
     .get()

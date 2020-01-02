@@ -12,7 +12,7 @@ const DrawIcon = props => {
       onClick={editDrawEnabled}
       color={drawEnabled ? "secondary" : "disabled"}
     >
-      format_paint
+      brush
     </Icon>
   )
 }

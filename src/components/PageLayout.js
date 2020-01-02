@@ -74,24 +74,13 @@ const PageLayout = props => {
     if (!file && user.authenticated) return
     setShowUploadLoader(true)
     const groupIds = extractGroupId(groups)
-    const groupUserIds = extractUserIds(groups)
     compressImage(file, file => {
       setimagePreviewUrl(URL.createObjectURL(file))
-      uploadImage(file, user.data, groupIds, groupUserIds, uploadImageCallback)
+      uploadImage(file, user.data, groupIds, uploadImageCallback)
     })
   }
   const extractGroupId = groups => {
     return groups.map(group => group.id)
-  }
-
-  const extractUserIds = groups => {
-    let array = []
-    groups.forEach(group => {
-      array = array.concat(
-        group.uidList.filter(item => array.indexOf(item) < 0)
-      )
-    })
-    return array
   }
 
   const uploadImageCallback = () => {

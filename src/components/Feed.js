@@ -23,10 +23,11 @@ const Feed = props => {
   }
 
   useEffect(() => {
-    if (props.gotLatestPost) {
+    if (props.gotLatestPost && groups && groups.length) {
       if (props.latestValidPost) {
         setShowFeed(true)
-        getAllPosts(user.data.uid).then(posts => {
+        const groupIds = groups.map(group => group.id)
+        getAllPosts(groupIds).then(posts => {
           dispatch(setAllPosts(posts))
         })
       } else {
@@ -36,17 +37,18 @@ const Feed = props => {
     } else {
       setIsLoading(true)
     }
-  }, [props.latestValidPost, props.gotLatestPost, user, dispatch])
+  }, [props.latestValidPost, props.gotLatestPost, dispatch, groups])
 
   //Todo this is a quickfix remove updatefeed from pagelayout
   // replace this with redux or something
   useEffect(() => {
     //ugly quickfix since it's 0 first time it won't update
-    if (props.updateFeed) {
-      getAllPosts(user.data.uid).then(posts => dispatch(setAllPosts(posts)))
+    if (props.updateFeed && groups && groups.length) {
+      const groupIds = groups.map(group => group.id)
+      getAllPosts(groupIds).then(posts => dispatch(setAllPosts(posts)))
       setShowFeed(true)
     }
-  }, [props.updateFeed, user, dispatch])
+  }, [props.updateFeed, user, dispatch, groups])
 
   const renderFeed = () => {
     return groups.map((group, i) => renderGroupSection(group, i))
@@ -62,7 +64,7 @@ const Feed = props => {
   }
 
   const renderPosts = groupId => {
-    const posts = feed.allPosts.filter(post => post.groupIds.includes(groupId))
+    const posts = feed.allPosts.filter(post => post.groupId === groupId)
     return posts.map((post, i) => (
       <Post
         key={"post" + i}

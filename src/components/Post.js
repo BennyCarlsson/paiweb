@@ -7,7 +7,7 @@ import DrawIcon from "./DrawIcon"
 
 const Post = props => {
   const classes = useStyles()
-  const [drawEnabled, setDrawEnabled] = useState(true)
+  const [drawEnabled, setDrawEnabled] = useState(false)
   const { post, renderNextImages, renderImages, index } = props
 
   const editDrawEnabled = () => {

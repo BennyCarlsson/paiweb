@@ -38,12 +38,12 @@ const PostImageCanvasDraw = props => {
   useEffect(() => {
     const resizeObserver = new ResizeObserver(entries => {
       const drawCanvasDrawing = () => {
-        if (canvasDrawing) {
+        if (canvasDrawing && canvasRef.current) {
           canvasData.current = []
           resetLastPosition()
           let context = canvasRef.current.getContext("2d")
           context.clearRect(0, 0, canvasRef.width, canvasRef.height)
-          canvasDrawing.canvasData.forEach(data => {
+          canvasDrawing.forEach(data => {
             if (data === "up") {
               canvasData.current.push("up")
               resetLastPosition()
@@ -60,10 +60,12 @@ const PostImageCanvasDraw = props => {
   }, [imageWrapperRef, canvasDrawing, draw, resetLastPosition])
 
   const resize = () => {
-    canvasRef.current.style.width = "100%"
-    canvasRef.current.style.height = "100%"
-    canvasRef.current.width = canvasRef.current.offsetWidth
-    canvasRef.current.height = canvasRef.current.offsetHeight
+    if (canvasRef.current) {
+      canvasRef.current.style.width = "100%"
+      canvasRef.current.style.height = "100%"
+      canvasRef.current.width = canvasRef.current.offsetWidth
+      canvasRef.current.height = canvasRef.current.offsetHeight
+    }
   }
 
   const getPointerPos = e => {

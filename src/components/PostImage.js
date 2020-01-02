@@ -6,6 +6,7 @@ import Img from "react-image"
 import VisibilitySensor from "react-visibility-sensor"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import PostImageCanvasDraw from "./PostImageCanvasDraw"
+import PostImageCanvases from "./PostImageCanvases"
 
 const PostImage = props => {
   const [imageUrl, setImageUrl] = useState("")
@@ -55,17 +56,25 @@ const PostImage = props => {
     }
     return ""
   }
+  const getCanvasDrawingsExcludingYourOwn = () => {
+    if (!canvasDrawings) return
+    let newCanvasDrawings = Object.assign({}, canvasDrawings)
+    delete newCanvasDrawings[uid]
+    return newCanvasDrawings
+  }
   return (
     <VisibilitySensor onChange={onChange} active={!shouldRenderImage}>
       <div className={classes.imgDiv} ref={imageWrapperRef}>
         {renderImage()}
+        <PostImageCanvases
+          canvasDrawings={getCanvasDrawingsExcludingYourOwn()}
+          imageWrapperRef={imageWrapperRef}
+        />
         <PostImageCanvasDraw
           drawEnabled={drawEnabled}
           imageWrapperRef={imageWrapperRef}
           postId={postId}
-          canvasDrawing={
-            canvasDrawings && canvasDrawings.find(data => data.uid === uid)
-          }
+          canvasDrawing={canvasDrawings && canvasDrawings[uid]}
         />
       </div>
     </VisibilitySensor>
