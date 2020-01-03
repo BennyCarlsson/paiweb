@@ -17,6 +17,7 @@ const Feed = props => {
   const feed = useSelector(state => state.feed)
   const groups = useSelector(state => state.groups)
   const dispatch = useDispatch()
+  let count = 0
 
   const renderNextImages = i => {
     setRenderImages(i + 2)
@@ -51,6 +52,7 @@ const Feed = props => {
   }, [props.updateFeed, user, dispatch, groups])
 
   const renderFeed = () => {
+    count++
     return groups.map((group, i) => renderGroupSection(group, i))
   }
 
@@ -65,15 +67,18 @@ const Feed = props => {
 
   const renderPosts = groupId => {
     const posts = feed.allPosts.filter(post => post.groupId === groupId)
-    return posts.map((post, i) => (
-      <Post
-        key={"post" + i}
-        renderNextImages={renderNextImages}
-        renderImages={renderImages}
-        index={i}
-        post={post}
-      />
-    ))
+    return posts.map((post, i) => {
+      count++
+      return (
+        <Post
+          key={"post" + i}
+          renderNextImages={renderNextImages}
+          renderImages={renderImages}
+          index={count}
+          post={post}
+        />
+      )
+    })
   }
 
   return (
