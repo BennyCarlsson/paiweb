@@ -13,7 +13,6 @@ const PostImageCanvasDraw = props => {
   let pressing = false
   let lastX = useRef()
   let lastY = useRef()
-  let count = 0
 
   const draw = useCallback((x, y) => {
     let context = canvasRef.current.getContext("2d")
@@ -104,18 +103,30 @@ const PostImageCanvasDraw = props => {
 
   const move = e => {
     e.preventDefault()
-    if (canDraw()) {
-      const { x, y } = getPointerPos(e)
+    const { x, y } = getPointerPos(e)
+    if (canDraw(x, y)) {
       draw(x, y)
     }
   }
 
-  const canDraw = () => {
-    if (pressing && count > 5) {
-      count = 0
+  const canDraw = (x, y) => {
+    if (pressing && positionMovedFarEnough(x, y)) {
       return true
     }
-    count++
+    return false
+  }
+
+  const positionMovedFarEnough = (x, y) => {
+    if (!lastY.current || !lastY.current) return true
+    if (bigEnoughDiff(x, lastX.current) || bigEnoughDiff(y, lastY.current))
+      return true
+  }
+
+  const bigEnoughDiff = (n1, n2) => {
+    const diffValue = 10
+    if (n1 - n2 > diffValue || n2 - n1 > diffValue) {
+      return true
+    }
     return false
   }
 
@@ -123,6 +134,7 @@ const PostImageCanvasDraw = props => {
     if (pressing) {
       canvasData.current.push("up")
       resetLastPosition()
+      console.log("save", canvasData.current)
       saveCanvasData(canvasData.current, postId, uid)
     }
     pressing = false
