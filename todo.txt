@@ -1,4 +1,3 @@
---> canvas uppdaterar inte bra efter man ritat sen tar ny bild.
 will delete cloud function work now?
 max canvas data
 

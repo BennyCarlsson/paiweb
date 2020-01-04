@@ -12,7 +12,7 @@ const PostImageCanvases = props => {
     let context = canvasRef.current.getContext("2d")
     context.beginPath()
     context.strokeStyle = "red"
-    context.lineWidth = 3
+    context.lineWidth = 7
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
     context.lineTo(x, y)

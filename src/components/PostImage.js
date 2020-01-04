@@ -83,7 +83,6 @@ const PostImage = props => {
 
 const useStyles = makeStyles(theme => ({
   imgDiv: {
-    position: "relative",
     borderRadius: "4px",
     minHeight: "250px",
     maxHeight: "75vh",

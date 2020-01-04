@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useCallback } from "react"
+import React, { useRef, useEffect, useCallback, Fragment } from "react"
 import ReactDOM from "react-dom"
 import { makeStyles } from "@material-ui/styles"
 import { saveCanvasData } from "../firebase/dbFunctions"
 import { useSelector } from "react-redux"
+import UndoIcon from "./UndoIcon"
 
 const PostImageCanvasDraw = props => {
   const classes = useStyles()
@@ -19,7 +20,7 @@ const PostImageCanvasDraw = props => {
     canvasData.current.push({ x, y })
     context.beginPath()
     context.strokeStyle = "red"
-    context.lineWidth = 3
+    context.lineWidth = 7
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
     context.lineTo(x, y)
@@ -41,7 +42,12 @@ const PostImageCanvasDraw = props => {
           canvasData.current = []
           resetLastPosition()
           let context = canvasRef.current.getContext("2d")
-          context.clearRect(0, 0, canvasRef.width, canvasRef.height)
+          context.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          )
           canvasDrawing.forEach(data => {
             if (data === "up") {
               canvasData.current.push("up")
@@ -52,6 +58,13 @@ const PostImageCanvasDraw = props => {
           })
         } else {
           canvasData.current = []
+          let context = canvasRef.current.getContext("2d")
+          context.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height
+          )
         }
       }
       resize()
@@ -99,6 +112,32 @@ const PostImageCanvasDraw = props => {
     }
   }
 
+  const undo = () => {
+    if (canvasData.current && canvasData.current.length) {
+      let arr = canvasData.current
+      const deleteFrom = arr.lastIndexOf("up", arr.length - 2) + 1
+      canvasData.current = arr.slice(0, deleteFrom)
+      reDraw()
+    }
+  }
+
+  const reDraw = () => {
+    let context = canvasRef.current.getContext("2d")
+    context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+    let arr = [...canvasData.current]
+    canvasData.current = []
+    resetLastPosition()
+    arr.forEach(data => {
+      if (data === "up") {
+        canvasData.current.push("up")
+        resetLastPosition()
+      } else {
+        draw(data.x, data.y)
+      }
+    })
+    saveCanvasData(canvasData.current, postId, uid)
+  }
+
   const down = e => {
     pressing = true
   }
@@ -125,7 +164,7 @@ const PostImageCanvasDraw = props => {
   }
 
   const bigEnoughDiff = (n1, n2) => {
-    const diffValue = 10
+    const diffValue = 5
     if (n1 - n2 > diffValue || n2 - n1 > diffValue) {
       return true
     }
@@ -133,28 +172,33 @@ const PostImageCanvasDraw = props => {
   }
 
   const up = e => {
-    if (pressing) {
+    if (
+      pressing &&
+      canvasData.current[canvasData.current.length - 1] !== "up"
+    ) {
       canvasData.current.push("up")
       resetLastPosition()
-      console.log("save", canvasData.current)
       saveCanvasData(canvasData.current, postId, uid)
     }
     pressing = false
   }
 
   return (
-    <canvas
-      className={drawEnabled ? classes.touchActionNone : classes.canvas}
-      onMouseDown={e => handleTouch("down", e)}
-      onTouchStart={e => handleTouch("down", e)}
-      onMouseMove={e => handleTouch("move", e)}
-      onTouchMove={e => handleTouch("move", e)}
-      onMouseUp={e => handleTouch("up", e)}
-      onTouchEnd={e => handleTouch("up", e)}
-      onMouseOut={e => handleTouch("up", e)}
-      onTouchCancel={e => handleTouch("up", e)}
-      ref={canvasRef}
-    />
+    <Fragment>
+      <canvas
+        className={drawEnabled ? classes.touchActionNone : classes.canvas}
+        onMouseDown={e => handleTouch("down", e)}
+        onTouchStart={e => handleTouch("down", e)}
+        onMouseMove={e => handleTouch("move", e)}
+        onTouchMove={e => handleTouch("move", e)}
+        onMouseUp={e => handleTouch("up", e)}
+        onTouchEnd={e => handleTouch("up", e)}
+        onMouseOut={e => handleTouch("up", e)}
+        onTouchCancel={e => handleTouch("up", e)}
+        ref={canvasRef}
+      />
+      <UndoIcon undo={undo} drawEnabled={drawEnabled} />
+    </Fragment>
   )
 }
 
