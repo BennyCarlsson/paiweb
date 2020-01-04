@@ -50,6 +50,8 @@ const PostImageCanvasDraw = props => {
               draw(data.x, data.y)
             }
           })
+        } else {
+          canvasData.current = []
         }
       }
       resize()
