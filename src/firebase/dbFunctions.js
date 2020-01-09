@@ -16,7 +16,7 @@ export const uploadImage = (file, user, groupIds, callBack) => {
       // console.log("percentage", percentage)
     },
     function error(err) {
-      "ERROR!"
+      console.log("ERROR!", err)
     },
     function complete() {
       saveImageRef(imagePath, user, groupIds, callBack)

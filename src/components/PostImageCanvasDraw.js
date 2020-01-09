@@ -56,7 +56,7 @@ const PostImageCanvasDraw = props => {
               draw(data.x, data.y)
             }
           })
-        } else {
+        } else if (canvasRef.current) {
           canvasData.current = []
           let context = canvasRef.current.getContext("2d")
           context.clearRect(
@@ -71,6 +71,13 @@ const PostImageCanvasDraw = props => {
       drawCanvasDrawing()
     })
     resizeObserver.observe(imageWrapperRef.current)
+    return () => {
+      try {
+        resizeObserver.disconnect()
+      } catch (e) {
+        console.log("error", e)
+      }
+    }
   }, [imageWrapperRef, canvasDrawing, draw, resetLastPosition])
 
   const resize = () => {
