@@ -98,9 +98,8 @@ const Feed = props => {
 
 const useStyles = makeStyles(theme => ({
   feedWrapper: {
-    display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+
     backgroundColor: theme.palette.background.main
   },
   feedTopDiv: {
