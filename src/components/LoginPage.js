@@ -21,7 +21,6 @@ const LoginPage = props => {
   }
 
   useEffect(() => {
-    const auth = firebase.auth()
     let unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       dispatch(setUser(user))

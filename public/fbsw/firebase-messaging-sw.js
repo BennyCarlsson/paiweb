@@ -6,18 +6,19 @@ let config = {
   messagingSenderId: "560094021764"
 }
 firebase.initializeApp(config)
-
-const messaging = firebase.messaging()
-messaging.setBackgroundMessageHandler(payload => {
-  const title = payload.data.title
-  const options = {
-    body: payload.data.body,
-    icon: payload.data.icon,
-    badge: payload.data.badge,
-    click_action: payload.data.click_action
-  }
-  return self.registration.showNotification(title, options)
-})
+if (firebase.messaging.isSupported()) {
+  const messaging = firebase.messaging()
+  messaging.setBackgroundMessageHandler(payload => {
+    const title = payload.data.title
+    const options = {
+      body: payload.data.body,
+      icon: payload.data.icon,
+      badge: payload.data.badge,
+      click_action: payload.data.click_action
+    }
+    return self.registration.showNotification(title, options)
+  })
+}
 
 self.addEventListener("notificationclick", function(event) {
   //For root applications: just change "'./'" to "'/'"

@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     scrollSnapAlign: "start",
     padding: "0px",
+    minHeight: "82vh",
     height: "82vh",
     width: "100%",
     display: "flex",

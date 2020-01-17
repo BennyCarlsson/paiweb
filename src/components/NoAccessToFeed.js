@@ -24,6 +24,7 @@ const NoAccessToFeed = () => {
 const useStyles = makeStyles(theme => ({
   root: {
     padding: "0px",
+    minHeight: "78vh",
     height: "78vh",
     display: "flex",
     flexDirection: "column",

@@ -9,7 +9,10 @@ import firebase from "firebase"
 import { Provider } from "react-redux"
 import store from "./redux/store"
 
-const messaging = firebase.messaging()
+let messaging = null
+if (firebase.messaging.isSupported()) {
+  messaging = firebase.messaging()
+}
 
 const theme = createMuiTheme({
   palette: {
@@ -34,7 +37,7 @@ class App extends Component {
       FCMToken: ""
     }
 
-    if ("serviceWorker" in navigator) {
+    if ("serviceWorker" in navigator && messaging) {
       navigator.serviceWorker
         .register("./fbsw/firebase-messaging-sw.js")
         .then(registration => {

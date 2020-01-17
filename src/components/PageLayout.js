@@ -125,6 +125,7 @@ const PageLayout = props => {
 
 const useStyles = makeStyles(theme => ({
   App: {
+    minHeight: "100vh",
     height: "100vh",
     display: "flex",
     flexDirection: "column",
