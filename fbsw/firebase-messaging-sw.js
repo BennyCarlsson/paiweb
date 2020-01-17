@@ -7,7 +7,6 @@ let config = {
 }
 firebase.initializeApp(config)
 if (firebase.messaging.isSupported()) {
-  console.log("supported")
   const messaging = firebase.messaging()
   messaging.setBackgroundMessageHandler(payload => {
     const title = payload.data.title
@@ -19,8 +18,6 @@ if (firebase.messaging.isSupported()) {
     }
     return self.registration.showNotification(title, options)
   })
-} else {
-  console.log("not supported")
 }
 
 self.addEventListener("notificationclick", function(event) {
