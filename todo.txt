@@ -1,6 +1,4 @@
 iphone: snap, drag to refresh, camera
-
-sidedrawer scroll bug
 sidedrawer swipe
 
 will delete cloud function work now?
