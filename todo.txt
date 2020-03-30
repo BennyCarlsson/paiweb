@@ -1,4 +1,5 @@
-iphone: snap, drag to refresh, camera
+copy share link for ios (make text field)
+pwa ios pull to refresh, camera, icon
 sidedrawer swipe
 
 will delete cloud function work now?
