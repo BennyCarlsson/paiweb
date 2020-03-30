@@ -1,5 +1,5 @@
 import Compressor from "compressorjs"
-import { postValidTimeSeconds } from "./settingsConfig"
+import { postValidTimeSeconds, seeValidTimeSeconds } from "./settingsConfig"
 
 export const convertTimeStamp = timestamp => {
   var now = new Date(),
@@ -13,9 +13,18 @@ export const convertTimeStamp = timestamp => {
   if (secondsPast <= 172800) {
     return parseInt(secondsPast / 3600) + "h"
   }
-  if (secondsPast > 86400) {
+  if (secondsPast > 172800) {
     return "< 2 days"
   }
+}
+
+export const progressCalcCamera = timestamp => {
+  const calc =
+    100 -
+    ((new Date().getTime() / 1000 - timestamp.getTime() / 1000) /
+      seeValidTimeSeconds) *
+      100
+  return calc < 0 ? 0 : calc > 100 ? 100 : calc
 }
 
 export const progressCalc = timestamp => {

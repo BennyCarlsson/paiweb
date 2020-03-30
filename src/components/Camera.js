@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { withStyles } from "@material-ui/styles"
 import Fab from "@material-ui/core/Fab"
 import Icon from "@material-ui/core/Icon"
-import { progressCalc } from "../utils"
+import { progressCalcCamera } from "../utils"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import Snackbar from "@material-ui/core/Snackbar"
 import IconButton from "@material-ui/core/IconButton"
@@ -19,7 +19,9 @@ const Camera = props => {
     if (!props.latestValidPost) {
       setProgressValue(0)
     } else {
-      setProgressValue(progressCalc(props.latestValidPost.timestamp.toDate()))
+      setProgressValue(
+        progressCalcCamera(props.latestValidPost.timestamp.toDate())
+      )
     }
   }, [props.latestValidPost])
 
