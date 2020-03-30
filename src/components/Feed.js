@@ -99,7 +99,8 @@ const Feed = props => {
 const useStyles = makeStyles(theme => ({
   feedWrapper: {
     flexDirection: "column",
-
+    overflowY: "scroll",
+    scrollSnapType: "y mandatory",
     backgroundColor: theme.palette.background.main
   },
   feedTopDiv: {
