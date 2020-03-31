@@ -56,7 +56,7 @@ const PageLayout = props => {
     const groupId = url.searchParams.get("groupId")
 
     if (groupId && user.authenticated) {
-      window.history.pushState({}, "", "/")
+      window.history.pushState({}, "", "/paiweb")
       joinGroup(groupId, user.data)
     }
   }, [user, user.authenticated])
