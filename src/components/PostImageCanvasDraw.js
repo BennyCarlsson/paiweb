@@ -5,9 +5,9 @@ import { saveCanvasData } from "../firebase/dbFunctions"
 import { useSelector } from "react-redux"
 import UndoIcon from "./UndoIcon"
 
-const PostImageCanvasDraw = props => {
+const PostImageCanvasDraw = (props) => {
   const classes = useStyles()
-  const uid = useSelector(state => state.user.data.uid)
+  const uid = useSelector((state) => state.user.data.uid)
   const { canvasDrawing, imageWrapperRef, postId, drawEnabled } = props
   let canvasRef = useRef()
   let canvasData = useRef([])
@@ -19,7 +19,7 @@ const PostImageCanvasDraw = props => {
     let context = canvasRef.current.getContext("2d")
     canvasData.current.push({ x, y })
     context.beginPath()
-    context.strokeStyle = "red"
+    context.strokeStyle = "#ff1744"
     context.lineWidth = 7
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
@@ -36,7 +36,7 @@ const PostImageCanvasDraw = props => {
   }, [])
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       const drawCanvasDrawing = () => {
         if (canvasDrawing && canvasRef.current) {
           canvasData.current = []
@@ -48,7 +48,7 @@ const PostImageCanvasDraw = props => {
             canvasRef.current.width,
             canvasRef.current.height
           )
-          canvasDrawing.forEach(data => {
+          canvasDrawing.forEach((data) => {
             if (data === "up") {
               canvasData.current.push("up")
               resetLastPosition()
@@ -89,7 +89,7 @@ const PostImageCanvasDraw = props => {
     }
   }
 
-  const getPointerPos = e => {
+  const getPointerPos = (e) => {
     const rect = ReactDOM.findDOMNode(canvasRef.current).getBoundingClientRect()
     let clientX = e.clientX
     let clientY = e.clientY
@@ -101,7 +101,7 @@ const PostImageCanvasDraw = props => {
 
     return {
       x: clientX - rect.left,
-      y: clientY - rect.top
+      y: clientY - rect.top,
     }
   }
 
@@ -134,7 +134,7 @@ const PostImageCanvasDraw = props => {
     let arr = [...canvasData.current]
     canvasData.current = []
     resetLastPosition()
-    arr.forEach(data => {
+    arr.forEach((data) => {
       if (data === "up") {
         canvasData.current.push("up")
         resetLastPosition()
@@ -145,11 +145,11 @@ const PostImageCanvasDraw = props => {
     saveCanvasData(canvasData.current, postId, uid)
   }
 
-  const down = e => {
+  const down = (e) => {
     pressing = true
   }
 
-  const move = e => {
+  const move = (e) => {
     e.preventDefault()
     const { x, y } = getPointerPos(e)
     if (canDraw(x, y)) {
@@ -171,14 +171,14 @@ const PostImageCanvasDraw = props => {
   }
 
   const bigEnoughDiff = (n1, n2) => {
-    const diffValue = 5
+    const diffValue = 2
     if (n1 - n2 > diffValue || n2 - n1 > diffValue) {
       return true
     }
     return false
   }
 
-  const up = e => {
+  const up = (e) => {
     if (
       pressing &&
       canvasData.current[canvasData.current.length - 1] !== "up"
@@ -194,14 +194,14 @@ const PostImageCanvasDraw = props => {
     <Fragment>
       <canvas
         className={drawEnabled ? classes.touchActionNone : classes.canvas}
-        onMouseDown={e => handleTouch("down", e)}
-        onTouchStart={e => handleTouch("down", e)}
-        onMouseMove={e => handleTouch("move", e)}
-        onTouchMove={e => handleTouch("move", e)}
-        onMouseUp={e => handleTouch("up", e)}
-        onTouchEnd={e => handleTouch("up", e)}
-        onMouseOut={e => handleTouch("up", e)}
-        onTouchCancel={e => handleTouch("up", e)}
+        onMouseDown={(e) => handleTouch("down", e)}
+        onTouchStart={(e) => handleTouch("down", e)}
+        onMouseMove={(e) => handleTouch("move", e)}
+        onTouchMove={(e) => handleTouch("move", e)}
+        onMouseUp={(e) => handleTouch("up", e)}
+        onTouchEnd={(e) => handleTouch("up", e)}
+        onMouseOut={(e) => handleTouch("up", e)}
+        onTouchCancel={(e) => handleTouch("up", e)}
         ref={canvasRef}
       />
       <UndoIcon undo={undo} drawEnabled={drawEnabled} />
@@ -209,20 +209,20 @@ const PostImageCanvasDraw = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   canvas: {
     position: "absolute",
     top: "0px",
     left: "0",
-    backgroundColor: "#ffffff00"
+    backgroundColor: "#ffffff00",
   },
   touchActionNone: {
     position: "absolute",
     top: "0px",
     left: "0",
     backgroundColor: "#ffffff00",
-    touchAction: "none"
-  }
+    touchAction: "none",
+  },
 }))
 
 export default PostImageCanvasDraw

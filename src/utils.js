@@ -1,7 +1,7 @@
 import Compressor from "compressorjs"
 import { postValidTimeSeconds, seeValidTimeSeconds } from "./settingsConfig"
 
-export const convertTimeStamp = timestamp => {
+export const convertTimeStamp = (timestamp) => {
   var now = new Date(),
     secondsPast = (now.getTime() - timestamp.getTime()) / 1000
   if (secondsPast < 60) {
@@ -18,7 +18,7 @@ export const convertTimeStamp = timestamp => {
   }
 }
 
-export const progressCalcCamera = timestamp => {
+export const progressCalcCamera = (timestamp) => {
   const calc =
     100 -
     ((new Date().getTime() / 1000 - timestamp.getTime() / 1000) /
@@ -27,7 +27,7 @@ export const progressCalcCamera = timestamp => {
   return calc < 0 ? 0 : calc > 100 ? 100 : calc
 }
 
-export const progressCalc = timestamp => {
+export const progressCalc = (timestamp) => {
   const calc =
     100 -
     ((new Date().getTime() / 1000 - timestamp.getTime() / 1000) /
@@ -36,7 +36,7 @@ export const progressCalc = timestamp => {
   return calc < 0 ? 0 : calc > 100 ? 100 : calc
 }
 
-export const changeImageName = file => {
+export const changeImageName = (file) => {
   return Date.now() + file.name.substr(file.name.lastIndexOf("."))
 }
 
@@ -46,13 +46,13 @@ export const compressImage = (file, callback) => {
   }
 
   new Compressor(file, {
-    quality: 0.5,
+    quality: 0.7,
     width: 512,
     success(result) {
       callback(result)
     },
     error(err) {
       console.log(err.message)
-    }
+    },
   })
 }
