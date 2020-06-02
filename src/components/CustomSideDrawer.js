@@ -6,7 +6,7 @@ import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
 import CreateGroupButton from "./CreateGroupButton"
 import ListGroups from "./ListGroups"
 
-const CustomSideDrawer = props => {
+const CustomSideDrawer = (props) => {
   const { open, toggleDrawer } = props
   const classes = useStyles()
   const [showSnackBar, setShowSnackBar] = useState(false)
@@ -33,13 +33,7 @@ const CustomSideDrawer = props => {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <div
-          tabIndex={0}
-          role="button"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-          className={classes.drawerList}
-        >
+        <div className={classes.drawerList}>
           <ListGroups setShowSnackBar={_setShowSnackBar} />
           <CreateGroupButton />
           <Typography variant="body2" gutterBottom>
@@ -51,15 +45,16 @@ const CustomSideDrawer = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   drawerList: {
     height: "100%",
     width: "250px",
     display: "flex",
+    paddingTop: "8px",
     flexDirection: "column",
     justifyContent: "space-between",
-    backgroundColor: theme.palette.background.main
-  }
+    backgroundColor: theme.palette.background.main,
+  },
 }))
 
 export default CustomSideDrawer
