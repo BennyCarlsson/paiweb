@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/styles"
 import Avatar from "@material-ui/core/Avatar"
 import DrawIcon from "./DrawIcon"
 
-const Post = props => {
+const Post = (props) => {
   const classes = useStyles()
   const [drawEnabled, setDrawEnabled] = useState(false)
   const { post, renderNextImages, renderImages, index } = props
@@ -40,33 +40,31 @@ const Post = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     scrollSnapAlign: "start",
     padding: "0px",
-    minHeight: "82vh",
-    height: "82vh",
+    paddingBottom: "24px",
     width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   postWrapper: {
     position: "relative",
     width: "100%",
-    maxWidth: "450px"
+    maxWidth: "450px",
   },
   avatar: {
     border: "2px solid #fafafa",
-    marginLeft: "6px"
+    marginRight: "8px",
   },
   avatarTimeDiv: {
-    position: "relative",
+    position: "absolute",
     zIndex: 2,
     display: "flex",
-    marginBottom: "-21px"
-  }
+  },
 }))
 
 export default Post
