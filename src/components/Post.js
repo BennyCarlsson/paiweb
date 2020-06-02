@@ -64,6 +64,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     zIndex: 2,
     display: "flex",
+    padding: "8px",
+    alignItems: "center",
   },
 }))
 

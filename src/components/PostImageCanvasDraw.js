@@ -19,8 +19,8 @@ const PostImageCanvasDraw = (props) => {
     let context = canvasRef.current.getContext("2d")
     canvasData.current.push({ x, y })
     context.beginPath()
-    context.strokeStyle = "#ff1744"
-    context.lineWidth = 7
+    context.strokeStyle = "red"
+    context.lineWidth = 3
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
     context.lineTo(x, y)
@@ -142,6 +142,7 @@ const PostImageCanvasDraw = (props) => {
         draw(data.x, data.y)
       }
     })
+
     saveCanvasData(canvasData.current, postId, uid)
   }
 
@@ -171,6 +172,7 @@ const PostImageCanvasDraw = (props) => {
   }
 
   const bigEnoughDiff = (n1, n2) => {
+    return true
     const diffValue = 2
     if (n1 - n2 > diffValue || n2 - n1 > diffValue) {
       return true
@@ -185,6 +187,7 @@ const PostImageCanvasDraw = (props) => {
     ) {
       canvasData.current.push("up")
       resetLastPosition()
+      console.log("canvas", JSON.stringify(canvasData.current).length * 8)
       saveCanvasData(canvasData.current, postId, uid)
     }
     pressing = false

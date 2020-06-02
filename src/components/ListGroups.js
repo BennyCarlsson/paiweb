@@ -69,10 +69,7 @@ const ListGroups = (props) => {
       </div>
     ))
   }
-  function isOS() {
-    //can use a better detection logic here
-    return navigator.userAgent.match(/ipad|iphone/i)
-  }
+
   const onInvitePress = (groupId) => {
     const link = window.location.href + "?groupId=" + groupId
     setInviteLink(link)
