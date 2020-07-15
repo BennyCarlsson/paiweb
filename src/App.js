@@ -5,7 +5,7 @@ import PageLayout from "./components/PageLayout"
 import * as serviceWorker from "./serviceWorker"
 import UpdateSnackbar from "./components/UpdateSnackbar"
 import { initializePush } from "./pushNotifications"
-import firebase from "firebase"
+import firebase from "firebase/app"
 import { Provider } from "react-redux"
 import store from "./redux/store"
 
@@ -21,9 +21,9 @@ const theme = createMuiTheme({
     primary: { main: "#000000" },
     secondary: { main: "#ffffff" },
     color: { main: "#FF2188" },
-    gray: { main: "#666666" }
+    gray: { main: "#666666" },
   },
-  typography: { useNextVariants: true }
+  typography: { useNextVariants: true },
 })
 
 //todo make into a funcion with hooks
@@ -34,19 +34,19 @@ class App extends Component {
 
     this.state = {
       showUpdateSnackBar: false,
-      FCMToken: ""
+      FCMToken: "",
     }
 
     if ("serviceWorker" in navigator && messaging) {
       navigator.serviceWorker
         .register("./fbsw/firebase-messaging-sw.js")
-        .then(registration => {
+        .then((registration) => {
           messaging.useServiceWorker(registration)
           initializePush(messaging)
-            .then(token => {
+            .then((token) => {
               this.setState({ FCMToken: token })
             })
-            .catch(error => {
+            .catch((error) => {
               if (error.code === "messaging/permission-blocked") {
                 console.log("Please Unblock Notification Request Manually")
               } else {
@@ -54,17 +54,17 @@ class App extends Component {
               }
             })
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log("Service worker registration failed, error:", err)
         })
     }
 
     serviceWorker.register({
-      onUpdate: this.handleServiceWorkerUpdate
+      onUpdate: this.handleServiceWorkerUpdate,
     })
   }
 
-  handleServiceWorkerUpdate = registration => {
+  handleServiceWorkerUpdate = (registration) => {
     this.setState({ showUpdateSnackBar: true })
   }
 

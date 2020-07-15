@@ -172,7 +172,6 @@ const PostImageCanvasDraw = (props) => {
   }
 
   const bigEnoughDiff = (n1, n2) => {
-    return true
     const diffValue = 2
     if (n1 - n2 > diffValue || n2 - n1 > diffValue) {
       return true
@@ -187,7 +186,6 @@ const PostImageCanvasDraw = (props) => {
     ) {
       canvasData.current.push("up")
       resetLastPosition()
-      console.log("canvas", JSON.stringify(canvasData.current).length * 8)
       saveCanvasData(canvasData.current, postId, uid)
     }
     pressing = false
