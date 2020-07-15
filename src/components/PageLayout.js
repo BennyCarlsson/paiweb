@@ -11,13 +11,13 @@ import {
   latestTimeValidPost,
   saveFCMToken,
   joinGroup,
-  getUserGroups
+  getUserGroups,
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { compressImage } from "../utils"
 import { setGroups } from "../redux/actions"
 
-const PageLayout = props => {
+const PageLayout = (props) => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
 
@@ -27,22 +27,20 @@ const PageLayout = props => {
   const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
-  const groups = useSelector(state => state.groups)
+  const user = useSelector((state) => state.user)
+  const groups = useSelector((state) => state.groups)
 
-  const toggleDrawer = openSideDrawer => () => {
+  const toggleDrawer = (openSideDrawer) => () => {
     setOpenSideDrawer(openSideDrawer)
   }
 
   useEffect(() => {
-    const getLatestValidPost = () => {
-      if (!user.authenticated) return
-      latestTimeValidPost(user.data.uid).then(post => {
-        setLatestValidPost(post)
-        setGotLatestPost(true)
-      })
-    }
-    getLatestValidPost()
+    if (!user.authenticated) return
+
+    latestTimeValidPost(user.data.uid).then((post) => {
+      setLatestValidPost(post)
+      setGotLatestPost(true)
+    })
   }, [user])
 
   useEffect(() => {
@@ -63,30 +61,30 @@ const PageLayout = props => {
 
   useEffect(() => {
     if (user.authenticated && user.data) {
-      getUserGroups(user.data.uid).then(groups => {
+      getUserGroups(user.data.uid).then((groups) => {
         dispatch(setGroups(groups))
       })
     }
   }, [user, dispatch])
 
-  const handleFile = event => {
+  const handleFile = (event) => {
     var file = event.target.files[0]
     if (!file && user.authenticated) return
     setShowUploadLoader(true)
     const groupIds = extractGroupId(groups)
-    compressImage(file, file => {
+    compressImage(file, (file) => {
       setimagePreviewUrl(URL.createObjectURL(file))
       uploadImage(file, user.data, groupIds, uploadImageCallback)
     })
   }
-  const extractGroupId = groups => {
-    return groups.map(group => group.id)
+  const extractGroupId = (groups) => {
+    return groups.map((group) => group.id)
   }
 
   const uploadImageCallback = () => {
     setShowUploadLoader(false)
     setUpdateFeed(updateFeed + 1)
-    latestTimeValidPost(user.data.uid).then(post => {
+    latestTimeValidPost(user.data.uid).then((post) => {
       setLatestValidPost(post)
       setGotLatestPost(true)
     })
@@ -123,7 +121,7 @@ const PageLayout = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   App: {
     minHeight: "100vh",
     height: "100vh",
@@ -131,8 +129,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "space-between",
     maxWidth: "800px",
-    width: "100%"
-  }
+    width: "100%",
+  },
 }))
 
 export default PageLayout

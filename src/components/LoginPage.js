@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import { useDispatch } from "react-redux"
 import { setUser } from "../redux/actions"
 
-const LoginPage = props => {
+const LoginPage = (props) => {
   const [triedToAuth, setTriedToAuth] = useState(false)
   const dispatch = useDispatch()
   // Configure FirebaseUI.
@@ -16,12 +16,12 @@ const LoginPage = props => {
     signInOptions: [firebase.auth.FacebookAuthProvider.PROVIDER_ID],
     callbacks: {
       // Avoid redirects after sign-in.
-      signInSuccessWithAuthResult: () => false
-    }
+      signInSuccessWithAuthResult: () => false,
+    },
   }
 
   useEffect(() => {
-    let unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+    let unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       dispatch(setUser(user))
       if (!user) {
