@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from "react"
 import { makeStyles } from "@material-ui/styles"
 
-const PostImageCanvases = props => {
+const PostImageCanvases = (props) => {
   const { canvasDrawings, imageWrapperRef } = props
   let canvasRef = useRef()
   const classes = useStyles()
@@ -12,7 +12,7 @@ const PostImageCanvases = props => {
     let context = canvasRef.current.getContext("2d")
     context.beginPath()
     context.strokeStyle = "red"
-    context.lineWidth = 7
+    context.lineWidth = 4
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
     context.lineTo(x, y)
@@ -28,14 +28,14 @@ const PostImageCanvases = props => {
   }, [])
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
+    const resizeObserver = new ResizeObserver((entries) => {
       const drawCanvasDrawing = () => {
         if (canvasDrawings && canvasRef.current) {
           resetLastPosition()
           let context = canvasRef.current.getContext("2d")
           context.clearRect(0, 0, canvasRef.width, canvasRef.height)
           for (const key in canvasDrawings) {
-            canvasDrawings[key].forEach(data => {
+            canvasDrawings[key].forEach((data) => {
               if (data === "up") {
                 resetLastPosition()
               } else {
@@ -63,13 +63,13 @@ const PostImageCanvases = props => {
   return <canvas className={classes.canvas} ref={canvasRef} />
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   canvas: {
     position: "absolute",
     top: "0px",
     left: "0",
-    backgroundColor: "#ffffff00"
-  }
+    backgroundColor: "#ffffff00",
+  },
 }))
 
 export default PostImageCanvases

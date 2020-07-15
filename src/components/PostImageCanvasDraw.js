@@ -20,7 +20,7 @@ const PostImageCanvasDraw = (props) => {
     canvasData.current.push({ x, y })
     context.beginPath()
     context.strokeStyle = "red"
-    context.lineWidth = 3
+    context.lineWidth = 4
     context.lineJoin = "round"
     context.moveTo(lastX.current, lastY.current)
     context.lineTo(x, y)
