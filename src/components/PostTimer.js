@@ -4,12 +4,12 @@ import { progressCalc, convertTimeStamp } from "../utils"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
-const PostTimer = props => {
+const PostTimer = (props) => {
   const classes = useStyles()
   const timestamp = props.timestamp
   return (
     <Fragment>
-      <Typography variant="caption">
+      <Typography variant="caption" className={classes.timeText}>
         {convertTimeStamp(timestamp.toDate())}
       </Typography>
       <CircularProgress
@@ -29,18 +29,21 @@ const PostTimer = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
+  timeText: {
+    textShadow: "0px 0px 6px #333030",
+  },
   progress: {
     marginLeft: "5px",
     color: theme.palette.color.main,
-    zIndex: 2
+    zIndex: 2,
   },
   innerProgress: {
     position: "relative",
     marginLeft: "-16px",
     color: theme.palette.gray.main,
-    zIndex: 1
-  }
+    zIndex: 1,
+  },
 }))
 
 export default PostTimer
