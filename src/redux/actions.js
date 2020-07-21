@@ -1,23 +1,34 @@
-import { SET_USER, SET_GROUPS, LOGOUT, SET_POSTS } from "./actionTypes"
+import {
+  SET_USER,
+  SET_GROUPS,
+  LOGOUT,
+  SET_POSTS,
+  SET_TRIED_LOGIN,
+} from "./actionTypes"
 
-export const setUser = user => ({
+export const setUser = (user) => ({
   type: SET_USER,
   payload: {
-    user
-  }
+    user,
+  },
 })
 
 export const logout = () => ({
   type: LOGOUT,
-  payload: {}
+  payload: {},
 })
 
-export const setGroups = groups => ({
+export const setGroups = (groups) => ({
   type: SET_GROUPS,
-  payload: { groups }
+  payload: { groups },
 })
 
 export const setAllPosts = (allPosts = []) => ({
   type: SET_POSTS,
-  payload: { allPosts }
+  payload: { allPosts },
+})
+
+export const setTriedLogin = (triedLogin) => ({
+  type: SET_TRIED_LOGIN,
+  payload: triedLogin,
 })

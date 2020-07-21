@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { useSelector } from "react-redux"
 import firebase from "../firebase/firebase"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import Typography from "@material-ui/core/Typography"
-import { useDispatch } from "react-redux"
-import { setUser } from "../redux/actions"
 
 const LoginPage = (props) => {
-  const [triedToAuth, setTriedToAuth] = useState(false)
-  const dispatch = useDispatch()
+  const triedToAuth = useSelector((state) => state.triedLogin)
   // Configure FirebaseUI.
   const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -19,21 +17,6 @@ const LoginPage = (props) => {
       signInSuccessWithAuthResult: () => false,
     },
   }
-
-  useEffect(() => {
-    let unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      dispatch(setUser(user))
-      if (!user) {
-        setTriedToAuth(true)
-      }
-    })
-    return () => {
-      unregisterAuthObserver()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <div>
       {triedToAuth ? (
