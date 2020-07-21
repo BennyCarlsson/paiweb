@@ -11,37 +11,25 @@ import {
   latestTimeValidPost,
   saveFCMToken,
   joinGroup,
-  getUserGroups,
 } from "../firebase/dbFunctions"
 import LoginPage from "./LoginPage"
 import { compressImage } from "../utils"
-import { setGroups } from "../redux/actions"
+import { setLatestValidPost, setGotLatestPost } from "../redux/actions"
 
 const PageLayout = (props) => {
   const [openSideDrawer, setOpenSideDrawer] = useState(false)
   const [imagePreviewUrl, setimagePreviewUrl] = useState("")
-
-  const [latestValidPost, setLatestValidPost] = useState()
-  const [gotLatestPost, setGotLatestPost] = useState(false)
   const [showUploadLoader, setShowUploadLoader] = useState(false)
   const [updateFeed, setUpdateFeed] = useState(0)
   const classes = useStyles()
-  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const groups = useSelector((state) => state.groups)
+  const { latestValidPost } = useSelector((state) => state.latestValidPost)
+  const dispatch = useDispatch()
 
   const toggleDrawer = (openSideDrawer) => () => {
     setOpenSideDrawer(openSideDrawer)
   }
-
-  useEffect(() => {
-    if (!user.authenticated) return
-
-    latestTimeValidPost(user.data.uid).then((post) => {
-      setLatestValidPost(post)
-      setGotLatestPost(true)
-    })
-  }, [user])
 
   useEffect(() => {
     if (user.authenticated && props.FCMToken) {
@@ -58,14 +46,6 @@ const PageLayout = (props) => {
       joinGroup(groupId, user.data)
     }
   }, [user, user.authenticated])
-
-  useEffect(() => {
-    if (user.authenticated && user.data) {
-      getUserGroups(user.data.uid).then((groups) => {
-        dispatch(setGroups(groups))
-      })
-    }
-  }, [user, dispatch])
 
   const handleFile = (event) => {
     var file = event.target.files[0]
@@ -85,8 +65,8 @@ const PageLayout = (props) => {
     setShowUploadLoader(false)
     setUpdateFeed(updateFeed + 1)
     latestTimeValidPost(user.data.uid).then((post) => {
-      setLatestValidPost(post)
-      setGotLatestPost(true)
+      dispatch(setLatestValidPost(post))
+      dispatch(setGotLatestPost(true))
     })
   }
 
@@ -97,12 +77,7 @@ const PageLayout = (props) => {
       {user.authenticated ? (
         <Fragment>
           <CustomSideDrawer open={openSideDrawer} toggleDrawer={toggleDrawer} />
-          <Feed
-            imagePreviewUrl={imagePreviewUrl}
-            latestValidPost={latestValidPost}
-            gotLatestPost={gotLatestPost}
-            updateFeed={updateFeed}
-          />
+          <Feed imagePreviewUrl={imagePreviewUrl} updateFeed={updateFeed} />
         </Fragment>
       ) : (
         <LoginPage />

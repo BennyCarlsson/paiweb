@@ -8,22 +8,21 @@ import CircularProgress from "@material-ui/core/CircularProgress"
 import Snackbar from "@material-ui/core/Snackbar"
 import IconButton from "@material-ui/core/IconButton"
 
-const Camera = props => {
+const Camera = (props) => {
   const { classes } = props
   const inputRef = createRef()
   const [progressValue, setProgressValue] = useState(0)
   const [openSnackbar, setOpenSnackbar] = React.useState(false)
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user)
+  const { latestValidPost } = useSelector((state) => state.latestValidPost)
 
   useEffect(() => {
-    if (!props.latestValidPost) {
+    if (!latestValidPost) {
       setProgressValue(0)
     } else {
-      setProgressValue(
-        progressCalcCamera(props.latestValidPost.timestamp.toDate())
-      )
+      setProgressValue(progressCalcCamera(latestValidPost.timestamp.toDate()))
     }
-  }, [props.latestValidPost])
+  }, [latestValidPost])
 
   const handleCameraClick = () => {
     if (!user.authenticated) {
@@ -47,7 +46,7 @@ const Camera = props => {
           type="file"
           accept="image/*"
           capture
-          onChange={e => props.handleFile(e)}
+          onChange={(e) => props.handleFile(e)}
           ref={inputRef}
         />
       </span>
@@ -69,7 +68,7 @@ const Camera = props => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left"
+          horizontal: "left",
         }}
         message={<span id="message-id">Login to post pictures</span>}
         open={openSnackbar}
@@ -91,14 +90,14 @@ const Camera = props => {
   )
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   fabButton: {
     position: "absolute",
     zIndex: 2,
     top: "-29px",
     left: 0,
     right: 0,
-    margin: "0 auto"
+    margin: "0 auto",
   },
   fabProgress: {
     position: "absolute",
@@ -107,9 +106,9 @@ const styles = theme => ({
     left: 0,
     right: 0,
     margin: "0 auto",
-    color: theme.palette.color.main
+    color: theme.palette.color.main,
   },
-  hide: { display: "none" }
+  hide: { display: "none" },
 })
 
 export default withStyles(styles)(Camera)

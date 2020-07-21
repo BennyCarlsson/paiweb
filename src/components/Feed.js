@@ -14,6 +14,9 @@ const Feed = (props) => {
   const user = useSelector((state) => state.user)
   const feed = useSelector((state) => state.feed)
   const groups = useSelector((state) => state.groups)
+  const { latestValidPost, gotLatestPost } = useSelector(
+    (state) => state.latestValidPost
+  )
   const dispatch = useDispatch()
   let count = 0
 
@@ -22,18 +25,14 @@ const Feed = (props) => {
   }
 
   useEffect(() => {
-    if (props.gotLatestPost && groups && groups.length) {
-      if (props.latestValidPost) {
+    if (gotLatestPost && groups && groups.length) {
+      if (latestValidPost) {
         setShowFeed(true)
-        const groupIds = groups.map((group) => group.id)
-        getAllPosts(groupIds).then((posts) => {
-          dispatch(setAllPosts(posts))
-        })
       } else {
         setShowFeed(false)
       }
     }
-  }, [props.latestValidPost, props.gotLatestPost, dispatch, groups])
+  }, [latestValidPost, gotLatestPost, dispatch, groups])
 
   //Todo this is a quickfix remove updatefeed from pagelayout
   // replace this with redux or something

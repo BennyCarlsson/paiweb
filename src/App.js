@@ -8,7 +8,9 @@ import { initializePush } from "./pushNotifications"
 import firebase from "firebase/app"
 import { Provider } from "react-redux"
 import store from "./redux/store"
-import { setUser, setTriedLogin } from "./redux/actions"
+import { startup } from "./startup"
+
+startup()
 
 let messaging = null
 if (firebase.messaging.isSupported()) {
@@ -26,17 +28,6 @@ const theme = createMuiTheme({
   },
   typography: { useNextVariants: true },
 })
-
-const login = () => {
-  firebase.auth().onAuthStateChanged((user) => {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    store.dispatch(setUser(user))
-    if (!user) {
-      store.dispatch(setTriedLogin(true))
-    }
-  })
-}
-login()
 
 //todo make into a funcion with hooks
 
