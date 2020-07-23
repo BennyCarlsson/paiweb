@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { getImageUrlOnRef } from "../firebase/dbFunctions.js"
+import { getImageUrlOnRef } from "../../firebase/dbFunctions.js"
 import { makeStyles } from "@material-ui/styles"
 import Img from "react-image"
 import VisibilitySensor from "react-visibility-sensor"
@@ -8,12 +8,12 @@ import CircularProgress from "@material-ui/core/CircularProgress"
 import PostImageCanvasDraw from "./PostImageCanvasDraw"
 import PostImageCanvases from "./PostImageCanvases"
 
-const PostImage = props => {
+const PostImage = (props) => {
   const [imageUrl, setImageUrl] = useState("")
   const [shouldRenderImage, setShouldRenderImage] = useState(false)
   let imageWrapperRef = useRef()
   const classes = useStyles()
-  const uid = useSelector(state => state.user.data.uid)
+  const uid = useSelector((state) => state.user.data.uid)
   const {
     imageRef,
     renderNextImages,
@@ -21,13 +21,13 @@ const PostImage = props => {
     index,
     drawEnabled,
     postId,
-    canvasDrawings
+    canvasDrawings,
   } = props
 
   useEffect(() => getImageUrl(imageRef), [imageRef])
 
-  const getImageUrl = imageRef => {
-    getImageUrlOnRef(imageRef).then(url => setImageUrl(url))
+  const getImageUrl = (imageRef) => {
+    getImageUrlOnRef(imageRef).then((url) => setImageUrl(url))
   }
 
   function onChange(isVisible) {
@@ -81,29 +81,29 @@ const PostImage = props => {
   )
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   imgDiv: {
     borderRadius: "4px",
     minHeight: "250px",
     maxHeight: "75vh",
     maxWidth: "450px",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   img: {
     borderRadius: "4px",
     boxShadow:
-      "0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)"
+      "0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)",
   },
   progressWrapper: {
     widh: "100%",
     height: "250px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   progress: {
-    color: theme.palette.color.main
-  }
+    color: theme.palette.color.main,
+  },
 }))
 
 export default PostImage

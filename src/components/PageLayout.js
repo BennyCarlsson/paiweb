@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { makeStyles } from "@material-ui/styles"
 import CustomAppBar from "./CustomAppBar"
 import CustomBottomAppBar from "./CustomBottomAppBar"
-import Feed from "./Feed"
-import CustomSideDrawer from "./CustomSideDrawer"
+import Feed from "./Feed/Feed"
+import CustomSideDrawer from "./SideDrawer/CustomSideDrawer"
 import Camera from "./Camera"
 import {
   uploadImage,

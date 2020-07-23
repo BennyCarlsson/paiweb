@@ -1,6 +1,6 @@
 import React, { Fragment } from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { progressCalc, convertTimeStamp } from "../utils"
+import { progressCalc, convertTimeStamp } from "../../utils"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 

@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react"
 import { makeStyles } from "@material-ui/styles"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
 import Typography from "@material-ui/core/Typography"
-import SentPushNotificationSnackBar from "./SentPushNotificationSnackbar"
+import SentPushNotificationSnackBar from "../SentPushNotificationSnackbar"
 import CreateGroupButton from "./CreateGroupButton"
 import ListGroups from "./ListGroups"
 

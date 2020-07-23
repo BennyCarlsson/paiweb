@@ -1,10 +1,10 @@
 import React, { useEffect, useState, Fragment } from "react"
-import { getAllPosts } from "../firebase/dbFunctions"
-import Post from "./Post"
+import { getAllPosts } from "../../firebase/dbFunctions"
+import Post from "../Post/Post"
 import { makeStyles } from "@material-ui/styles"
 import NoAccessToFeed from "./NoAccessToFeed"
 import { useSelector, useDispatch } from "react-redux"
-import { setAllPosts } from "../redux/actions"
+import { setAllPosts } from "../../redux/actions"
 import ListGroupInFeed from "./ListGroupInFeed"
 
 const Feed = (props) => {

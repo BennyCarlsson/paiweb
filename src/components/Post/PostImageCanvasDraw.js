@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback, Fragment } from "react"
 import ReactDOM from "react-dom"
 import { makeStyles } from "@material-ui/styles"
-import { saveCanvasData } from "../firebase/dbFunctions"
+import { saveCanvasData } from "../../firebase/dbFunctions"
 import { useSelector } from "react-redux"
 import UndoIcon from "./UndoIcon"
 

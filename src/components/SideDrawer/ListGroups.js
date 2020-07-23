@@ -7,8 +7,8 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/styles"
 import Icon from "@material-ui/core/Icon"
 import IconButton from "@material-ui/core/IconButton"
-import { convertTimeStamp } from "../utils"
-import { sendPushNotification } from "../firebase/dbFunctions"
+import { convertTimeStamp } from "../../utils"
+import { sendPushNotification } from "../../firebase/dbFunctions"
 
 const ListGroups = (props) => {
   const classes = useStyle()
