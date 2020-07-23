@@ -6,6 +6,7 @@ import {
   SET_TRIED_LOGIN,
   SET_lATEST_VALID_POST,
   SET_GOT_LATEST_VALID_POST,
+  SET_LOADING,
 } from "./actionTypes"
 
 export const setUser = (user) => ({
@@ -28,6 +29,11 @@ export const setGroups = (groups) => ({
 export const setAllPosts = (allPosts = []) => ({
   type: SET_POSTS,
   payload: { allPosts },
+})
+
+export const setLoadingPosts = (loading = false) => ({
+  type: SET_LOADING,
+  payload: { loading },
 })
 
 export const setTriedLogin = (triedLogin) => ({

@@ -11,6 +11,7 @@ import {
   setLatestValidPost,
   setGotLatestPost,
   setAllPosts,
+  setLoadingPosts,
 } from "./redux/actions"
 export const startup = () => {
   login()
@@ -51,9 +52,11 @@ const getLatestValidPost = (user) => {
 
 const getFeed = () => {
   if (_groups && latestValidPost) {
+    store.dispatch(setLoadingPosts(true))
     const groupIds = _groups.map((group) => group.id)
     getAllPosts(groupIds).then((posts) => {
-      store.dispatch(setAllPosts(posts))
+      store.dispatch(setAllPosts(posts, true))
+      store.dispatch(setLoadingPosts(false))
     })
   }
 }

@@ -1,21 +1,20 @@
 import React, { Fragment } from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import { progressCalc, convertTimeStamp } from "../../utils"
 import Typography from "@material-ui/core/Typography"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 const PostTimer = (props) => {
   const classes = useStyles()
-  const timestamp = props.timestamp
+  const { timestamp, progressValue, variant } = props
   return (
     <Fragment>
       <Typography variant="caption" className={classes.timeText}>
-        {convertTimeStamp(timestamp.toDate())}
+        {timestamp}
       </Typography>
       <CircularProgress
         color="primary"
-        variant="static"
-        value={progressCalc(timestamp.toDate())}
+        variant={variant ? variant : "static"}
+        value={progressValue}
         className={classes.progress}
         size={16}
       />

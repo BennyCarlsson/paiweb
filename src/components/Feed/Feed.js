@@ -6,6 +6,7 @@ import NoAccessToFeed from "./NoAccessToFeed"
 import { useSelector, useDispatch } from "react-redux"
 import { setAllPosts } from "../../redux/actions"
 import ListGroupInFeed from "./ListGroupInFeed"
+import LoadingPost from "../Post/LoadingPost"
 
 const Feed = (props) => {
   const [showFeed, setShowFeed] = useState(true)
@@ -54,6 +55,7 @@ const Feed = (props) => {
 
   const renderPosts = (groupId) => {
     const posts = feed.allPosts.filter((post) => post.groupId === groupId)
+    if (feed.loading) return <LoadingPost />
     return posts.map((post, i) => {
       return <Post key={"post" + i} post={post} />
     })

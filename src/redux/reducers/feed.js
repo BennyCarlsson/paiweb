@@ -1,7 +1,8 @@
-import { SET_POSTS } from "../actionTypes"
+import { SET_POSTS, SET_LOADING } from "../actionTypes"
 
 const initialState = {
-  allPosts: []
+  allPosts: [],
+  loading: false,
 }
 
 export default (state = initialState, action) => {
@@ -10,7 +11,14 @@ export default (state = initialState, action) => {
       const { allPosts } = action.payload
       return {
         ...state,
-        allPosts
+        allPosts,
+      }
+    }
+    case SET_LOADING: {
+      const { loading } = action.payload
+      return {
+        ...state,
+        loading,
       }
     }
     default:

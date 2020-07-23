@@ -4,6 +4,7 @@ import PostTimer from "./PostTimer"
 import { makeStyles } from "@material-ui/styles"
 import Avatar from "@material-ui/core/Avatar"
 import DrawIcon from "./DrawIcon"
+import { progressCalc, convertTimeStamp } from "../../utils"
 
 const Post = (props) => {
   const classes = useStyles()
@@ -23,7 +24,10 @@ const Post = (props) => {
             alt="Post Avatar"
             src={post.userPhotoURL}
           />
-          <PostTimer timestamp={post.timestamp} />
+          <PostTimer
+            progressValue={progressCalc(post.timestamp.toDate())}
+            timestamp={convertTimeStamp(post.timestamp.toDate())}
+          />
         </div>
         <PostImage
           drawEnabled={drawEnabled}
