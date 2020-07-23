@@ -8,7 +8,7 @@ import DrawIcon from "./DrawIcon"
 const Post = (props) => {
   const classes = useStyles()
   const [drawEnabled, setDrawEnabled] = useState(false)
-  const { post, renderNextImages, renderImages, index } = props
+  const { post } = props
 
   const editDrawEnabled = () => {
     setDrawEnabled(!drawEnabled)
@@ -28,9 +28,6 @@ const Post = (props) => {
         <PostImage
           drawEnabled={drawEnabled}
           imageRef={post.imgRef}
-          renderNextImages={renderNextImages}
-          renderImages={renderImages}
-          index={index}
           canvasDrawings={post.canvasDrawings}
           postId={post.postId}
         />

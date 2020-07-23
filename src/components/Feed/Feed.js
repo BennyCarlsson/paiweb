@@ -9,7 +9,6 @@ import ListGroupInFeed from "./ListGroupInFeed"
 
 const Feed = (props) => {
   const [showFeed, setShowFeed] = useState(true)
-  const [renderImages, setRenderImages] = useState(2)
   const classes = useStyles()
   const user = useSelector((state) => state.user)
   const feed = useSelector((state) => state.feed)
@@ -18,11 +17,6 @@ const Feed = (props) => {
     (state) => state.latestValidPost
   )
   const dispatch = useDispatch()
-  let count = 0
-
-  const renderNextImages = (i) => {
-    setRenderImages(i + 2)
-  }
 
   useEffect(() => {
     if (gotLatestPost && groups && groups.length) {
@@ -46,7 +40,6 @@ const Feed = (props) => {
   }, [props.updateFeed, user, dispatch, groups])
 
   const renderFeed = () => {
-    count++
     return groups.map((group, i) => renderGroupSection(group, i))
   }
 
@@ -62,16 +55,7 @@ const Feed = (props) => {
   const renderPosts = (groupId) => {
     const posts = feed.allPosts.filter((post) => post.groupId === groupId)
     return posts.map((post, i) => {
-      count++
-      return (
-        <Post
-          key={"post" + i}
-          renderNextImages={renderNextImages}
-          renderImages={renderImages}
-          index={count}
-          post={post}
-        />
-      )
+      return <Post key={"post" + i} post={post} />
     })
   }
 
