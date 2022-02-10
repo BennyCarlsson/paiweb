@@ -37,7 +37,7 @@ const CustomSideDrawer = (props) => {
           <ListGroups setShowSnackBar={_setShowSnackBar} />
           <CreateGroupButton />
           <Typography variant="body2" gutterBottom>
-            Beta v.0.2.2
+            Beta v.0.2.3
           </Typography>
         </div>
       </SwipeableDrawer>

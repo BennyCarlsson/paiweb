@@ -45,6 +45,7 @@ const Camera = (props) => {
         <input
           type="file"
           accept="image/*"
+          capture
           onChange={(e) => props.handleFile(e)}
           ref={inputRef}
         />

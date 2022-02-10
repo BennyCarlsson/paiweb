@@ -19,13 +19,15 @@ export const startup = () => {
 
 const login = () => {
   firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      store.dispatch(setTriedLogin(true))
+      return
+    }
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
     store.dispatch(setUser(user))
     getGroups(user)
     getLatestValidPost(user)
-    if (!user) {
-      store.dispatch(setTriedLogin(true))
-    }
+
   })
 }
 
